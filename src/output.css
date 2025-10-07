@@ -702,6 +702,10 @@ video {
   padding: 0.5rem;
 }
 
+.p-20 {
+  padding: 5rem;
+}
+
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -724,6 +728,30 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pl-2 {
+  padding-left: 0.5rem;
+}
+
+.pl-20 {
+  padding-left: 5rem;
+}
+
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.pr-2 {
+  padding-right: 0.5rem;
+}
+
+.pr-20 {
+  padding-right: 5rem;
+}
+
+.pl-32 {
+  padding-left: 8rem;
 }
 
 .text-center {
