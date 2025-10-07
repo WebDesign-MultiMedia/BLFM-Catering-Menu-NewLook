@@ -21,7 +21,7 @@ imgs.forEach((img) => {
   img.addEventListener("click", () => {
     const imga = img.querySelector("img");
     if (imga) {
-      imga.classList.toggle("hidden");
+      imga.style.display = 'block';
     }
   });
 });
