@@ -16,12 +16,25 @@ head2.forEach((h2) => {
 });
 
 // Image pop up when click
-let imgs = document.querySelectorAll("li");
-imgs.forEach((img) => {
-  img.addEventListener("click", () => {
-    const imga = img.querySelector("img");
-    if (imga) {
-      imga.style.display = 'block';
-    }
+
+  let iconImg = document.querySelectorAll('menu li i.fa-image');
+  iconImg.forEach(icon => {
+    icon.addEventListener('click', () =>{
+      let imgPop = document.querySelectorAll('menu img');
+      imgPop.forEach(i => {
+        i.classList.add("hidden");
+        const img = icon.nextElementSibling || icon.closest('li')?.querySelector('img');
+        if(img){
+          img.classList.remove('hidden');
+        }
+      });
+    })
   });
-});
+
+// document.querySelectorAll('menu li i.fa-image').forEach((icon) => {
+//   icon.addEventListener('click', () => {
+//     document.querySelectorAll('menu img').forEach(i => i.classList.add('hidden'));
+//     const img = icon.nextElementSibling || icon.closest('li')?.querySelector('img');
+//     if (img) img.classList.remove('hidden');
+//   });
+// });
