@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">   
+   <title>Document</title>
+</head>
+<body>
+    <nav class=" fixed w-full flex flex-row justify-between bg-blue-800 ">
+  <img src="https://assets.codepen.io/9902244/BLFM-logo.PNG?format=auto" class="w-24 z-10">
+  <details class="sm:hidden w-60 h-72 overflow-hidden rounded text-red-200">
+    <summary class="cursor-pointer p-2 text-lg flex justify-center list-none pr-5 pt-4">Menu</summary>
+    <ul class="flex flex-col bg-blue-800  text-center justify-center fixed right-0 w-full h-full top-0">
+      <span class="text-red-400 absolute top-0 right-0 pr-10 pt-4  text-xl">X</span>
+      <li class="pb-5">Home</li>
+      <li class="pb-5">Loc</li>
+      <li class="pb-20">cont</li>
+    </ul>
+  </details>
+
+  <ul class="hidden sm:flex sm:justify-between sm:w-full sm:text-center sm:text-white sm:m-5 md:flex md:justify-between  md:w-full md:text-center md:text-white md:m-5 ">
+    <li class="ml-10">Home</li>
+    <li>Loca</li>
+    <li class="mr-20">Conta</li>
+  </ul>
+  <!--   <ul class=" h-12 bg-green-700 text-white flex flex-row justify-center space-x-6> * p-2">
+      <li><a href=""><i class="fa-solid fa-house"></i></a></li>
+      <li><a href=""><i class="fa-solid fa-location-dot"></i></a></li>
+      <li><a href=""><i class="fa-solid fa-phone"></i></a></li>
+    </ul> -->
+</nav>
+
+<header class="bg-blue-800 text-center text-2xl p-2 pt-20">
+  <!--   <img src="https://assets.codepen.io/9902244/BLFM-logo.PNG?format=auto" class="w-24"> -->
+  <h1>Catering Menu</h1>
+
+</header>
+
+<main class="bg-blue-800  pt-4 flex flex-col items-center text-center sm:text-left sm:flex sm:flex-row sm:flex-wrap sm:justify-evenly 
+               
+               md:bg-blue-400 lg:bg-pink-300 lg:p-10">
+  <section>
+    <h2>Chivo (Goat)</h2>
+    <menu>
+      <li>Barbacoa de Chivo<img id="chivo" src="https://assets.codepen.io/9902244/Barbacoa_Chivo.jpeg" alt="" class="w-36 hidden" /></li>
+
+      <li>Pancita de Chivo <img id="chivo" src="https://assets.codepen.io/9902244/Barbacoa_Chivo.jpeg" alt="" class="w-36 hidden" /></li>
+    </menu>
+  </section>
+  <section>
+    <h2>Puerco (Pork)</h2>
+    <menu>
+      <li>Carnitas</li>
+      <li>Pernil</li>
+      <li>Pernil Enchilado</li>
+      <li>Costillas Frita</li>
+      <li>Costillas en Salsa Verde</li>
+      <li>Costilla Puerco en Salsa Verde</li>
+      <li>Costillas BBQ</li>
+      <li>Costillas Roja</li>
+      <li>Adobo de Puerco</li>
+      <li>Guisado de Puerco</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Pollo (Chicken)</h2>
+    <menu>
+      <li>Pollo Enchilado</li>
+      <li>Pollo Rostizados</li>
+      <li>Mixiotes de Pollo</li>
+      <li>Mixiotes de Pollo con Nopales</li>
+      <li>Mole Poblano de Pollo</li>
+      <li>Adobo de Pollo</li>
+      <li>Adobo de Pollo con Papas</li>
+      <li>Guisado de Pollo</li>
+      <li>Tinga de Pollo</li>
+      <li>Alas de BBQ</li>
+      <li>Pechuga Empanizada</li>
+      <li>Pernas de Pollo Empanizada</li>
+      <li>Pollo a la Francesa</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Res (Beef)</h2>
+    <menu>
+      <li>Mixiotes de Res</li>
+      <li>Viste a la Mexicana</li>
+      <li>Viste Encebollado</li>
+      <li>Adobo de Res</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Mariscos (Seafood)</h2>
+    <menu>
+      <li>Camarones a la Diabla</li>
+      <li>Camarones Fritos</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Antojitos / Vegetarianos</h2>
+    <menu>
+      <li>Chiles Rellenos</li>
+      <li>Chilaquiles</li>
+      <li>Flautas (Queso, Pollo o Papas)</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Ensaladas</h2>
+    <menu>
+      <li>Ensalada de Nopales</li>
+      <li>Ensalada Mixta</li>
+      <li>Ensalada de Frutas</li>
+      <li>Ensalada de Papas</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Arroz, Frijoles y Tortillas</h2>
+    <menu>
+      <li>Arroz Mexicana</li>
+      <li>Arroz Blanco</li>
+      <li>Arroz Blanco con Frijoles</li>
+      <li>Arroz con Gandules</li>
+      <li>Arroz con Vegetales</li>
+      <li>Frijoles</li>
+      <li>Tortillas hechas a Mano</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Pastas</h2>
+    <menu>
+      <li>Espagueti a la Mexicana</li>
+      <li>Espagueti Estilo Marisol</li>
+      <li>Espagueti con Crema y Queso</li>
+      <li>Macarroni con Cheese</li>
+      <li>Pasta Penne Vodka</li>
+      <li>Lasanga</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Favoritos para Niños</h2>
+    <menu>
+      <li>Hot Dogs</li>
+      <li>Chicken Tenders</li>
+    </menu>
+  </section>
+  <section>
+    <h2>Especialidades de la casa</h2>
+    <menu>
+      <li>Mole Estilo mi Rancho</li>
+      <li>Albóndigas de Gusto</li>
+    </menu>
+  </section>
+</main>
+
+<footer>
+  <ul class="h-12 bg-blue-800  text-white flex flex-row justify-center space-x-6 > * p-2">
+    <li><a href="">tikTok</a></li>
+    <li><a href="">Facebook</li>
+    <li><a href="">Loc</a></li>
+    <li><a href="">Contact</a></li>
+  </ul>
+</footer>
+
+<script src="./app.js"></script>
+</body>
+</html>
