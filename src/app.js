@@ -2,6 +2,7 @@
 const noDotList = document.querySelectorAll("menu", "li");
 noDotList.forEach((noDot) => {
   noDot.style.listStyleType = "none";
+  noDot.style.width = "250px";
   noDot.style.border = "2px gold solid";
   noDot.style.borderRadius = "3%";
   noDot.style.padding = "10px";
@@ -17,24 +18,18 @@ head2.forEach((h2) => {
 
 // Image pop up when click
 
-  let iconImg = document.querySelectorAll('menu li i.fa-image');
-  iconImg.forEach(icon => {
-    icon.addEventListener('click', () =>{
-      let imgPop = document.querySelectorAll('menu img');
-      imgPop.forEach(i => {
-        i.classList.add("hidden");
-        const img = icon.nextElementSibling || icon.closest('li')?.querySelector('img');
-        if(img){
-          img.classList.remove('hidden');
-        }
-      });
-    })
-  });
-
-// document.querySelectorAll('menu li i.fa-image').forEach((icon) => {
-//   icon.addEventListener('click', () => {
-//     document.querySelectorAll('menu img').forEach(i => i.classList.add('hidden'));
-//     const img = icon.nextElementSibling || icon.closest('li')?.querySelector('img');
-//     if (img) img.classList.remove('hidden');
-//   });
-// });
+ const imgIcon = document.querySelectorAll("menu li i.fa-image");
+ imgIcon.forEach(e => {
+    e.addEventListener('click', ()=>{
+      const imgs = document.querySelectorAll('menu img');
+            const im = e.nextElementSibling || e.closest('li')?.querySelector('img');
+      
+      if(im && !im.classList.contains('hidden')){
+        im.classList.add('hidden');
+        return;
+      }      
+      
+      imgs.forEach(i => i.classList.add('hidden'));
+      if(im) im.classList.remove('hidden');
+      })
+ });
