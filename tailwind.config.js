@@ -2,7 +2,12 @@
 module.exports = {
   content: [ './index.html',  "./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        title: [ "Marck Script", "cursive"],
+        h1s: ["Molle", "cursive"]
+      }
+    },
   },
   plugins: [],
 }

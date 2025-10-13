@@ -6,7 +6,7 @@ listItems.forEach((li) => {
   // If you prefer Tailwind, remove these styles and keep the Tailwind classes in HTML.
   li.style.listStyleType = "none";
   li.style.width = "250px";
-  li.style.border = "2px #D7263D solid";
+  li.style.borderBottom = "2px #D7263D solid";
   li.style.borderRadius = "100px";
   li.style.padding = "10px";
   li.style.color = "gold";
@@ -36,6 +36,7 @@ if (details && closeBtn) {
 const imgIcons = document.querySelectorAll("menu li i.fa-image");
 imgIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
+    icon.style.color =  "#D7263D"
     // hide all first
     document.querySelectorAll("menu img").forEach((img) => img.classList.add("hidden"));
 
