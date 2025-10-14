@@ -13,19 +13,19 @@
 <body class="bg-[#021828]">
 
   <!-- NAVBAR -->
-  <nav class="pl-2 fixed w-full h-20 flex flex-row items-center justify-between bg-[#021828] z-20">
+  <nav class="pl-2 fixed w-full h-20 flex flex-row items-center justify-between bg-[#021828] z-20 ">
     <img src="./imgs/BLFM-logo.PNG" class="w-24  z-10 pt-1" alt="Logo" />
 
     <!-- Mobile menu -->
-    <details class="sm:hidden relative text-red-200 pr-4">
+    <details class="sm:hidden relative text-red-200 pr-4 ">
       <summary class="cursor-pointer p-2 text-lg list-none">
-        <i class="fa-solid fa-bars text-2xl text-[#D7263D]"></i>
+        <i class="fa-solid fa-bars  text-lgtext-2xl text-[#D7263D]"></i>
       </summary>
       <ul class="flex flex-col bg-[#021828] text-center justify-center fixed right-0 w-full h-full top-0">
-        <button type="button" id="close-mobile" class="text-[#D7263D] absolute top-0 right-0 pr-10 pt-4 text-2xl"><i class="fa-solid fa-x hover:text-gray-400"></i></button>
-        <li class="pb-20"><a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"><i class="fa-solid fa-house text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
-        <li class="pb-5"><a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"><i class="fa-solid fa-location-dot text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
-        <li class="pt-20"><a href="tel:+13476862462"><i class="fa-solid fa-phone-volume  text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
+        <button type="button" id="close-mobile" class="text-[#D7263D] absolute top-0 right-0 pr-10 pt-4 text-2xl"><i class="fa-solid fa-x  text-lghover:text-gray-400"></i></button>
+        <li class="pb-20 font-head text-3xl"><a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"><i class="fa-solid fa-house  text-3xl text-[#D7263D] hover:text-gray-400"></i> Home</a></li>
+        <li class="pb-5 font-head text-3xl"><a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"><i class="fa-solid fa-location-dot text-3xl text-[#D7263D] hover:text-gray-400"></i> Direction</a></li>
+        <li class="pt-20 font-head text-3xl"><a href="tel:+13476862462"><i class="fa-solid fa-phone-volume  text-3xl text-[#D7263D] hover:text-gray-400"></i> Contact</a></li>
       </ul>
     </details>
 
@@ -37,10 +37,12 @@
     </ul>
   </nav>
 
+ <div id="player"></div>
+
 
   <!-- HEADER -->
   <header class="bg-[#021828] text-center text-4xl p-2 pt-24  ">
-    <h1 class="text-[#D7263D] pb-5 font-title text-5xl">Catering Menu</h1>
+    <h1 class="text-[#D7263D] pb-5 font-title text-5xl drop-shadow-[2px_0_1px_white]">Catering Menu</h1>
   </header>
 
   <!-- MAIN MENU -->
@@ -48,123 +50,123 @@
     
     <!-- Each section uses the same structure -->
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Chivo (Goat)</h2>
+      <h2 class="text-white text-xl font-menuFont">Chivo (Goat)</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item font-title">Barbacoa de Chivo <i class="fa-solid fa-image"></i><img src="https://assets.codepen.io/9902244/Barbacoa_Chivo.jpeg" class="w-full hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Pancita de Chivo <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Barbacoa de Chivo <i class="fa-solid fa-image text-lg"></i><img src="https://assets.codepen.io/9902244/Barbacoa_Chivo.jpeg" class="w-full hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D]  ">Pancita de Chivo <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Puerco (Pork)</h2>
+      <h2 class="text-white text-xl font-menuFont">Puerco (Pork)</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Carnitas <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Pernil <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Pernil Enchilado <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Costillas Frita <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Costillas en Salsa Verde <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Costilla Puerco en Salsa Verde <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Costillas BBQ <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Costillas Roja <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Adobo de Puerco <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
-        <li class="menu-item">Guisado de Puerco <i class="fa-solid fa-image"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Carnitas <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Pernil <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Pernil Enchilado <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Costillas Frita <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Costillas en Salsa Verde <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Costilla Puerco en Salsa Verde <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Costillas BBQ <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Costillas Roja <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Adobo de Puerco <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Guisado de Puerco <i class="fa-solid fa-image text-lg"></i><img src="./imgs/egale-green.png" class="w-36 hidden mx-auto mt-2" /></li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Pollo (Chicken)</h2>
+      <h2 class="text-white text-xl font-menuFont">Pollo (Chicken)</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Pollo Enchilado</li>
-        <li class="menu-item">Pollo Rostizado</li>
-        <li class="menu-item">Mixiotes de Pollo</li>
-        <li class="menu-item">Mixiotes de Pollo con Nopales</li>
-        <li class="menu-item">Mole Poblano de Pollo</li>
-        <li class="menu-item">Adobo de Pollo</li>
-        <li class="menu-item">Adobo de Pollo con Papas</li>
-        <li class="menu-item">Guisado de Pollo</li>
-        <li class="menu-item">Tinga de Pollo</li>
-        <li class="menu-item">Alas de BBQ</li>
-        <li class="menu-item">Pechuga Empanizada</li>
-        <li class="menu-item">Piernas de Pollo Empanizadas</li>
-        <li class="menu-item">Pollo a la Francesa</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Pollo Enchilado</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Pollo Rostizado</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Mixiotes de Pollo</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Mixiotes de Pollo con Nopales</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Mole Poblano de Pollo</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Adobo de Pollo</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Adobo de Pollo con Papas</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Guisado de Pollo</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Tinga de Pollo</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Alas de BBQ</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Pechuga Empanizada</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Piernas de Pollo Empanizadas</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Pollo a la Francesa</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Res (Beef)</h2>
+      <h2 class="text-white text-xl font-menuFont">Res (Beef)</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Mixiotes de Res</li>
-        <li class="menu-item">Bistec a la Mexicana</li>
-        <li class="menu-item">Bistec Encebollado</li>
-        <li class="menu-item">Adobo de Res</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Mixiotes de Res</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Bistec a la Mexicana</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Bistec Encebollado</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Adobo de Res</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Mariscos (Seafood)</h2>
+      <h2 class="text-white text-xl font-menuFont">Mariscos (Seafood)</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Camarones a la Diabla</li>
-        <li class="menu-item">Camarones Fritos</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Camarones a la Diabla</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Camarones Fritos</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Antojitos <br>/ Vegetarianos</h2>
+      <h2 class="text-white text-xl font-menuFont">Antojitos <br>/ Vegetarianos</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Chiles Rellenos</li>
-        <li class="menu-item">Chilaquiles</li>
-        <li class="menu-item">Flautas (Queso, Pollo o Papas)</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Chiles Rellenos</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Chilaquiles</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Flautas (Queso, Pollo o Papas)</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Ensaladas</h2>
+      <h2 class="text-white text-xl font-menuFont">Ensaladas</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Ensalada de Nopales</li>
-        <li class="menu-item">Ensalada Mixta</li>
-        <li class="menu-item">Ensalada de Frutas</li>
-        <li class="menu-item">Ensalada de Papas</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Ensalada de Nopales</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Ensalada Mixta</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Ensalada de Frutas</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Ensalada de Papas</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Arroz, Frijoles <br> y Tortillas</h2>
+      <h2 class="text-white text-xl font-menuFont">Arroz, Frijoles <br> y Tortillas</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Arroz Mexicano</li>
-        <li class="menu-item">Arroz Blanco</li>
-        <li class="menu-item">Arroz Blanco con Frijoles</li>
-        <li class="menu-item">Arroz con Gandules</li>
-        <li class="menu-item">Arroz con Vegetales</li>
-        <li class="menu-item">Frijoles</li>
-        <li class="menu-item">Tortillas hechas a Mano</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Arroz Mexicano</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Arroz Blanco</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Arroz Blanco con Frijoles</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Arroz con Gandules</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Arroz con Vegetales</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Frijoles</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Tortillas hechas a Mano</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl">Pastas</h2>
+      <h2 class="text-white text-xl font-menuFont">Pastas</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Espagueti a la Mexicana</li>
-        <li class="menu-item">Espagueti Estilo Marisol</li>
-        <li class="menu-item">Espagueti con Crema y Queso</li>
-        <li class="menu-item">Macarroni con Cheese</li>
-        <li class="menu-item">Pasta Penne Vodka</li>
-        <li class="menu-item">Lasagna</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Espagueti a la Mexicana</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Espagueti Estilo Marisol</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Espagueti con Crema y Queso</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Macarroni con Cheese</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Pasta Penne Vodka</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Lasagna</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl text-center">Favoritos para <br> Niños</h2>
+      <h2 class="text-white text-xl font-menuFont text-center">Favoritos para <br> Niños</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Hot Dogs</li>
-        <li class="menu-item">Chicken Tenders</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Hot Dogs</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Chicken Tenders</li>
       </menu>
     </section>
 
     <section class="text-xl m-4">
-      <h2 class="text-white text-xl text-center">Especialidades de <br> la Casa</h2>
+      <h2 class="text-white text-xl font-menuFont text-center">Especialidades de <br> la Casa</h2>
       <menu class="mt-2 list-none space-y-3">
-        <li class="menu-item">Mole Estilo Mi Rancho</li>
-        <li class="menu-item">Albóndigas de Gusto</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Mole Estilo Mi Rancho</li>
+        <li class="menu-item font-head text-2xl text-[#D7263D] ">Albóndigas de Gusto</li>
       </menu>
     </section>
   </main>
@@ -199,11 +201,11 @@
     <nav class=" pl-2 fixed w-full h-20 flex flex-row justify-between bg-blue-800 ">
   <img src="./imgs/egale-green.png" class="w-20 z-10">
   <details class="sm:hidden w-60 h-72 overflow-hidden rounded text-red-200">
-    <summary class="cursor-pointer p-2 text-lg flex justify-center list-none pl-32 pt-4"><i class="fa-solid fa-bars"></i></summary>
+    <summary class="cursor-pointer p-2 text-lg flex justify-center list-none pl-32 pt-4"><i class="fa-solid fa-bars text-lg"></i></summary>
     <ul class="flex flex-col bg-blue-800  text-center justify-center fixed right-0 w-full h-full top-0">
       <span class="text-red-400 absolute top-0 right-0 pr-10 pt-4  text-xl">X</span>
-      <li class="pb-5"><a href=""><i class="fa-duotone fa-solid fa-house "></i></a></li>
-      <li class="pb-5"><i class="fa-solid fa-house"></i></li>
+      <li class="pb-5"><a href=""><i class="fa-duotone fa-solid fa-house  text-lg"></i></a></li>
+      <li class="pb-5"><i class="fa-solid fa-house text-lg"></i></li>
       <li class="pb-20">cont</li>
     </ul>
   </details>
@@ -226,23 +228,23 @@
   <section class="text-2xl">
     <h2>Chivo (Goat)</h2>
     <menu class="mt-2">
-      <li>Barbacoa de Chivo <i class="fa-solid fa-image text-xl"></i><img src="/imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Pancita de Chivo <i class="fa-solid fa-image text-xl"></i><img id="chivo" src="https://assets.codepen.io/9902244/Barbacoa_Chivo.jpeg" alt="" class="w-36 hidden" /></li>
+      <li>Barbacoa de Chivo <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="/imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Pancita de Chivo <i class="fa-solid fa-image  text-lgtext-xl"></i><img id="chivo" src="https://assets.codepen.io/9902244/Barbacoa_Chivo.jpeg" alt="" class="w-36 hidden" /></li>
     </menu>
   </section>
   <section class="text-2xl mt-10">
     <h2>Puerco (Pork)</h2>
     <menu class="mt-2 ">
-      <li>Carnitas  <i class="fa-solid fa-image text-xl"></i><img src="/imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Pernil  <i class="fa-solid fa-image text-xl"></i><img src="imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Pernil Enchilado  <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Costillas Frita <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Costillas en Salsa Verde <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Costilla Puerco en Salsa Verde <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Costillas BBQ <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Costillas Roja <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Adobo de Puerco <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
-      <li>Guisado de Puerco <i class="fa-solid fa-image text-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Carnitas  <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="/imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Pernil  <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Pernil Enchilado  <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Costillas Frita <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Costillas en Salsa Verde <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Costilla Puerco en Salsa Verde <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Costillas BBQ <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Costillas Roja <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Adobo de Puerco <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
+      <li>Guisado de Puerco <i class="fa-solid fa-image  text-lgtext-xl"></i><img src="./imgs/egale-green.png" alt="" class="w-36 hidden" /></li>
     </menu>
   </section>
   <section>
@@ -339,8 +341,8 @@
   <ul class="h-12 bg-green-700 text-white flex flex-row justify-center pt-2 ">
     <li class="pr-10"><a href=""><i class="fa-brands fa-tiktok"></i></a></li>
     <li class="pr-10"><a href=""><i class="fa-brands fa-facebook"></i></a></li>
-    <li class="pr-10"><a href=""><i class="fa-solid fa-map-location"></i></a></li>
-    <li class="pr-10"><a href=""><i class="fa-solid fa-phone-volume"></i></a></li>
+    <li class="pr-10"><a href=""><i class="fa-solid fa-map- text-lglocation"></i></a></li>
+    <li class="pr-10"><a href=""><i class="fa-solid fa-phone- text-lgvolume"></i></a></li>
   </ul>
 </footer>
 

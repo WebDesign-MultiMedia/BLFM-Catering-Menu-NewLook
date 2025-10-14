@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       fontFamily:{
         title: [ "Marck Script", "cursive"],
-        h1s: ["Molle", "cursive"]
+        head: [ "Cookie",  "cursive"],
+        menuFont: [ "Combo", "system-ui"]
       }
     },
   },

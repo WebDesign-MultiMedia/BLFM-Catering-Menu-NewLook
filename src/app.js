@@ -6,15 +6,19 @@ listItems.forEach((li) => {
   // If you prefer Tailwind, remove these styles and keep the Tailwind classes in HTML.
   li.style.listStyleType = "none";
   li.style.width = "250px";
-  li.style.borderBottom = "2px #D7263D solid";
-  li.style.borderRadius = "100px";
+  li.style.borderBottom = "1px white solid";
+  li.style.borderRadius = "50px";
   li.style.padding = "10px";
-  li.style.color = "gold";
+
 });
+
+// const menuLi = document.querySelectorAll('menu li');
+// menuLi.forEach(txt => {
+//   txt.style.fontSize = '1.4em'
+// });
 
 // ===== Headings =====
 document.querySelectorAll("h2").forEach((h2) => {
-  h2.style.color = "white";
   h2.style.fontSize = "1.2em";
 });
 
@@ -51,3 +55,48 @@ imgIcons.forEach((icon) => {
 });
 
 
+
+// IFRAME PLAYER APi
+// 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'M7lc1UVf-VE',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
