@@ -703,6 +703,15 @@ video {
   border-radius: 0.5rem;
 }
 
+.border-2{
+  border-width: 2px;
+}
+
+.border-red-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(252 165 165 / var(--tw-border-opacity, 1));
+}
+
 .bg-\[\#021828\]{
   --tw-bg-opacity: 1;
   background-color: rgb(2 24 40 / var(--tw-bg-opacity, 1));
