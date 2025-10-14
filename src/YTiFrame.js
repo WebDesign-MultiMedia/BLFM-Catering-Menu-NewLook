@@ -30,8 +30,8 @@
       }
 
       // 4. The API will call this function when the video player is ready.
-      function onPlayerReady() {
-        // event.target.playVideo();
+      function onPlayerReady(event) {
+        event.target.playVideo();
         console.log("ready");
         
       }
@@ -49,3 +49,8 @@
       function stopVideo() {
         player.stopVideo();
       }
+
+      // Video # Style
+      let vidStyle = document.getElementById('player');
+      vidStyle.style.position = 'relative';
+      vidStyle.style.top = '100px';
