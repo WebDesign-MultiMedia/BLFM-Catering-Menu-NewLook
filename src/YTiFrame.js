@@ -20,8 +20,9 @@
           videoId: 'LV6apeUJjSY',
           playerVars: {
             'playsinline': 1,
-            'autoplay': 1
-          },
+            'autoplay': 1,
+            'control': 0
+                    },
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -53,4 +54,7 @@
       // Video # Style
       let vidStyle = document.getElementById('player');
       vidStyle.style.position = 'relative';
-      vidStyle.style.top = '100px';
+      vidStyle.style.zIndex = '1';
+      vidStyle.style.top= '100px';
+
+ 

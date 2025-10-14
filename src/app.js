@@ -5,8 +5,10 @@ const listItems = document.querySelectorAll("menu"); // FIX: one selector
 listItems.forEach((li) => {
   // If you prefer Tailwind, remove these styles and keep the Tailwind classes in HTML.
   li.style.listStyleType = "none";
-  li.style.width = "250px";
-  li.style.borderBottom = "1px white solid";
+  li.style.width = "300px";
+  li.style.height = "100%";
+  li.style.borderBottom = "0.5px white solid";
+  li.style.borderTop= "none";
   li.style.borderRadius = "50px";
   li.style.padding = "10px";
 
