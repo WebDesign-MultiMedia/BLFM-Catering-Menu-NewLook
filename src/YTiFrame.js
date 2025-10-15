@@ -9,23 +9,29 @@
       // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
       let player;
+
+        function welcome() {
+      alert("Play");
+      onYouTubeIframeAPIReady();
+    }
+
       function onYouTubeIframeAPIReady() {
 
         console.log("api is loaded");
         
 
         player = new YT.Player('player', {
-        //   height: '390',
-        //   width: '640',
+          height: '390',
+          width: '640',
           videoId: 'LV6apeUJjSY',
           playerVars: {
             'playsinline': 1,
-            'autoplay': 1,
-            'control': 0
+            'autoplay': 0,
+            'controls': 1
                     },
           events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            // 'onStateChange': onPlayerStateChange
           }
         });
       }
@@ -54,6 +60,8 @@
       // Video # Style
       let vidStyle = document.getElementById('player');
       vidStyle.style.position = 'relative';
+      vidStyle.style.display = 'inline';
+
       vidStyle.style.zIndex = '1';
       vidStyle.style.top= '100px';
 

@@ -40,9 +40,12 @@ if (details && closeBtn) {
 
 // ===== Image toggle (click the image icon to show ONLY its image) =====
 const imgIcons = document.querySelectorAll("menu li i.fa-image");
+imgIcons.forEach(icn => {
+  icn.style.color = 'white';
+});
 imgIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
-    icon.style.color =  "#D7263D"
+    icon.style.color =  "yellow"
     // hide all first
     document.querySelectorAll("menu img").forEach((img) => img.classList.add("hidden"));
 
