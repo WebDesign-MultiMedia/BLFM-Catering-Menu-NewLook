@@ -45,7 +45,7 @@ imgIcons.forEach(icn => {
 });
 imgIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
-    icon.style.color =  "yellow"
+    icon.style.color =  "darkgray"
     // hide all first
     document.querySelectorAll("menu img").forEach((img) => img.classList.add("hidden"));
 

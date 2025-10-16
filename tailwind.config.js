@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        title: [ "Marck Script", "cursive"],
-        head: [ "Cookie",  "cursive"],
+        title: [ "Playwrite PL", "cursive"],
+        head: [ "Playwrite PL",  "cursive"],
         menuFont: [ "Combo", "system-ui"]
       }
     },
