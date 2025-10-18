@@ -3,7 +3,6 @@
 // ===== Desktop/General list styling (kept if you still want JS-driven styles) =====
 const listItems = document.querySelectorAll("menu"); // FIX: one selector
 listItems.forEach((li) => {
-  // If you prefer Tailwind, remove these styles and keep the Tailwind classes in HTML.
   li.style.listStyleType = "none";
   li.style.width = "300px";
   li.style.height = "100%";
@@ -59,4 +58,26 @@ imgIcons.forEach((icon) => {
   });
 });
 
+const imgPopupView = document.querySelectorAll('img'); // or your specific selector
 
+imgPopupView.forEach((popup) => {
+  popup.addEventListener('click', () => {
+    // Check if it's already expanded
+    if (!popup.classList.contains('expanded')) {
+      // Expand the image
+      popup.classList.add('expanded');
+      popup.style.position = 'fixed';
+      popup.style.left = '0';
+      popup.style.top = '0';
+      popup.style.width = '100%';
+      popup.style.height = '100%';
+      popup.style.objectFit = 'contain';
+      popup.style.backgroundColor = 'rgba(0,0,0,0.9)';
+      popup.style.zIndex = '50';
+    } else {
+      // Restore original size
+      popup.classList.remove('expanded');
+      popup.style = ''; // resets inline styles
+    }
+  });
+});
