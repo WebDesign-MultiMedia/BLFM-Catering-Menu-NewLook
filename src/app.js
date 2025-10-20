@@ -40,7 +40,7 @@ if (details && closeBtn) {
 // ===== Image toggle (click the image icon to show ONLY its image) =====
 const imgIcons = document.querySelectorAll("menu li i.fa-image");
 imgIcons.forEach(icn => {
-  icn.style.color = 'darkred';
+  icn.style.color = 'white';
 });
 imgIcons.forEach((icon) => {
   icon.addEventListener("click", () => {

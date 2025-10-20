@@ -5,33 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="./src/output.css" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
-
-
-
   <title>Catering Menu</title>
 </head>
 <body class="bg-greenMex" >
   <nav class="pl-2 fixed w-full h-20 flex flex-row items-center justify-between bg-greenMex z-20 ">
-    <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"><img src="./imgs/BLFM-logo.PNG" class="w-24  z-10 pt-1" alt="Logo" /></a>
+    <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"><img src="./imgs/BLFM-logo.PNG" class="w-24  sm:w-56 md:w-64  z-10 pt-1" alt="Logo" /></a>
 
     <!-- Mobile menu -->
     <details class="sm:hidden relative text-red-200 pr-4 ">
       <summary class="cursor-pointer p-2 text-lg list-none">
         <i class="fa-solid fa-bars  text-lgtext-2xl text-whiteMex"></i>
       </summary>
-      <ul class="flex flex-col bg-[#021828] text-center justify-center fixed right-0 w-full h-full top-0">
-        <button type="button" id="close-mobile" class="text-[#D7263D] absolute top-0 right-0 pr-10 pt-4 text-2xl"><i class="fa-solid fa-x  text-lg hover:text-gray-400"></i></button>
-        <li class="pb-10 font-head text-lg"><a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"><i class="fa-solid fa-house  text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
-        <li class="pb-5 font-head text-lg"><a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"><i class="fa-solid fa-location-dot text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
-        <li class="pt-5 font-head text-lg"><a href="tel:+13476862462"><i class="fa-solid fa-phone-volume  text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
+      <ul class="flex flex-col bg-redMex text-center justify-center fixed right-0 w-full h-full top-0">
+        <button type="button" id="close-mobile" class="text-whiteMex absolute top-0 right-0 pr-10 pt-4 text-2xl"><i class="fa-solid fa-x  text-lg hover:text-gray-400"></i></button>
+        <li class="pb-10 font-head text-lg"><a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"><i class="fa-solid fa-house  text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
+        <li class="pb-5 font-head text-lg"><a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"><i class="fa-solid fa-location-dot text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
+        <li class="pt-5 font-head text-lg"><a href="tel:+13476862462"><i class="fa-solid fa-phone-volume  text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
       </ul>
     </details>
 
     <!-- Desktop menu -->
     <ul class="hidden sm:flex sm:justify-between sm:w-screen sm:text-white sm:m-32 md:m-40  lg:m-[30%]">
-      <li class="ml-10"><a href="#"><i class="fa-solid fa-house text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
-      <li><a href="#"><i class="fa-solid fa-location-dot text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
-      <li class="mr-20"><a href="http://"><i class="fa-solid fa-phone-volume text-3xl text-[#D7263D] hover:text-gray-400"></i></a></li>
+      <li class="ml-10"><a href="#"><i class="fa-solid fa-house text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
+      <li><a href="#"><i class="fa-solid fa-location-dot text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
+      <li class="mr-20"><a href="http://"><i class="fa-solid fa-phone-volume text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
     </ul>
   </nav>
 
@@ -44,7 +41,7 @@
 </div>      
   
   <!-- BACKGROUND IMAGE -->
-    <img src="./imgs/BLFM-logo.PNG" alt="" class="fixed top-[30%] w-full -z-10 opacity-20">
+    <img src="./imgs/BLFM-logo.PNG" alt="" class="fixed top-[30%] w-full md:lg-fixed md:top-[10%] lg:w-[40%] lg:fixed lg:right-0 -z-10 opacity-20">
   <!-- HEADER -->
   <header class="text-center text-4xl p-2 pt-20 relative top-10">
     <h1 class="text-white pb-5 font-title text-4xl  drop-shadow-[-1px_1px_1px_red]">Catering Menu</h1>
@@ -55,16 +52,16 @@
   <main class=" pt-20 pb-10 flex flex-col items-center text-left relative left-5s sm:text-left sm:flex sm:flex-row sm:flex-wrap sm:justify-evenly lg:p-10">
     
     <!-- Each section uses the same structure -->
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic ">Chivo (Goat)</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red]  ">Chivo (Goat)</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex drop-gray-100 rounded-xl  bg-gray-bg-opacity-500 bg-opacity-5 ">Barbacoa de Chivo<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Barbacoa_Chivo.jpeg" class="w-36 hidden mx-auto mt-2" /><img src="./imgs/Catering-imgs/Barbacoa_Chivo_Cabeza.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Puerco (Pork)</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Puerco (Pork)</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Carnitas </li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Pernil </li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Pernil Enchilado <i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Pernil Enchilado.jpg" class="w-36 hidden mx-auto mt-2" /></li>
@@ -78,9 +75,9 @@
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Pollo (Chicken)</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Pollo (Chicken)</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Pollo Enchilado<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Pollo-Enchilado.jpg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Pollo Rostizado<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Pollo_Rostizados.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Mixiotes de Pollo</li>
@@ -96,9 +93,9 @@
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Res (Beef)</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Res (Beef)</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Mixiotes de Res</li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Bistec a la Mexicana<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Viste_ala_Mexicana.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Bistec Encebollado</li>
@@ -106,26 +103,26 @@
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Mariscos (Seafood)</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Mariscos (Seafood)</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Camarones a la Diabla<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Camarones_ala_Diabla.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Camarones Fritos<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Camarones_1.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Antojitos <br>/ Vegetarianos</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Antojitos <br>/ Vegetarianos</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Chiles Rellenos<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Chiles_Rellenos.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Chilaquiles<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Chilaquiles.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  text-center7878">Flautas <br> (Queso, Pollo o Papas)<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Flautas.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Ensaladas</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Ensaladas</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Ensalada de Nopales<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Ensalada_Nopales.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Ensalada Mixta<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Ensalada_Mixta.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Ensalada de Frutas</li>
@@ -133,9 +130,9 @@
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Arroz, Frijoles <br> y Tortillas</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Arroz, Frijoles <br> y Tortillas</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Arroz Mexicano</li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Arroz Blanco<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Arroz-Blanco.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Arroz Blanco con Frijoles</li>
@@ -146,9 +143,9 @@
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Pastas</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Pastas</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Espagueti a la Mexicana<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Espageti_Mexicana.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Espagueti Estilo Marisol</li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Espagueti con Crema y Queso<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Espageti_Crema_Queso.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
@@ -158,17 +155,17 @@
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic">Favoritos para <br> Niños</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red] ">Favoritos para <br> Niños</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Hot Dogs<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Hot_Dogs.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Chicken Tenders<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Chicken_Tenders_1.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
       </menu>
     </section>
 
-    <section class="text-xl">
-      <h2 class="text-whiteMex font-menuFont text-right drop-shadow-[0_0_5px_red] italic ">Especialidades de <br> la Casa</h2>
-      <menu class="mt-2 list-none space-y-3 sm:text-right bg-whiteMex rounded-xl bg-opacity-5">
+    <section class="text-3xl p-3">
+      <h2 class="text-whiteMex font-menuFont text-left pl-2 drop-shadow-[0_0_5px_red]  ">Especialidades de <br> la Casa</h2>
+      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
         <li class="menu-item font-head text-lg  text-whiteMex  ">Mole Estilo Mi Rancho<i class="fa-solid fa-image pl-2 text-lg"></i><img src="./imgs/Catering-imgs/Mole_Estilo_Mi_Rancho.jpeg" class="w-36 hidden mx-auto mt-2" /></li>
         <li class="menu-item font-head text-lg  text-whiteMex  ">Albóndigas de Gusto</li>
       </menu>
@@ -177,7 +174,7 @@
 
   <!-- FOOTER -->
   <footer class="bg-redMex pt-10">
-    <ul class=" pb-10  text-white flex flex-row justify-center items-center gap-10">
+    <ul class=" pb-10  text-white flex flex-row justify-center items-center gap-10 md:gap-20 lg:gap-32">
       <li><a href="https://www.tiktok.com/@buffetluciasftamexicana?is_from_webapp=1&sender_device=pc"><i class="fa-brands fa-tiktok text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
       <li><a href="https://www.facebook.com/BuffetLuciasFiestaMExicana/"><i class="fa-brands fa-facebook text-3xl text-whiteMex hover:text-gray-400"></i></a></li>
       <li><a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"><i class="fa-solid fa-map-location text-3xl text-whiteMex hover:text-gray-400"></i></a></li>

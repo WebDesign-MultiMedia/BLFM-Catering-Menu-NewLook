@@ -4,9 +4,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        title: [ "Playwrite PL", "cursive"],
+        title: [ "Playwrite ES Deco", "cursive"],
         head: [ "Playwrite PL",  "cursive"],
-        menuFont: [ "Combo", "system-ui"]
+        menuFont: [ "Cookie", "system-ui"]
       },
        colors:{
       'bodyNavFooter': "#021828",
