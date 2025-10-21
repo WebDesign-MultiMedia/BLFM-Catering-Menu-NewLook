@@ -8,7 +8,7 @@ listItems.forEach((li) => {
   li.style.height = "100%";
   li.style.borderBottom = "0.5px #D7263D solid";
   li.style.borderTop= "none";
-
+  li.style.textShadow = "2px 2px 1px black"
   li.style.padding = "10px";
 
 });
