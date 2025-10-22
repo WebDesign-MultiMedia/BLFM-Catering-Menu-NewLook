@@ -13,11 +13,6 @@ listItems.forEach((li) => {
 
 });
 
-// const menuLi = document.querySelectorAll('menu li');
-// menuLi.forEach(txt => {
-//   txt.style.fontSize = '1.4em'
-// });
-
 // ===== Headings =====
 document.querySelectorAll("h2").forEach((h2) => {
   h2.style.fontSize = "1.2em";

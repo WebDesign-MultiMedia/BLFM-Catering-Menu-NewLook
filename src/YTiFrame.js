@@ -3,26 +3,34 @@
       let player;
 
 
-      function onYouTubeIframeAPIReady() {
+      // function onYouTubeIframeAPIReady() {
 
-        console.log("api is loaded");
-        
-
-        player = new YT.Player('player', {
+        window.onYouTubeIframeAPIReady = function () {
+         new YT.Player('player', {
           height: '390',
           width: '640',
           videoId: 'LV6apeUJjSY',
+          host: 'https://www.youtube.com',
           playerVars: {
+            'enablejsapi': 1,
+            'origin': window.location.origin,
+            'rel': 0,
+            'modestbranding': 1,
             'playsinline': 1,
             'autoplay': 0,
             'controls': 1
                     },
           events: {
-            'onReady': onPlayerReady,
+            'onReady': () => console.log('ready'),
+             
+            // onPlayerReady,
             'onStateChange': onPlayerStateChange
           }
         });
-      }
+        }
+
+       
+      // }
 
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
