@@ -6,9 +6,14 @@
       // function onYouTubeIframeAPIReady() {
 
         window.onYouTubeIframeAPIReady = function () {
-         new YT.Player('player', {
-          height: '390',
-          width: '640',
+
+          const el = document.getElementById('player');
+          if(!el || player) return;
+
+          el.style.aspectRatio = '16 / 9';
+          el.style.width = 'min(100%, 960px)';
+
+         player = new YT.Player('player', {
           videoId: 'LV6apeUJjSY',
           host: 'https://www.youtube.com',
           playerVars: {
@@ -21,10 +26,11 @@
             'controls': 1
                     },
           events: {
-            'onReady': () => console.log('ready'),
+            'onReady': () => console.log('[YT] ready'),
              
             // onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': (e) => console.log('[YT] state', e.data)
+            
           }
         });
         }
