@@ -2,10 +2,10 @@ function showEventAlert() {
   
     Swal.fire({
         title: "Hacemos Comida Para Eventos",
-        text: "Perfect for birthday parties, baptisms, baby showers, office events and more. All dishes available by tray or by the pound.",
+        text: "Perfecto para fiestas de cumpleaños, bautizos, baby showers, eventos de oficina y más. Todos los platillos están disponibles por charola o por libra.",
         showConfirmButton: false,
         theme: 'dark',
-        timer: 4000,
+        timer: 7000,
         timerProgressBar: true,
         background: 'darkred',
         backdrop: `
