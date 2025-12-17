@@ -7,9 +7,9 @@ function showEventAlert() {
         theme: 'dark',
         timer: 4000,
         timerProgressBar: true,
-        background: 'black',
+        background: 'darkred',
         backdrop: `
-        rgba(60, 60, 60, 0.90)`
+        rgba(0, 99, 65, 1.80)`
       })
 };
 
