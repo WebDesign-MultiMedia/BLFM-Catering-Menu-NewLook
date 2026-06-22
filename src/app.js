@@ -1,78 +1,63 @@
-
-
-// ===== Desktop/General list styling (kept if you still want JS-driven styles) =====
-const listItems = document.querySelectorAll("menu"); // FIX: one selector
-listItems.forEach((li) => {
-  li.style.listStyleType = "none";
-  li.style.width = "300px";
-  li.style.height = "100%";
-  li.style.borderBottom = "0.5px #D7263D solid";
-  li.style.borderTop= "none";
-  li.style.textShadow = "2px 2px 1px black"
-  li.style.padding = "10px";
-
-});
-
-// ===== Headings =====
-document.querySelectorAll("h2").forEach((h2) => {
-  h2.style.fontSize = "1.2em";
-});
-
-// ===== Mobile menu close button =====
+// ── Mobile nav close ─────────────────────────────────────────
 const details = document.querySelector("nav details");
 const closeBtn = document.getElementById("close-mobile");
 if (details && closeBtn) {
-  closeBtn.addEventListener("click", () => {
-    details.removeAttribute("open");
-  });
-
-  // Close when clicking any link inside the mobile list
+  closeBtn.addEventListener("click", () => details.removeAttribute("open"));
+  // Close when tapping any link inside the overlay
   details.querySelectorAll("a").forEach((a) => {
     a.addEventListener("click", () => details.removeAttribute("open"));
   });
 }
 
-// ===== Image toggle (click the image icon to show ONLY its image) =====
-const imgIcons = document.querySelectorAll("menu li i.fa-image");
-imgIcons.forEach(icn => {
-  icn.style.color = '#FF8488';
+// ── Image modal ───────────────────────────────────────────────
+const modal     = document.getElementById("img-modal");
+const modalImg  = document.getElementById("modal-img");
+const modalName = document.getElementById("modal-name");
+const modalClose = document.getElementById("modal-close");
+
+function openModal(src, name) {
+  modalImg.src = src;
+  modalImg.alt = name;
+  modalName.textContent = name;
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  modalClose.focus();
+}
+
+function closeModal() {
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+  // Clear src after animation so it doesn't flash on next open
+  setTimeout(() => { modalImg.src = ""; }, 220);
+}
+
+modalClose.addEventListener("click", closeModal);
+
+// Close when clicking the dark backdrop (not the card itself)
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeModal();
 });
-imgIcons.forEach((icon) => {
-  icon.addEventListener("click", () => {
-    icon.style.color =  "#D0FFBC"
-    // hide all first
-    document.querySelectorAll("menu img").forEach((img) => img.classList.add("hidden"));
 
-    // find the image in the same <li>
-    const li = icon.closest("li");
-    const img = li ? li.querySelector("img") : null;
-    if (!img) return;
-
-    // toggle visibility of this one
-    img.classList.toggle("hidden");
-  });
+// Close with Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
 });
 
-const imgPopupView = document.querySelectorAll('img'); // or your specific selector
+// ── Clickable menu rows ───────────────────────────────────────
+document.querySelectorAll(".menu-row.has-photo").forEach((row) => {
+  function activate() {
+    const src  = row.dataset.img;
+    const name = row.dataset.name;
+    if (src && name) openModal(src, name);
+  }
 
-imgPopupView.forEach((popup) => {
-  popup.addEventListener('click', () => {
-    // Check if it's already expanded
-    if (!popup.classList.contains('expanded')) {
-      // Expand the image
-      popup.classList.add('expanded');
-      popup.style.position = 'fixed';
-      popup.style.left = '0';
-      popup.style.top = '0';
-      popup.style.width = '100%';
-      popup.style.height = '100%';
-      popup.style.objectFit = 'contain';
-      popup.style.backgroundColor = 'rgba(0,0,0,0.9)';
-      popup.style.zIndex = '50';
-    } else {
-      // Restore original size
-      popup.classList.remove('expanded');
-      popup.style = ''; // resets inline styles
+  row.addEventListener("click", activate);
+
+  // Keyboard: Enter or Space activates, matching button behaviour
+  row.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      activate();
     }
   });
 });

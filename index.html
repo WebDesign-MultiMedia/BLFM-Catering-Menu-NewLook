@@ -7,683 +7,947 @@
   <meta name="description" content="Buffet Lucias catering menu, Hacemos comida para eventos">
   <meta name="authorgit" content="Buffet Lucias Fiesta Mexicana">
 
-  <!-- Tailwind output (make sure this is a production/minified build) -->
   <link href="./src/output.css" rel="stylesheet" />
-
-  <!-- Font Awesome - defer so it doesn't block rendering -->
   <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
-
-  <!-- SweetAlert2 styles -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.3/dist/sweetalert2.min.css"  media="print" onload="this.media='all'">
-
-  <!-- Google Font * -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-  rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.3/dist/sweetalert2.min.css" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
   <title>Catering Menu</title>
+
+  <style>
+    /* ── Section cards ─────────────────────────────────── */
+    .menu-section {
+      width: 300px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(206,17,38,0.35);
+      border-radius: 1rem;
+      overflow: hidden;
+      margin: 0.6rem;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    }
+
+    .section-header {
+      padding: 0.7rem 1rem;
+      background: rgba(0,0,0,0.25);
+      border-bottom: 2px solid #CE1126;
+    }
+
+    .section-header h2 {
+      font-family: 'Cookie', system-ui;
+      font-size: 1.45rem;
+      color: #fff;
+      text-shadow: 2px 2px 3px black;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    /* ── Menu rows ──────────────────────────────────────── */
+    .menu-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid rgba(206,17,38,0.15);
+      color: #fff;
+      font-family: 'Playwrite PL', cursive;
+      font-size: 0.92rem;
+      text-shadow: 1px 1px 2px black;
+      min-height: 2.8rem;
+      transition: background 0.18s;
+      gap: 0.5rem;
+    }
+
+    .menu-row:last-child {
+      border-bottom: none;
+    }
+
+    .menu-row.has-photo {
+      cursor: pointer;
+    }
+
+    .menu-row.has-photo:hover,
+    .menu-row.has-photo:focus-visible {
+      background: rgba(255,255,255,0.08);
+      outline: none;
+    }
+
+    .menu-row.has-photo:active {
+      background: rgba(255,255,255,0.13);
+    }
+
+    .item-name {
+      flex: 1;
+    }
+
+    /* ── Camera badge ───────────────────────────────────── */
+    .photo-badge {
+      flex-shrink: 0;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 50%;
+      background: rgba(255,132,136,0.12);
+      border: 1px solid rgba(255,132,136,0.45);
+      color: #FF8488;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      pointer-events: none;
+    }
+
+    .menu-row.has-photo:hover .photo-badge,
+    .menu-row.has-photo:focus-visible .photo-badge {
+      background: rgba(206,17,38,0.4);
+      color: #D0FFBC;
+      border-color: #D0FFBC;
+    }
+
+    /* ── Image Modal ────────────────────────────────────── */
+    #img-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0,0,0,0.93);
+    }
+
+    #img-modal.open {
+      display: flex;
+      animation: mFadeIn 0.22s ease forwards;
+    }
+
+    @keyframes mFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    #modal-card {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      background: #006341;
+      border-radius: 1.1rem;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+      border: 1px solid rgba(206,17,38,0.5);
+      animation: mCardPop 0.22s ease forwards;
+    }
+
+    @keyframes mCardPop {
+      from { transform: scale(0.88) translateY(20px); opacity: 0; }
+      to   { transform: scale(1)    translateY(0);    opacity: 1; }
+    }
+
+    #modal-close {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 10;
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.18s;
+    }
+
+    #modal-close:hover { background: rgba(206,17,38,0.8); }
+
+    #modal-img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 65vh;
+    }
+
+    #modal-name {
+      text-align: center;
+      padding: 0.9rem 1rem;
+      color: #fff;
+      font-family: 'Cookie', system-ui;
+      font-size: 1.75rem;
+      text-shadow: 1px 1px 3px black;
+      line-height: 1.25;
+    }
+
+    /* ── SweetAlert popup overrides ────────────────────── */
+    .swal-popup-custom {
+      border: 1px solid rgba(206,17,38,0.5) !important;
+      border-radius: 1.1rem !important;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.65) !important;
+      padding: 1.6rem 1.5rem 1.2rem !important;
+      max-height: none !important;
+      overflow: hidden !important;
+      width: auto !important;
+      max-width: min(94vw, 460px) !important;
+    }
+
+    /* kill the inner scroll SweetAlert adds */
+    .swal-popup-custom .swal2-html-container,
+    .swal-html-custom {
+      overflow: visible !important;
+      max-height: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .swal-timer-custom {
+      background: #CE1126 !important;
+      height: 4px !important;
+    }
+
+    /* ── Tap hint on items with photos ─────────────────── */
+    .tap-hint {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.45);
+      font-family: Roboto, sans-serif;
+      text-shadow: none;
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    .nav-bar {
+      background: #006341;
+      border-bottom: 2px solid rgba(206,17,38,0.7);
+      box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+    }
+
+    .nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px black;
+      transition: opacity 0.18s;
+    }
+
+    .nav-link:hover { opacity: 0.7; }
+
+    .nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      opacity: 0.82;
+    }
+
+    .nav-cta {
+      background: #CE1126;
+      border-radius: 999px;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .nav-cta:hover { background: #a80e1f; opacity: 1; }
+
+    /* mobile overlay */
+    .mobile-overlay {
+      background: linear-gradient(160deg, #004d32 0%, #8b0010 100%);
+      border-top: 3px solid #CE1126;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      text-decoration: none;
+      padding: 1.1rem 2rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      transition: background 0.18s;
+      min-width: 6rem;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus { background: rgba(255,255,255,0.14); }
+
+    .mobile-nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.88;
+    }
+
+    .mobile-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.18s;
+    }
+
+    .mobile-close-btn:hover { background: rgba(206,17,38,0.6); }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer-wrap {
+      background: #CE1126;
+      border-top: 3px solid rgba(0,99,65,0.8);
+    }
+
+    .footer-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 0;
+    }
+
+    .footer-brand {
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Cookie', system-ui;
+      font-size: 2.2rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px black;
+      display: block;
+      line-height: 1.15;
+    }
+
+    .footer-brand-sub {
+      font-family: Roboto, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-top: 2px;
+    }
+
+    .footer-links-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px black;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      min-width: 4.5rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .footer-link:hover {
+      background: rgba(0,0,0,0.32);
+      transform: translateY(-2px);
+    }
+
+    .footer-link-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      margin: 0;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      padding: 0.85rem 1rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.45);
+    }
+  </style>
 </head>
 <body class="bg-greenMex">
-  <nav class="pl-2 fixed w-full h-20 flex flex-row items-center justify-between bg-greenMex z-20">
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav-bar fixed w-full h-20 flex items-center justify-between px-3 sm:px-6 z-20">
+
     <!-- Logo -->
     <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/" aria-label="Buffet Lucia's Fiesta Mexicana home">
       <img
         src="./imgs/logo/BLFM-logo.webp"
-        class="w-24 sm:w-56 md:w-64 z-10 pt-1 drop-shadow-[2px_2px_1px_black]"
+        class="w-24 sm:w-44 md:w-52 pt-1 drop-shadow-[2px_2px_1px_black]"
         alt="Buffet Lucia's Fiesta Mexicana logo"
-        width="256"
-        height="96"
+        width="208" height="80"
       />
     </a>
 
-    <!-- Mobile menu -->
-    <details class="sm:hidden relative text-red-200 pr-4">
-      <summary class="cursor-pointer p-2 text-lg list-none" aria-label="Open navigation menu">
-        <i class="fa-solid fa-bars text-2xl text-whiteMex" aria-hidden="true"></i>
+    <!-- Desktop links -->
+    <ul class="hidden sm:flex items-center gap-5 md:gap-7">
+      <li>
+        <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/" class="nav-link" aria-label="Home">
+          <i class="fa-solid fa-house text-xl" aria-hidden="true"></i>
+          <span class="nav-label">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="nav-link" aria-label="View location in Google Maps">
+          <i class="fa-solid fa-location-dot text-xl" aria-hidden="true"></i>
+          <span class="nav-label">Ubicación</span>
+        </a>
+      </li>
+      <li>
+        <a href="tel:+13476862462" class="nav-link nav-cta" aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-xl" aria-hidden="true"></i>
+          <span class="nav-label">Llamar</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <details class="sm:hidden relative pr-2">
+      <summary class="cursor-pointer p-2 list-none" aria-label="Open navigation menu">
+        <i class="fa-solid fa-bars text-2xl text-whiteMex drop-shadow-[1px_1px_1px_black]" aria-hidden="true"></i>
       </summary>
-      <ul class="flex flex-col bg-redMex text-center justify-center fixed right-0 w-full h-full top-0">
+
+      <!-- Full-screen overlay -->
+      <div class="mobile-overlay fixed inset-0 flex flex-col items-center justify-center gap-5 z-30">
+
+        <!-- Close button -->
         <button
-          aria-label="Close navigation menu"
           type="button"
           id="close-mobile"
-          class="text-whiteMex absolute top-0 right-0 pr-10 pt-4 text-2xl"
+          class="mobile-close-btn"
+          aria-label="Close navigation menu"
         >
-          <i class="fa-solid fa-x text-lg hover:text-gray-400" aria-hidden="true"></i>
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
 
-        <li class="pb-10 font-head text-lg drop-shadow-[2px_2px_1px_black]">
-          <a
-            href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"
-            aria-label="Home"
-          >
-            <i class="fa-solid fa-house text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li class="pb-5 font-head text-lg drop-shadow-[2px_2px_1px_black]">
-          <a
-            href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
-            aria-label="View location in Google Maps"
-          >
-            <i class="fa-solid fa-location-dot text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li class="pt-5 font-head text-lg drop-shadow-[2px_2px_1px_black]">
-          <a href="tel:+13476862462" aria-label="Call Buffet Lucia's Fiesta Mexicana">
-            <i class="fa-solid fa-phone-volume text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
-          </a>
-        </li>
-      </ul>
+        <!-- Brand name inside overlay -->
+        <span style="font-family:'Cookie',system-ui;font-size:1.9rem;color:#fff;text-shadow:1px 1px 3px black;margin-bottom:0.5rem;">
+          Buffet Lucia's
+        </span>
+
+        <!-- Links -->
+        <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/" class="mobile-nav-link" aria-label="Home">
+          <i class="fa-solid fa-house text-2xl" aria-hidden="true"></i>
+          <span class="mobile-nav-label">Home</span>
+        </a>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="mobile-nav-link" aria-label="View location">
+          <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
+          <span class="mobile-nav-label">Ubicación</span>
+        </a>
+        <a href="tel:+13476862462" class="mobile-nav-link" style="background:rgba(206,17,38,0.45);border-color:rgba(206,17,38,0.6);" aria-label="Call us">
+          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+          <span class="mobile-nav-label">Llamar</span>
+        </a>
+      </div>
     </details>
 
-    <!-- Desktop menu -->
-    <ul class="hidden sm:flex sm:justify-between sm:w-screen sm:text-white sm:m-32 md:m-40 lg:m-[30%] drop-shadow-[2px_2px_1px_black]">
-      <li class="ml-10">
-        <a
-          href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"
-          aria-label="Home"
-        >
-          <i class="fa-solid fa-house text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
-          aria-label="View location in Google Maps"
-        >
-          <i class="fa-solid fa-location-dot text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
-        </a>
-      </li>
-      <li class="mr-20">
-        <a href="tel:+13476862462" aria-label="Call Buffet Lucia's Fiesta Mexicana">
-          <i class="fa-solid fa-phone-volume text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
-        </a>
-      </li>
-    </ul>
   </nav>
 
-  <!-- VIDEO player (YouTube iframe API will fill this; script is async below) -->
-  <!-- <div class="flex justify-center items-center border-1 border-red-500 rounded-lg pt-24">
-    <div id="player"></div>
-  </div> -->
-
-  <!-- BACKGROUND IMAGE (decorative watermark) -->
+  <!-- ── BACKGROUND WATERMARK ─────────────────────────────── -->
   <img
     src="./imgs/logo/BLFM-logo.webp"
-    alt=""
-    aria-hidden="true"
+    alt="" aria-hidden="true"
     class="fixed top-[30%] w-full md:lg-fixed md:top-[10%] lg:w-[40%] lg:fixed lg:right-0 -z-10 opacity-20"
-    loading="lazy"
-    width="1200"
-    height="900"
+    loading="lazy" width="1200" height="900"
   />
 
-  <!-- HEADER -->
-  <header class="text-center text-4xl p-2 pt-20 relative top-10">
-    <h1 class="text-white pb-5 font-title text-4xl drop-shadow-[2px_2px_1px_red]">
+  <!-- ── HEADER ───────────────────────────────────────────── -->
+  <header class="text-center pt-24 pb-4 px-4">
+    <h1 class="text-white font-title text-4xl drop-shadow-[2px_2px_1px_red] mb-4">
       Catering Menu
     </h1>
-    <span class="flex flex-row justify-center text-lg text-whiteMex font-head drop-shadow-[2px_2px_1px_black]">
-      Por Libras
-      <img
-        src="./imgs/iconsImg/scale.webp"
-        alt="Scale icon for price per pound"
-        class="w-10 h-10 aspect-auto"
-        loading="lazy"
-        width="40"
-        height="40"
-      >
-      <p class="text-sm p-2"></p>
-      <img
-        src="./imgs/iconsImg/buffet.webp"
-        alt="Buffet tray icon for price per tray"
-        class="w-10 h-10 aspect-auto"
-        loading="lazy"
-        width="40"
-        height="40"
-      >
-      Por Charola
-    </span>
+
+    <!-- Por Libras / Por Charola pill -->
+    <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(0,0,0,0.25);border:1px solid rgba(206,17,38,0.4);border-radius:999px;padding:0.4rem 1.1rem;">
+      <img src="./imgs/iconsImg/scale.webp" alt="Scale — price per pound" class="w-7 h-7" loading="lazy" width="28" height="28">
+      <span class="text-whiteMex font-head drop-shadow-[1px_1px_1px_black]" style="font-size:0.9rem;">Por Libras</span>
+      <span style="color:rgba(255,255,255,0.35);font-size:1rem;">·</span>
+      <img src="./imgs/iconsImg/buffet.webp" alt="Buffet tray — price per tray" class="w-7 h-7" loading="lazy" width="28" height="28">
+      <span class="text-whiteMex font-head drop-shadow-[1px_1px_1px_black]" style="font-size:0.9rem;">Por Charola</span>
+    </div>
+
+    <!-- Photo tap hint (shown only on mobile) -->
+    <p class="text-whiteMex mt-3" style="font-size:0.78rem;opacity:0.6;font-family:Roboto,sans-serif;">
+      <i class="fa-solid fa-camera" aria-hidden="true"></i>
+      Toca un platillo con ícono de cámara para ver la foto
+    </p>
   </header>
 
-  <!-- MAIN MENU -->
-  <main class="pt-20 pb-10 flex flex-col items-center text-left relative left-5s sm:text-left sm:flex sm:flex-row sm:flex-wrap sm:justify-evenly lg:p-10">
-    <!-- Chivo -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">Chivo (Goat)</h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex drop-gray-100 rounded-xl bg-gray-bg-opacity-500 bg-opacity-5">
-         Chivo
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <!-- <img
-            src="./imgs/Catering-imgs/Chivo.PNG"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-            alt="Barbacoa de chivo"
-          />
-          <img
-            src="./imgs/Catering-imgs/Barbacoa_Chivo_Cabeza.jpeg"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-            alt="Barbacoa de chivo con cabeza"
-          /> -->
-        </li>
-        <li class="menu-item font-head text-lg text-whiteMex drop-gray-100 rounded-xl bg-gray-bg-opacity-500 bg-opacity-5">
-          Chivo Entro
-           <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
+  <!-- ── MAIN MENU ─────────────────────────────────────────── -->
+  <main class="pb-16 flex flex-row flex-wrap justify-center" style="padding-top:0.5rem;">
 
-           <img
-             src="./imgs/cateringMenu/Chivo.webp"
-             class="w-36 hidden mx-auto mt-2 aspect-auto"
-             loading="lazy"
-             alt="Barbacoa de chivo con cabeza"
-           />
-         </li>
-      </menu>
-    </section>
+    <!-- ── Chivo ──────────────────────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Chivo (Goat)</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row">
+          <span class="item-name">Chivo</span>
+        </li>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Chivo.webp"
+            data-name="Chivo Entro">
+          <span class="item-name">Chivo Entro</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Chivo-Media-Charola.webp"
+            data-name="Chivo Media Charola">
+          <span class="item-name">Chivo Media Charola</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Puerco -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">Puerco (Pork)</h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Carnitas
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Carnitas.webp"
-            alt="Carnitas"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Puerco ─────────────────────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Puerco (Pork)</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Carnitas.webp"
+            data-name="Carnitas">
+          <span class="item-name">Carnitas</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Pernil</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Costillas Frita
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Costillas_Frita.jpeg"
-            alt="Costillas fritas"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row">
+          <span class="item-name">Pernil</span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Costillas en Salsa Verde</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Costillas Puerco en Salsa Verde
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Costillas-Puerco-Salsa-Verde.webp"
-            alt="Costillas de puerco en salsa verde"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Costillas_Frita.jpeg"
+            data-name="Costillas Frita">
+          <span class="item-name">Costillas Frita</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Costillas BBQ
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Costillas_BBQ.jpeg"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-            alt="Costillas BBQ"
-          />
+        <li class="menu-row">
+          <span class="item-name">Costillas en Salsa Verde</span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Costillas en Salsa Roja</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Adobo de Puerco
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Adobe_Puerco_1.jpeg"
-            alt="Adobo de puerco"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Costillas-Puerco-Salsa-Verde.webp"
+            data-name="Costillas Puerco en Salsa Verde">
+          <span class="item-name">Costillas Puerco en Salsa Verde</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Guisado de Puerco</li>
-      </menu>
-    </section>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Costillas_BBQ.jpeg"
+            data-name="Costillas BBQ">
+          <span class="item-name">Costillas BBQ</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+        <li class="menu-row">
+          <span class="item-name">Costillas en Salsa Roja</span>
+        </li>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Adobe_Puerco.jpeg"
+            data-name="Adobo de Puerco">
+          <span class="item-name">Adobo de Puerco</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+        <li class="menu-row">
+          <span class="item-name">Guisado de Puerco</span>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Pollo -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">Pollo (Chicken)</h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Pollo Enchilado
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Pollo-Enchilado.jpg"
-            alt="Pollo enchilado"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Pollo ──────────────────────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Pollo (Chicken)</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Pollo-Enchilado.jpg"
+            data-name="Pollo Enchilado">
+          <span class="item-name">Pollo Enchilado</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Pollo Rostizado
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Pollo_Rostizados.webp"
-            alt="Pollo rostizado"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Pollo_Rostizados.webp"
+            data-name="Pollo Rostizado">
+          <span class="item-name">Pollo Rostizado</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Mixiotes de Pollo</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Mixiotes de Pollo con Nopales
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Mixiotes de Pollo.webp"
-            alt="Mixiotes de pollo con nopales"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row">
+          <span class="item-name">Mixiotes de Pollo</span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Mole Poblano de Pollo
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Mole_Poblano_Pollo.webp"
-            alt="Mole poblano de pollo"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Mixiotes de Pollo.webp"
+            data-name="Mixiotes de Pollo con Nopales">
+          <span class="item-name">Mixiotes de Pollo con Nopales</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Adobo de Pollo
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Adobo-de-pollo.jpeg"
-            alt="Adobo de pollo"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Mole_Poblano_Pollo.webp"
+            data-name="Mole Poblano de Pollo">
+          <span class="item-name">Mole Poblano de Pollo</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Guisado de Pollo</li>
-        <li class="menu-item font-head text-lg text-whiteMex">Tinga de Pollo</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Alas de BBQ
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Alas_BBQ.jpeg"
-            alt="Alas de pollo BBQ"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Adobo-de-pollo.jpeg"
+            data-name="Adobo de Pollo">
+          <span class="item-name">Adobo de Pollo</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Pechuga Empanizada</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Piernas de Pollo Empanizadas
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Piernas_de_Pollo_Empanizada.jpeg"
-            alt="Piernas de pollo empanizadas"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row">
+          <span class="item-name">Guisado de Pollo</span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Pollo a la Francesa
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Pollo_a_la_Francesa.webp"
-            alt="Pollo a la francesa"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row">
+          <span class="item-name">Tinga de Pollo</span>
         </li>
-      </menu>
-    </section>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Alas_BBQ.jpeg"
+            data-name="Alas de BBQ">
+          <span class="item-name">Alas de BBQ</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+        <li class="menu-row">
+          <span class="item-name">Pechuga Empanizada</span>
+        </li>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Piernas_de_Pollo_Empanizada.jpeg"
+            data-name="Piernas de Pollo Empanizadas">
+          <span class="item-name">Piernas de Pollo Empanizadas</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Pollo_ala_Francesa.jpeg"
+            data-name="Pollo a la Francesa">
+          <span class="item-name">Pollo a la Francesa</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Res -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">Res (Beef)</h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">Mixiotes de Res</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Bistec a la Mexicana
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Bistec ala Mexicana.webp"
-            alt="Bistec a la Mexicana"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Res ────────────────────────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Res (Beef)</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row">
+          <span class="item-name">Mixiotes de Res</span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Bistec Encebollado</li>
-        <li class="menu-item font-head text-lg text-whiteMex">Adobo de Res</li>
-      </menu>
-    </section>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Bistec ala Mexicana.webp"
+            data-name="Bistec a la Mexicana">
+          <span class="item-name">Bistec a la Mexicana</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+        <li class="menu-row">
+          <span class="item-name">Bistec Encebollado</span>
+        </li>
+        <li class="menu-row">
+          <span class="item-name">Adobo de Res</span>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Mariscos -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">Mariscos (Seafood)</h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Camarones a la Diabla
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Camarones_ala_Diabla.jpeg"
-            alt="Camarones a la diabla"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Mariscos ───────────────────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Mariscos (Seafood)</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Camarones_ala_Diabla.jpeg"
+            data-name="Camarones a la Diabla">
+          <span class="item-name">Camarones a la Diabla</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Camarones Fritos
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Camarones_1.jpeg"
-            alt="Camarones fritos"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Camarones_1.jpeg"
+            data-name="Camarones Fritos">
+          <span class="item-name">Camarones Fritos</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-      </menu>
-    </section>
+      </ul>
+    </div>
 
-    <!-- Antojitos / Vegetarianos -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">
-        Antojitos <br> / Vegetarianos
-      </h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Chiles Rellenos
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Chiles-Rellenos.webp"
-            alt="Chiles rellenos"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Antojitos / Vegetarianos ───────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Antojitos / Vegetarianos</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Chiles-Rellenos.webp"
+            data-name="Chiles Rellenos">
+          <span class="item-name">Chiles Rellenos</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Chilaquiles
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Chilaquiles.jpeg"
-            alt="Chilaquiles"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Chilaquiles.jpeg"
+            data-name="Chilaquiles">
+          <span class="item-name">Chilaquiles</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex text-center">
-          Flautas <br> (Queso, Pollo o Papas)
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Flautas.webp"
-            alt="Flautas de queso, pollo o papas"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Flautas.webp"
+            data-name="Flautas (Queso, Pollo o Papas)">
+          <span class="item-name">Flautas (Queso, Pollo o Papas)</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-      </menu>
-    </section>
+      </ul>
+    </div>
 
-    <!-- Ensaladas -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">Ensaladas</h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Ensalada de Nopales
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Ensalada-Nopales.webp"
-            alt="Ensalada de nopales"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Ensaladas ──────────────────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Ensaladas</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Ensalada-Nopales.webp"
+            data-name="Ensalada de Nopales">
+          <span class="item-name">Ensalada de Nopales</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Ensalada Mixta
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Ensalada-Mix.webp"
-            alt="Ensalada mixta"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Ensalada-Mix.webp"
+            data-name="Ensalada Mixta">
+          <span class="item-name">Ensalada Mixta</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Ensalada de Frutas</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Ensalada de Papas
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Ensalada-Papas.webp"
-            alt="Ensalada de papas"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row">
+          <span class="item-name">Ensalada de Frutas</span>
         </li>
-      </menu>
-    </section>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Ensalada-Papas.webp"
+            data-name="Ensalada de Papas">
+          <span class="item-name">Ensalada de Papas</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Arroz, Frijoles y Tortillas -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">
-        Arroz, Frijoles <br> y Tortillas
-      </h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Arroz Mexicano
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Arroz-Mexicano.webp"
-            alt="Arroz mexicano"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Arroz, Frijoles y Tortillas ───────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Arroz, Frijoles y Tortillas</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Arroz-Mexicano.webp"
+            data-name="Arroz Mexicano">
+          <span class="item-name">Arroz Mexicano</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Arroz Blanco
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Arroz_Blanco.webp"
-            alt="Arroz blanco"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Arroz_Blanco.webp"
+            data-name="Arroz Blanco">
+          <span class="item-name">Arroz Blanco</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Arroz Blanco con Frijoles</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Arroz con Gandules
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Arroz-con-Gandules.webp"
-            alt="Arroz con gandules"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row">
+          <span class="item-name">Arroz Blanco con Frijoles</span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Arroz con Vegetales
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Arroz_con_Vegetales.jpeg"
-            alt="Arroz con vegetales"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Arroz-con-Gandules.webp"
+            data-name="Arroz con Gandules">
+          <span class="item-name">Arroz con Gandules</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Frijoles
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Frijoles.webp"
-            alt="Frijoles"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Arroz_con_Vegetales.jpeg"
+            data-name="Arroz con Vegetales">
+          <span class="item-name">Arroz con Vegetales</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Tortillas hechas a Mano
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Tortillas-Recien.webp"
-            alt="Tortillas hechas a mano recién hechas"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Frijoles.webp"
+            data-name="Frijoles">
+          <span class="item-name">Frijoles</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-      </menu>
-    </section>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Tortillas=Recien.webp"
+            data-name="Tortillas hechas a Mano">
+          <span class="item-name">Tortillas hechas a Mano</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Pastas -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">Pastas</h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Espagueti a la Mexicana
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Espagueti_a_la_Mexicana.webp"
-            alt="Espagueti a la mexicana"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Pastas ──────────────────────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Pastas</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Espagueti_a_la_Mexicana.webp"
+            data-name="Espagueti a la Mexicana">
+          <span class="item-name">Espagueti a la Mexicana</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Espagueti Estilo Marisol</li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Espagueti con Crema y Queso
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Espageti_Crema_Queso.jpeg"
-            alt="Espagueti con crema y queso"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row">
+          <span class="item-name">Espagueti Estilo Marisol</span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Macarroni con Cheese
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Macaroni_Chesse.jpeg"
-            alt="Macaroni con cheese"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Espageti_Crema_Queso.jpeg"
+            data-name="Espagueti con Crema y Queso">
+          <span class="item-name">Espagueti con Crema y Queso</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Pasta Penne Vodka
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Penne_Vodka.jpeg"
-            alt="Pasta penne vodka"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Macaroni_Chesse.jpeg"
+            data-name="Macarroni con Cheese">
+          <span class="item-name">Macarroni con Cheese</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Lasagna
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Lasanga.jpeg"
-            alt="Lasagna"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Penne_Vodka.jpeg"
+            data-name="Pasta Penne Vodka">
+          <span class="item-name">Pasta Penne Vodka</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-      </menu>
-    </section>
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Lasanga.jpeg"
+            data-name="Lasagna">
+          <span class="item-name">Lasagna</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </li>
+      </ul>
+    </div>
 
-    <!-- Favoritos para Niños -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">
-        Favoritos para <br> Niños
-      </h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Hot Dogs
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Hot_Dogs.jpeg"
-            alt="Hot dogs"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Favoritos para Niños ───────────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Favoritos para Niños</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Hot_Dogs.jpeg"
+            data-name="Hot Dogs">
+          <span class="item-name">Hot Dogs</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Chicken Tenders
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/cateringMenu/Chicken-Tenders.webp"
-            alt="Chicken tenders"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/cateringMenu/Chicken-Tenders.webp"
+            data-name="Chicken Tenders">
+          <span class="item-name">Chicken Tenders</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-      </menu>
-    </section>
+      </ul>
+    </div>
 
-    <!-- Especialidades de la Casa -->
-    <section class="text-3xl p-3">
-      <h2 class="text-whiteMex font-menuFont text-left pl-3 drop-shadow-[5px_5px_1px_black]">
-        Especialidades de <br> la Casa
-      </h2>
-      <menu class="mt-2 list-none space-y-3 text-right bg-whiteMex rounded-xl bg-opacity-5">
-        <li class="menu-item font-head text-lg text-whiteMex">
-          Mole Estilo Mi Rancho
-          <i class="fa-solid fa-image pl-2 text-lg" aria-hidden="true"></i>
-          <img
-            src="./imgs/Catering-imgs/Mole_Estilo_Mi_Rancho.jpeg"
-            alt="Mole estilo mi rancho"
-            class="w-36 hidden mx-auto mt-2 aspect-auto"
-            loading="lazy"
-          />
+    <!-- ── Especialidades de la Casa ─────────── -->
+    <div class="menu-section">
+      <div class="section-header">
+        <h2>Especialidades de la Casa</h2>
+      </div>
+      <ul class="menu-list">
+        <li class="menu-row has-photo" role="button" tabindex="0"
+            data-img="./imgs/Catering-imgs/Mole_Estilo_Mi_Rancho.jpeg"
+            data-name="Mole Estilo Mi Rancho">
+          <span class="item-name">Mole Estilo Mi Rancho</span>
+          <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
         </li>
-        <li class="menu-item font-head text-lg text-whiteMex">Albóndigas de Gusto</li>
-      </menu>
-    </section>
+        <li class="menu-row">
+          <span class="item-name">Albóndigas de Gusto</span>
+        </li>
+      </ul>
+    </div>
+
   </main>
 
-  <!-- FOOTER -->
-  <footer class="bg-redMex pt-10">
-    <ul class="pb-10 text-white flex flex-row justify-center items-center gap-10 md:gap-20 lg:gap-32 drop-shadow-[2px_2px_1px_black]">
-      <li>
-        <a
-          href="https://www.tiktok.com/@buffetluciasftamexicana?is_from_webapp=1&sender_device=pc"
-          aria-label="Visit our TikTok page"
-        >
-          <i class="fa-brands fa-tiktok text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
+  <!-- ── IMAGE MODAL ──────────────────────────────────────── -->
+  <div id="img-modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+    <div id="modal-card">
+      <button id="modal-close" aria-label="Cerrar foto">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <img id="modal-img" src="" alt="">
+      <p id="modal-name"></p>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <footer class="footer-wrap">
+    <div class="footer-inner">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <span class="footer-brand-name">Buffet Lucia's Fiesta Mexicana</span>
+        <p class="footer-brand-sub">Hacemos comida para eventos</p>
+      </div>
+
+      <!-- Links -->
+      <div class="footer-links-row">
+        <a href="https://www.tiktok.com/@buffetluciasftamexicana?is_from_webapp=1&sender_device=pc"
+           class="footer-link" aria-label="Visit our TikTok page">
+          <i class="fa-brands fa-tiktok text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">TikTok</span>
         </a>
-      </li>
-      <li>
-        <a
-          href="https://www.facebook.com/BuffetLuciasFiestaMExicana/"
-          aria-label="Visit our Facebook page"
-        >
-          <i class="fa-brands fa-facebook text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
+        <a href="https://www.facebook.com/BuffetLuciasFiestaMExicana/"
+           class="footer-link" aria-label="Visit our Facebook page">
+          <i class="fa-brands fa-facebook text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">Facebook</span>
         </a>
-      </li>
-      <li>
-        <a
-          href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
-          aria-label="View our location in Google Maps"
-        >
-          <i class="fa-solid fa-map-location text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
+           class="footer-link" aria-label="View our location in Google Maps">
+          <i class="fa-solid fa-map-location text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">Ubicación</span>
         </a>
-      </li>
-      <li>
-        <a href="tel:+13476862462" aria-label="Call Buffet Lucia's Fiesta Mexicana">
-          <i class="fa-solid fa-phone-volume text-3xl text-whiteMex hover:text-gray-400" aria-hidden="true"></i>
+        <a href="tel:+13476862462"
+           class="footer-link" style="background:rgba(0,0,0,0.28);border-color:rgba(255,255,255,0.25);"
+           aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">Llamar</span>
         </a>
-      </li>
-    </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <hr class="footer-divider">
+    <p class="footer-copyright">
+      &copy; 2025 Buffet Lucia's Fiesta Mexicana &nbsp;·&nbsp; Todos los derechos reservados
+    </p>
   </footer>
 
-  <!-- SweetAlert JS (defer to avoid blocking) -->
   <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.3/dist/sweetalert2.all.min.js"></script>
-
-  <!-- Alert Popup -->
   <script defer src="./src/alertPopup.js"></script>
-
-  <!-- YouTube Video API (async so it doesn't block) -->
-  <!-- <script async src="https://www.youtube.com/iframe_api"></script>
-  <script defer src="./src/YTiFrame.js"></script> -->
-
-  <!-- app.js -->
   <script defer src="./src/app.js"></script>
-
-  <!-- load.js -->
   <script defer src="./src/load.js"></script>
 </body>
 </html>
