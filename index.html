@@ -278,49 +278,70 @@
     }
 
     /* ── Nav ─────────────────────────────────────────────── */
+    .nav-logo {
+      /* Always fits inside the 80px nav; scales fluidly on resize */
+      height: auto;
+      max-height: 52px;
+      width: auto;
+      max-width: min(38vw, 210px);
+      display: block;
+      filter: drop-shadow(2px 2px 1px black);
+    }
+
     .nav-bar {
-      background: #006341;
-      border-bottom: 2px solid rgba(206,17,38,0.7);
+      background: #CE1126;
+      border-bottom: 3px solid rgba(0,99,65,0.8);
       box-shadow: 0 3px 16px rgba(0,0,0,0.45);
     }
 
+    /* Desktop nav links — mirror .footer-link card tiles */
     .nav-link {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
       color: #fff;
       text-decoration: none;
       text-shadow: 1px 1px 2px black;
-      transition: opacity 0.18s;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 0.75rem;
+      padding: 0.42rem 0.85rem;
+      min-width: 3.5rem;
+      transition: background 0.18s, transform 0.18s;
     }
 
-    .nav-link:hover { opacity: 0.7; }
+    .nav-link:hover {
+      background: rgba(0,0,0,0.32);
+      transform: translateY(-2px);
+    }
 
     .nav-label {
       font-family: Roboto, sans-serif;
       font-size: 0.58rem;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      opacity: 0.82;
+      opacity: 0.85;
     }
 
+    /* Call button: green tile to stand out on the red bar */
     .nav-cta {
-      background: #CE1126;
-      border-radius: 999px;
-      padding: 0.45rem 1.1rem;
-      border: 1px solid rgba(255,255,255,0.25);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      background: rgba(0,99,65,0.55);
+      border-color: rgba(0,150,100,0.65);
     }
 
-    .nav-cta:hover { background: #a80e1f; opacity: 1; }
+    .nav-cta:hover {
+      background: rgba(0,99,65,0.75);
+      transform: translateY(-2px);
+    }
 
-    /* mobile overlay */
+    /* Mobile overlay — red background matching footer */
     .mobile-overlay {
-      background: linear-gradient(160deg, #004d32 0%, #8b0010 100%);
-      border-top: 3px solid #CE1126;
+      background: #CE1126;
+      border-bottom: 3px solid rgba(0,99,65,0.8);
     }
 
+    /* Mobile nav tiles — mirror .footer-link */
     .mobile-nav-link {
       display: flex;
       flex-direction: column;
@@ -328,24 +349,27 @@
       gap: 6px;
       color: #fff;
       text-decoration: none;
-      padding: 1.1rem 2rem;
+      padding: 1rem 2rem;
       border-radius: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.06);
-      transition: background 0.18s;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.18);
+      transition: background 0.18s, transform 0.18s;
       min-width: 6rem;
       text-shadow: 1px 1px 2px black;
     }
 
     .mobile-nav-link:hover,
-    .mobile-nav-link:focus { background: rgba(255,255,255,0.14); }
+    .mobile-nav-link:focus {
+      background: rgba(0,0,0,0.32);
+      transform: translateY(-2px);
+    }
 
     .mobile-nav-label {
       font-family: Roboto, sans-serif;
       font-size: 0.72rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      opacity: 0.88;
+      opacity: 0.85;
     }
 
     .mobile-close-btn {
@@ -355,18 +379,21 @@
       width: 2.4rem;
       height: 2.4rem;
       border-radius: 50%;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.15);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 1rem;
-      transition: background 0.18s;
+      transition: background 0.18s, transform 0.18s;
     }
 
-    .mobile-close-btn:hover { background: rgba(206,17,38,0.6); }
+    .mobile-close-btn:hover {
+      background: rgba(0,0,0,0.35);
+      transform: translateY(-2px);
+    }
 
     /* ── Footer ──────────────────────────────────────────── */
     .footer-wrap {
@@ -465,9 +492,9 @@
     <a href="/home.html" aria-label="Buffet Lucia's Fiesta Mexicana home">
       <img
         src="./imgs/logo/BLFM-logo.webp"
-        class="w-24 sm:w-44 md:w-52 pt-1 drop-shadow-[2px_2px_1px_black]"
+        class="nav-logo"
         alt="Buffet Lucia's Fiesta Mexicana logo"
-        width="208" height="80"
+        width="210" height="80"
       />
     </a>
 
@@ -544,8 +571,8 @@
   />
 
   <!-- ── HEADER ───────────────────────────────────────────── -->
-  <header class="text-center pt-24 pb-4 px-4">
-    <h1 class="text-white font-title text-4xl drop-shadow-[2px_2px_1px_red] mb-4">
+  <header class="text-center pt-24 pb-4 px-4 ">
+    <h1 class="text-white font-title text-4xl drop-shadow-[2px_2px_1px_red] mb-4 pt-24">
       Catering Menu
     </h1>
 
