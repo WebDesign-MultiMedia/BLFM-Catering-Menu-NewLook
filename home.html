@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Buffet Lucia's Fiesta Mexicana — Hacemos comida para eventos">
+  <meta name="keywords" content="Buffet Lucia's Fiesta Mexicana, catering, eventos, comida mexicana">
+
+  <!-- Font Awesome -->
+  <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
+  <title>Buffet Lucia's Fiesta Mexicana</title>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    body {
+      background: linear-gradient(160deg, #001f13 0%, #006341 55%, #001f13 100%);
+      background-attachment: fixed;
+      font-family: Roboto, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── Particles ─────────────────────────────────────────── */
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) scale(0.8); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+    }
+
+    .p {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+
+    /* ── Page wrapper ──────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1rem;
+    }
+
+    /* ── Center column ─────────────────────────────────────── */
+    .col {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    /* ── Logo ──────────────────────────────────────────────── */
+    .logo {
+      width: min(220px, 58vw);
+      height: auto;
+      display: block;
+      filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.7));
+    }
+
+    /* ── Brand text ────────────────────────────────────────── */
+    .brand-name {
+      font-family: 'Cookie', system-ui;
+      font-size: clamp(1.9rem, 5.5vw, 2.8rem);
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    /* ── Link cards ────────────────────────────────────────── */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 0.25rem;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border-radius: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.97rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      background: rgba(255,255,255,0.14);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      outline: none;
+    }
+
+    .card:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .card-icon {
+      flex-shrink: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .card-label { flex: 1; }
+
+    .card-arrow {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    .copyright {
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.28);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Desktop: wider card column ────────────────────────── */
+    @media (min-width: 640px) {
+      .col { max-width: 520px; }
+      .logo { width: 260px; }
+      .card { padding: 1rem 1.3rem; font-size: 1.05rem; }
+      .card-icon { width: 2.8rem; height: 2.8rem; font-size: 1.3rem; }
+    }
+
+    @media (min-width: 1024px) {
+      .col { max-width: 560px; }
+      .logo { width: 290px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Particles -->
+  <div class="bg-particles" aria-hidden="true">
+    <span class="p" style="width:7px;height:7px;background:rgba(255,255,255,0.25);left:8%;animation-duration:14s;animation-delay:0s;"></span>
+    <span class="p" style="width:5px;height:5px;background:rgba(206,17,38,0.4);left:22%;animation-duration:10s;animation-delay:-3s;"></span>
+    <span class="p" style="width:9px;height:9px;background:rgba(255,255,255,0.15);left:38%;animation-duration:17s;animation-delay:-7s;"></span>
+    <span class="p" style="width:6px;height:6px;background:rgba(0,99,65,0.6);left:55%;animation-duration:12s;animation-delay:-1s;"></span>
+    <span class="p" style="width:4px;height:4px;background:rgba(255,255,255,0.3);left:70%;animation-duration:9s;animation-delay:-5s;"></span>
+    <span class="p" style="width:8px;height:8px;background:rgba(206,17,38,0.3);left:85%;animation-duration:15s;animation-delay:-9s;"></span>
+    <span class="p" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:15%;animation-duration:11s;animation-delay:-4s;"></span>
+    <span class="p" style="width:7px;height:7px;background:rgba(0,99,65,0.5);left:60%;animation-duration:13s;animation-delay:-6s;"></span>
+    <span class="p" style="width:4px;height:4px;background:rgba(255,255,255,0.25);left:45%;animation-duration:16s;animation-delay:-2s;"></span>
+    <span class="p" style="width:6px;height:6px;background:rgba(206,17,38,0.25);left:92%;animation-duration:10s;animation-delay:-8s;"></span>
+  </div>
+
+  <div class="page">
+    <div class="col">
+
+      <!-- Logo -->
+      <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"
+         aria-label="Buffet Lucia's Fiesta Mexicana home">
+        <img
+          src="./imgs/logo/BLFM-logo.webp"
+          alt="Buffet Lucia's Fiesta Mexicana logo"
+          class="logo"
+          width="290" height="110"
+        />
+      </a>
+
+      <!-- Brand -->
+      <div>
+        <h1 class="brand-name">Buffet Lucia's Fiesta Mexicana</h1>
+        <p class="brand-sub">Hacemos comida para eventos</p>
+      </div>
+
+      <!-- Links -->
+      <nav class="links" aria-label="Links">
+
+        <a href="https://buffetluciasfiestamexicana.com/"
+           class="card" aria-label="Ver el menú de catering">
+          <span class="card-icon" style="background:rgba(0,99,65,0.55);border:1px solid rgba(0,150,100,0.6);">
+            <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+          </span>
+          <span class="card-label">Catering Menu</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+        <a href="https://www.facebook.com/BuffetLuciasFiestaMExicana?mibextid=kFxxJD"
+           class="card" aria-label="Visítanos en Facebook">
+          <span class="card-icon" style="background:rgba(24,119,242,0.45);border:1px solid rgba(24,119,242,0.6);">
+            <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+          </span>
+          <span class="card-label">Facebook</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+        <a href="https://www.tiktok.com/@buffetluciasftamexicana?_t=8kE1UeSK24E&_r=1"
+           class="card" aria-label="Síguenos en TikTok">
+          <span class="card-icon" style="background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.18);">
+            <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+          </span>
+          <span class="card-label">TikTok</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+        <a href="https://wa.me/13476862462"
+           class="card" aria-label="Contáctanos por WhatsApp">
+          <span class="card-icon" style="background:rgba(37,211,102,0.3);border:1px solid rgba(37,211,102,0.5);">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          </span>
+          <span class="card-label">WhatsApp</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+        <a href="https://maps.app.goo.gl/keJLrDemqZXZHPRAA"
+           class="card" aria-label="Ver nuestra ubicación en Google Maps">
+          <span class="card-icon" style="background:rgba(251,188,4,0.25);border:1px solid rgba(251,188,4,0.5);">
+            <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+          </span>
+          <span class="card-label">Google Maps</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+        <a href="tel:+13476862462"
+           class="card"
+           style="background:rgba(206,17,38,0.2);border-color:rgba(206,17,38,0.45);"
+           aria-label="Llamar a Buffet Lucia's Fiesta Mexicana">
+          <span class="card-icon" style="background:rgba(206,17,38,0.5);border:1px solid rgba(206,17,38,0.65);">
+            <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
+          </span>
+          <span class="card-label">Llamar: (347) 686-2462</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+      </nav>
+
+      <p class="copyright">&copy; 2025 Buffet Lucia's Fiesta Mexicana</p>
+
+    </div>
+  </div>
+
+</body>
+</html>
