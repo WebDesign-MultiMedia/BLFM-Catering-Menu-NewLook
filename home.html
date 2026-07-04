@@ -167,24 +167,27 @@
       gap: 0.9rem;
       width: 100%;
       padding: 0.85rem 1.1rem;
-      border-radius: 0.85rem;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.07);
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
       color: #fff;
       text-decoration: none;
       font-size: 0.97rem;
       font-weight: 700;
       letter-spacing: 0.02em;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-      transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      transition: background 0.2s, transform 0.18s, box-shadow 0.2s, border-color 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
     }
 
     .card:hover,
     .card:focus-visible {
-      background: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.22);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
       outline: none;
     }
 
@@ -193,11 +196,33 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
+    /* Primary actions: solid gradient pills, matching the menu page's nav CTAs */
+    .card--primary {
+      border: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    }
+
+    .card--menu {
+      background: linear-gradient(135deg, #00a86b, #00623f);
+    }
+
+    .card--menu:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+    }
+
+    .card--call {
+      background: linear-gradient(135deg, #ff5f96, #c9366a) !important;
+    }
+
+    .card--call:hover {
+      background: linear-gradient(135deg, #ff7dab, #de407a) !important;
+    }
+
     .card-icon {
       flex-shrink: 0;
       width: 2.5rem;
       height: 2.5rem;
-      border-radius: 0.55rem;
+      border-radius: 0.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -275,8 +300,8 @@
       <nav class="links" aria-label="Links">
 
         <a href="https://buffetluciasfiestamexicana.com/"
-           class="card" aria-label="Ver el menú de catering">
-          <span class="card-icon" style="background:rgba(0,99,65,0.55);border:1px solid rgba(0,150,100,0.6);">
+           class="card card--primary card--menu" aria-label="Ver el menú de catering">
+          <span class="card-icon" style="background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);">
             <i class="fa-solid fa-utensils" aria-hidden="true"></i>
           </span>
           <span class="card-label">Catering Menu</span>
@@ -320,10 +345,9 @@
         </a>
 
         <a href="tel:+13476862462"
-           class="card"
-           style="background:rgba(206,17,38,0.2);border-color:rgba(206,17,38,0.45);"
+           class="card card--primary card--call"
            aria-label="Llamar a Buffet Lucia's Fiesta Mexicana">
-          <span class="card-icon" style="background:rgba(206,17,38,0.5);border:1px solid rgba(206,17,38,0.65);">
+          <span class="card-icon" style="background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);">
             <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
           </span>
           <span class="card-label">Llamar: (347) 686-2462</span>
