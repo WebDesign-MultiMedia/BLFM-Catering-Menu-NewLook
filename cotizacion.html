@@ -95,14 +95,24 @@
       filter: drop-shadow(2px 2px 1px black);
     }
 
+    /* Background lives on ::before (not .nav-bar itself) so backdrop-filter
+       doesn't create a containing block that traps the fixed-position
+       mobile menu overlay nested inside this nav. */
     .nav-bar {
       top: 0;
       left: 0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-bar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
       background: linear-gradient(120deg, rgba(180,14,32,0.82), rgba(120,8,22,0.82));
       backdrop-filter: blur(16px) saturate(160%);
       -webkit-backdrop-filter: blur(16px) saturate(160%);
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
 
     .nav-link {
@@ -182,11 +192,6 @@
     .lang-btn[aria-pressed="true"] {
       background: #fff;
       color: #b3122a;
-    }
-
-    .mobile-lang-toggle .lang-btn {
-      font-size: 0.85rem;
-      padding: 0.55rem 1.1rem;
     }
 
     .mobile-overlay {
@@ -560,45 +565,48 @@
       </li>
     </ul>
 
-    <details class="sm:hidden relative pr-2">
-      <summary class="cursor-pointer p-2 list-none" aria-label="Open navigation menu">
-        <i class="fa-solid fa-bars text-2xl text-whiteMex drop-shadow-[1px_1px_1px_black]" aria-hidden="true"></i>
-      </summary>
-
-      <div class="mobile-overlay fixed inset-0 flex flex-col items-center justify-center gap-5 z-30">
-
-        <button
-          type="button"
-          id="close-mobile"
-          class="mobile-close-btn"
-          aria-label="Close navigation menu"
-        >
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        </button>
-
-        <span style="font-family:'Cookie',system-ui;font-size:1.9rem;color:#fff;text-shadow:1px 1px 3px black;">
-          Buffet Lucia's
-        </span>
-
-        <div class="lang-toggle mobile-lang-toggle" role="group" aria-label="Language selector / Selector de idioma" style="margin-bottom:0.5rem;">
-          <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
-          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-
-        <a href="./index.html" class="mobile-nav-link" aria-label="View menu">
-          <i class="fa-solid fa-utensils text-2xl" aria-hidden="true"></i>
-          <span class="mobile-nav-label" data-i18n="navMenu">Menú</span>
-        </a>
-        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="mobile-nav-link" aria-label="View location">
-          <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
-          <span class="mobile-nav-label" data-i18n="navLocation">Ubicación</span>
-        </a>
-        <a href="tel:+13476862462" class="mobile-nav-link mobile-nav-link--call" aria-label="Call us">
-          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
-          <span class="mobile-nav-label" data-i18n="navCall">Llamar</span>
-        </a>
+    <!-- Mobile: language toggle + hamburger, both visible without opening the menu -->
+    <div class="flex sm:hidden items-center gap-2">
+      <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
+        <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
       </div>
-    </details>
+
+      <details class="relative">
+        <summary class="cursor-pointer p-2 list-none" aria-label="Open navigation menu">
+          <i class="fa-solid fa-bars text-2xl text-whiteMex drop-shadow-[1px_1px_1px_black]" aria-hidden="true"></i>
+        </summary>
+
+        <div class="mobile-overlay fixed inset-0 flex flex-col items-center justify-center gap-5 z-30">
+
+          <button
+            type="button"
+            id="close-mobile"
+            class="mobile-close-btn"
+            aria-label="Close navigation menu"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+
+          <span style="font-family:'Cookie',system-ui;font-size:1.9rem;color:#fff;text-shadow:1px 1px 3px black;">
+            Buffet Lucia's
+          </span>
+
+          <a href="./index.html" class="mobile-nav-link" aria-label="View menu">
+            <i class="fa-solid fa-utensils text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navMenu">Menú</span>
+          </a>
+          <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="mobile-nav-link" aria-label="View location">
+            <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navLocation">Ubicación</span>
+          </a>
+          <a href="tel:+13476862462" class="mobile-nav-link mobile-nav-link--call" aria-label="Call us">
+            <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navCall">Llamar</span>
+          </a>
+        </div>
+      </details>
+    </div>
 
   </nav>
 
