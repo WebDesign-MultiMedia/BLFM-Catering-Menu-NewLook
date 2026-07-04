@@ -3,16 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="keywords" content="Buffet Lucia's Fiesta Mexicana">
-  <meta name="description" content="Buffet Lucias catering menu, Hacemos comida para eventos">
-  <meta name="authorgit" content="Buffet Lucias Fiesta Mexicana">
+
+  <title>Menu de Catering Mexicano en Bronx, NY | Buffet Lucia's Fiesta Mexicana</title>
+  <meta name="description" content="Catering mexicano auténtico en Bronx, NY para cumpleaños, bautizos, baby showers y eventos de oficina. Charolas chica, mediana o grande. Pide tu cotización hoy.">
+  <meta name="keywords" content="catering mexicano Bronx, Mexican catering Bronx NY, Buffet Lucia's Fiesta Mexicana, comida para eventos, charolas de comida mexicana">
+  <meta name="author" content="Buffet Lucia's Fiesta Mexicana">
+  <link rel="canonical" href="https://buffetluciasfiestamexicana.com/index.html">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="Menú de Catering Mexicano en Bronx, NY | Buffet Lucia's Fiesta Mexicana">
+  <meta property="og:description" content="Catering mexicano auténtico en Bronx, NY para cumpleaños, bautizos, baby showers y eventos de oficina. Charolas chica, mediana o grande.">
+  <meta property="og:image" content="https://buffetluciasfiestamexicana.com/imgs/gallery/spread-1.jpg">
+  <meta property="og:url" content="https://buffetluciasfiestamexicana.com/index.html">
+  <meta property="og:locale" content="es_US">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Buffet Lucia's Fiesta Mexicana">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Menú de Catering Mexicano en Bronx, NY | Buffet Lucia's Fiesta Mexicana">
+  <meta name="twitter:description" content="Catering mexicano auténtico en Bronx, NY para cumpleaños, bautizos, baby showers y eventos de oficina.">
+  <meta name="twitter:image" content="https://buffetluciasfiestamexicana.com/imgs/gallery/spread-1.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./imgs/logo/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./imgs/logo/favicon-192.png">
+  <link rel="apple-touch-icon" href="./imgs/logo/favicon-192.png">
 
   <link href="./src/output.css" rel="stylesheet" />
   <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.3/dist/sweetalert2.min.css" media="print" onload="this.media='all'">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <title>Catering Menu</title>
+  <!-- Structured data: local catering business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FoodEstablishment",
+    "additionalType": "https://schema.org/CateringService",
+    "name": "Buffet Lucia's Fiesta Mexicana",
+    "servesCuisine": "Mexican",
+    "image": "https://buffetluciasfiestamexicana.com/imgs/gallery/spread-1.jpg",
+    "url": "https://buffetluciasfiestamexicana.com/",
+    "telephone": "+13476862462",
+    "priceRange": "$$",
+    "menu": "https://buffetluciasfiestamexicana.com/index.html",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bronx",
+      "addressRegion": "NY",
+      "addressCountry": "US"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Bronx, NY"
+    },
+    "sameAs": [
+      "https://www.facebook.com/BuffetLuciasFiestaMExicana/",
+      "https://www.tiktok.com/@buffetluciasftamexicana"
+    ]
+  }
+  </script>
 
   <style>
     /* ── Mexican palette ──────────────────────────────────── */
@@ -363,6 +413,104 @@
       line-height: 1.25;
     }
 
+    /* ── Quote options modal (Texto / Llamar / Correo) ──── */
+    #quote-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0,0,0,0.88);
+    }
+
+    #quote-modal.open {
+      display: flex;
+      animation: mFadeIn 0.22s ease forwards;
+    }
+
+    #quote-modal-card {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      background: #006341;
+      border-radius: 1.1rem;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+      border: 1px solid rgba(240,165,0,0.5);
+      animation: mCardPop 0.22s ease forwards;
+      padding: 1.7rem 1.4rem 1.4rem;
+    }
+
+    #quote-modal-close {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 10;
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.18s;
+    }
+
+    #quote-modal-close:hover { background: rgba(206,17,38,0.8); }
+
+    .quote-modal-title {
+      text-align: center;
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      text-shadow: 1px 1px 2px black;
+      margin: 0 0 1.2rem;
+      padding: 0 1.4rem;
+    }
+
+    .quote-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .quote-option {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 0.85rem;
+      padding: 0.8rem 1rem;
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px black;
+      font-family: Roboto, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .quote-option i {
+      width: 1.4rem;
+      text-align: center;
+      font-size: 1.15rem;
+      color: var(--mex-gold);
+    }
+
+    .quote-option:hover {
+      background: rgba(0,0,0,0.38);
+      transform: translateY(-2px);
+    }
+
     /* ── SweetAlert popup overrides ────────────────────── */
     .swal-popup-custom {
       border: 1px solid rgba(206,17,38,0.5) !important;
@@ -419,6 +567,165 @@
       text-shadow: 1px 1px 2px black;
     }
 
+    /* ── Catering gallery ─────────────────────────────────── */
+    .gallery-section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0.5rem 1rem 2.5rem;
+      text-align: center;
+    }
+
+    .gallery-title {
+      font-family: Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      color: #fff;
+      text-shadow: 2px 2px 3px black;
+      margin-bottom: 0.3rem;
+    }
+
+    .gallery-subtitle {
+      font-family: Roboto, sans-serif;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1.3rem;
+    }
+
+    /* ── Slide carousel ───────────────────────────────────── */
+    .gallery-slider {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto 0.9rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(240,165,0,0.4);
+      box-shadow: 0 6px 22px rgba(0,0,0,0.4);
+    }
+
+    .gallery-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-slide {
+      flex: 0 0 100%;
+      aspect-ratio: 4 / 3;
+    }
+
+    .gallery-item {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      background: none;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+
+    .gallery-arrow:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .gallery-arrow-prev { left: 0.6rem; }
+    .gallery-arrow-next { right: 0.6rem; }
+
+    .gallery-counter {
+      position: absolute;
+      bottom: 0.6rem;
+      right: 0.8rem;
+      z-index: 5;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+    }
+
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+
+    .gallery-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s, width 0.18s;
+    }
+
+    .gallery-dot[aria-current="true"] {
+      background: #fff;
+      width: 20px;
+      border-radius: 999px;
+    }
+
+    .gallery-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    .gallery-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px black;
+      font-family: Roboto, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.6rem 1.2rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .gallery-cta:hover {
+      background: rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+
     /* ── Nav ─────────────────────────────────────────────── */
     .nav-logo {
       /* Always fits inside the 80px nav; scales fluidly on resize */
@@ -431,84 +738,91 @@
     }
 
     .nav-bar {
-      position: relative;
-      background: #CE1126;
-      border-bottom: 3px solid rgba(0,99,65,0.8);
-      box-shadow: 0 3px 16px rgba(0,0,0,0.45);
+      top: 0;
+      left: 0;
+      background: linear-gradient(120deg, rgba(180,14,32,0.82), rgba(120,8,22,0.82));
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
 
-    .nav-bar::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 5px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--mex-gold) 0 25px,
-        #fff 25px 50px,
-        var(--mex-green) 50px 75px
-      );
-    }
-
-    /* Desktop nav links — mirror .footer-link card tiles */
+    /* Desktop nav links — minimal, transparent by default */
     .nav-link {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      color: #fff;
+      gap: 3px;
+      color: rgba(255,255,255,0.95);
       text-decoration: none;
-      text-shadow: 1px 1px 2px black;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 0.75rem;
-      padding: 0.42rem 0.85rem;
-      min-width: 3.5rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+      background: transparent;
+      border: none;
+      border-radius: 0.6rem;
+      padding: 0.4rem 0.75rem;
       transition: background 0.18s, transform 0.18s;
     }
 
     .nav-link:hover {
-      background: rgba(0,0,0,0.32);
-      transform: translateY(-2px);
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-1px);
     }
 
     .nav-label {
       font-family: Roboto, sans-serif;
-      font-size: 0.58rem;
-      letter-spacing: 0.07em;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       opacity: 0.85;
     }
 
-    /* Call button: green tile to stand out on the red bar */
+    /* Primary CTAs stand out as solid gradient pills */
+    .nav-cta,
+    .nav-cta-quote {
+      flex-direction: row;
+      gap: 0.45rem;
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      color: #fff;
+    }
+
+    .nav-cta .nav-label,
+    .nav-cta-quote .nav-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      opacity: 1;
+      font-weight: 700;
+    }
+
     .nav-cta {
-      background: rgba(0,99,65,0.55);
-      border-color: rgba(0,150,100,0.65);
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      box-shadow: 0 3px 12px rgba(0,99,65,0.45);
     }
 
     .nav-cta:hover {
-      background: rgba(0,99,65,0.75);
+      background: linear-gradient(135deg, #00c17c, #007a4d);
       transform: translateY(-2px);
     }
 
-    /* Quote button: gold tile, second primary CTA next to Llamar */
+    /* Quote button: pink pill, second primary CTA next to Llamar */
     .nav-cta-quote {
-      background: rgba(180,140,0,0.55);
-      border-color: rgba(255,215,0,0.6);
+      background: linear-gradient(135deg, #ff5f96, #c9366a);
+      box-shadow: 0 3px 12px rgba(201,54,106,0.4);
     }
 
     .nav-cta-quote:hover {
-      background: rgba(180,140,0,0.75);
+      background: linear-gradient(135deg, #ff7dab, #de407a);
       transform: translateY(-2px);
     }
 
     /* ── Language toggle ─────────────────────────────────── */
     .lang-toggle {
       display: flex;
-      border: 1px solid rgba(255,255,255,0.35);
+      border: 1px solid rgba(255,255,255,0.25);
       border-radius: 999px;
       overflow: hidden;
-      background: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.08);
       flex-shrink: 0;
     }
 
@@ -527,7 +841,7 @@
 
     .lang-btn[aria-pressed="true"] {
       background: #fff;
-      color: #CE1126;
+      color: #b3122a;
     }
 
     .mobile-lang-toggle .lang-btn {
@@ -535,13 +849,14 @@
       padding: 0.55rem 1.1rem;
     }
 
-    /* Mobile overlay — red background matching footer */
+    /* Mobile overlay — dark frosted glass instead of a flat color field */
     .mobile-overlay {
-      background: #CE1126;
-      border-bottom: 3px solid rgba(0,99,65,0.8);
+      background: rgba(10,4,6,0.88);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
     }
 
-    /* Mobile nav tiles — mirror .footer-link */
+    /* Mobile nav tiles — minimal by default */
     .mobile-nav-link {
       display: flex;
       flex-direction: column;
@@ -550,17 +865,17 @@
       color: #fff;
       text-decoration: none;
       padding: 1rem 2rem;
-      border-radius: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(0,0,0,0.18);
+      border-radius: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
       transition: background 0.18s, transform 0.18s;
       min-width: 6rem;
-      text-shadow: 1px 1px 2px black;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
     }
 
     .mobile-nav-link:hover,
     .mobile-nav-link:focus {
-      background: rgba(0,0,0,0.32);
+      background: rgba(255,255,255,0.12);
       transform: translateY(-2px);
     }
 
@@ -572,6 +887,25 @@
       opacity: 0.85;
     }
 
+    /* Primary-action pills inside the mobile menu */
+    .mobile-nav-link--call {
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      border: none;
+    }
+
+    .mobile-nav-link--call:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+    }
+
+    .mobile-nav-link--quote {
+      background: linear-gradient(135deg, #ff5f96, #c9366a);
+      border: none;
+    }
+
+    .mobile-nav-link--quote:hover {
+      background: linear-gradient(135deg, #ff7dab, #de407a);
+    }
+
     .mobile-close-btn {
       position: absolute;
       top: 1rem;
@@ -579,7 +913,7 @@
       width: 2.4rem;
       height: 2.4rem;
       border-radius: 50%;
-      background: rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.15);
       color: #fff;
       display: flex;
@@ -591,32 +925,40 @@
     }
 
     .mobile-close-btn:hover {
-      background: rgba(0,0,0,0.35);
+      background: rgba(255,255,255,0.18);
       transform: translateY(-2px);
     }
 
     /* ── Footer ──────────────────────────────────────────── */
     .footer-wrap {
-      background: #CE1126;
-      border-top: 3px solid rgba(0,99,65,0.8);
+      position: relative;
+      background: linear-gradient(180deg, #1a0507, #0d0304);
+    }
+
+    .footer-wrap::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
     }
 
     .footer-inner {
       max-width: 640px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 0;
+      padding: 2.4rem 1.5rem 0;
     }
 
     .footer-brand {
       text-align: center;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.8rem;
     }
 
     .footer-brand-name {
       font-family: 'Cookie', system-ui;
       font-size: 2.2rem;
       color: #fff;
-      text-shadow: 2px 2px 4px black;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
       display: block;
       line-height: 1.15;
     }
@@ -626,16 +968,16 @@
       font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.55);
       margin-top: 2px;
     }
 
     .footer-links-row {
       display: flex;
       justify-content: center;
-      gap: 1.2rem;
+      gap: 1rem;
       flex-wrap: wrap;
-      margin-bottom: 1.8rem;
+      margin-bottom: 2rem;
     }
 
     .footer-link {
@@ -643,19 +985,19 @@
       flex-direction: column;
       align-items: center;
       gap: 0.4rem;
-      color: #fff;
+      color: rgba(255,255,255,0.9);
       text-decoration: none;
-      text-shadow: 1px 1px 2px black;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 0.75rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.9rem;
       padding: 0.75rem 1rem;
       min-width: 4.5rem;
-      transition: background 0.18s, transform 0.18s;
+      transition: background 0.18s, transform 0.18s, border-color 0.18s;
     }
 
     .footer-link:hover {
-      background: rgba(0,0,0,0.32);
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
       transform: translateY(-2px);
     }
 
@@ -667,19 +1009,30 @@
       opacity: 0.85;
     }
 
+    /* Accent the primary actions on hover */
+    .footer-link--call:hover {
+      background: rgba(0,168,107,0.18);
+      border-color: rgba(0,168,107,0.5);
+    }
+
+    .footer-link--quote:hover {
+      background: rgba(255,95,150,0.18);
+      border-color: rgba(255,95,150,0.5);
+    }
+
     .footer-divider {
       border: none;
-      border-top: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.08);
       margin: 0;
     }
 
     .footer-copyright {
       text-align: center;
-      padding: 0.85rem 1rem;
+      padding: 1rem 1rem;
       font-family: Roboto, sans-serif;
       font-size: 0.65rem;
       letter-spacing: 0.04em;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.35);
     }
   </style>
 </head>
@@ -725,11 +1078,10 @@
         </a>
       </li>
       <li>
-        <a href="https://wa.me/13476862462?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20evento."
-           class="nav-link nav-cta-quote" aria-label="Request a quote via WhatsApp">
+        <button type="button" class="nav-link nav-cta-quote quote-trigger" aria-label="Request a quote">
           <i class="fa-solid fa-file-invoice text-xl" aria-hidden="true"></i>
           <span class="nav-label" data-i18n="navQuote">Cotización</span>
-        </a>
+        </button>
       </li>
     </ul>
 
@@ -772,15 +1124,14 @@
           <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
           <span class="mobile-nav-label" data-i18n="navLocation">Ubicación</span>
         </a>
-        <a href="tel:+13476862462" class="mobile-nav-link" style="background:rgba(206,17,38,0.45);border-color:rgba(206,17,38,0.6);" aria-label="Call us">
+        <a href="tel:+13476862462" class="mobile-nav-link mobile-nav-link--call" aria-label="Call us">
           <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
           <span class="mobile-nav-label" data-i18n="navCall">Llamar</span>
         </a>
-        <a href="https://wa.me/13476862462?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20evento."
-           class="mobile-nav-link" style="background:rgba(180,140,0,0.45);border-color:rgba(255,215,0,0.6);" aria-label="Request a quote via WhatsApp">
+        <button type="button" class="mobile-nav-link quote-trigger mobile-nav-link--quote" aria-label="Request a quote">
           <i class="fa-solid fa-file-invoice text-2xl" aria-hidden="true"></i>
           <span class="mobile-nav-label" data-i18n="navQuote">Cotización</span>
-        </a>
+        </button>
       </div>
     </details>
 
@@ -823,6 +1174,100 @@
       <span data-i18n="tapHint">Toca un platillo con ícono de cámara para ver la foto</span>
     </p>
   </header>
+
+  <!-- ── CATERING GALLERY ─────────────────────────────────── -->
+  <section class="gallery-section" aria-labelledby="gallery-heading">
+    <h2 id="gallery-heading" class="gallery-title" data-i18n="galleryTitle">Galería de Eventos</h2>
+    <p class="gallery-subtitle" data-i18n="gallerySubtitle">Así lucen nuestras charolas en eventos reales</p>
+
+    <div class="gallery-slider">
+      <button type="button" class="gallery-arrow gallery-arrow-prev" aria-label="Previous photo" data-i18n-aria="galleryPrev">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+
+      <div class="gallery-track" id="gallery-track">
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-1.jpg" data-name="Mesa de Catering">
+            <img src="./imgs/gallery/spread-1.jpg" alt="Mesa de catering con charolas de arroz, frijoles y guarniciones" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/tray-2.jpg" data-name="Costillas en Salsa">
+            <img src="./imgs/gallery/tray-2.jpg" alt="Charola de costillas en salsa roja" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-3.png" data-name="Mesa Completa de Catering">
+            <img src="./imgs/gallery/spread-3.png" alt="Mesa completa de catering con múltiples charolas" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-4.jpg" data-name="Mesa de Mariscos y Guarniciones">
+            <img src="./imgs/gallery/spread-4.jpg" alt="Mesa de catering con mariscos, arroz y guarniciones" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/chicken-5.jpg" data-name="Pollo Rostizado en Charola">
+            <img src="./imgs/gallery/chicken-5.jpg" alt="Charolas de pollo rostizado para evento" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/chicken-6.jpg" data-name="Pollo en Salsa con Ejotes">
+            <img src="./imgs/gallery/chicken-6.jpg" alt="Charolas de pollo en salsa con ejotes" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-7.jpg" data-name="Mesa de Pastas y Carnes">
+            <img src="./imgs/gallery/spread-7.jpg" alt="Mesa de catering con pastas, carnes y ensaladas" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/bistec-8.jpg" data-name="Bistec a la Mexicana">
+            <img src="./imgs/gallery/bistec-8.jpg" alt="Charola de bistec a la mexicana con pico de gallo" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/pernil-9.jpg" data-name="Pernil Enchilado">
+            <img src="./imgs/gallery/pernil-9.jpg" alt="Charola de pernil enchilado" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/pollo-frito-10.jpg" data-name="Pollo Frito">
+            <img src="./imgs/gallery/pollo-frito-10.jpg" alt="Charola de pollo frito" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/mole-11.jpg" data-name="Mole Poblano">
+            <img src="./imgs/gallery/mole-11.jpg" alt="Charola de mole poblano con ajonjolí" loading="lazy">
+          </button>
+        </div>
+        <div class="gallery-slide">
+          <button type="button" class="gallery-item" data-img="./imgs/gallery/adobo-12.jpg" data-name="Adobo de Puerco">
+            <img src="./imgs/gallery/adobo-12.jpg" alt="Charola de adobo de puerco" loading="lazy">
+          </button>
+        </div>
+      </div>
+
+      <button type="button" class="gallery-arrow gallery-arrow-next" aria-label="Next photo" data-i18n-aria="galleryNext">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+
+      <span class="gallery-counter" id="gallery-counter" aria-hidden="true">1 / 12</span>
+    </div>
+
+    <div class="gallery-dots" id="gallery-dots" role="tablist" aria-label="Gallery slides"></div>
+
+    <div class="gallery-cta-row">
+      <a class="gallery-cta" href="https://www.facebook.com/BuffetLuciasFiestaMExicana/" aria-label="See more photos and videos on Facebook">
+        <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+        <span data-i18n="galleryMorePhotos">Ver más fotos y videos en Facebook</span>
+      </a>
+      <a class="gallery-cta" href="https://maps.app.goo.gl/KLRJWHraB5WuDuT17" aria-label="See more photos on Google Maps">
+        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+        <span data-i18n="galleryMoreGoogle">Ver fotos en Google</span>
+      </a>
+    </div>
+  </section>
 
   <!-- ── MAIN MENU ─────────────────────────────────────────── -->
   <main class="pb-16" style="padding-top:0.5rem;">
@@ -1255,6 +1700,43 @@
     </div>
   </div>
 
+  <!-- ── QUOTE OPTIONS MODAL ──────────────────────────────── -->
+  <div id="quote-modal" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+    <div id="quote-modal-card">
+
+      <button id="quote-modal-close" aria-label="Cerrar" data-i18n-aria="modalClose">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      <p id="quote-modal-title" class="quote-modal-title" data-i18n="quoteModalTitle">
+        ¿Cómo prefieres pedir tu cotización?
+      </p>
+
+      <div class="quote-options">
+        <a class="quote-option"
+           href="sms:+13476862462?&body=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20evento.">
+          <i class="fa-solid fa-message" aria-hidden="true"></i>
+          <span data-i18n="quoteText">Texto</span>
+        </a>
+        <a class="quote-option"
+           href="https://wa.me/13476862462?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20evento."
+           target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          <span data-i18n="quoteWhatsapp">WhatsApp</span>
+        </a>
+        <a class="quote-option" href="tel:+13476862462">
+          <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
+          <span data-i18n="quoteCall">Llamar</span>
+        </a>
+        <a class="quote-option" href="./cotizacion.html">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <span data-i18n="quoteEmail">Correo</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ── FOOTER ───────────────────────────────────────────── -->
   <div class="papel-picado" aria-hidden="true"></div>
   <footer class="footer-wrap">
@@ -1284,17 +1766,16 @@
           <span class="footer-link-label" data-i18n="navLocation">Ubicación</span>
         </a>
         <a href="tel:+13476862462"
-           class="footer-link" style="background:rgba(0,0,0,0.28);border-color:rgba(255,255,255,0.25);"
+           class="footer-link footer-link--call"
            aria-label="Call Buffet Lucia's Fiesta Mexicana">
           <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
           <span class="footer-link-label" data-i18n="navCall">Llamar</span>
         </a>
-        <a href="https://wa.me/13476862462?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20evento."
-           class="footer-link" style="background:rgba(180,140,0,0.35);border-color:rgba(255,215,0,0.5);"
-           aria-label="Request a quote via WhatsApp">
+        <button type="button" class="footer-link quote-trigger footer-link--quote"
+           aria-label="Request a quote">
           <i class="fa-solid fa-file-invoice text-2xl" aria-hidden="true"></i>
           <span class="footer-link-label" data-i18n="navQuote">Cotización</span>
-        </a>
+        </button>
       </div>
 
     </div>

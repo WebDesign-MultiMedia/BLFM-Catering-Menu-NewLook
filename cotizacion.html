@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Solicitar Cotización de Catering | Buffet Lucia's Fiesta Mexicana</title>
+  <meta name="description" content="Solicita una cotización gratis para catering mexicano en Bronx, NY. Cumpleaños, bautizos, baby showers y eventos de oficina. Respuesta rápida.">
+  <meta name="keywords" content="cotización catering Bronx, Mexican catering quote NY, Buffet Lucia's Fiesta Mexicana, catering para eventos">
+  <meta name="author" content="Buffet Lucia's Fiesta Mexicana">
+  <link rel="canonical" href="https://buffetluciasfiestamexicana.com/cotizacion.html">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Solicitar Cotización de Catering | Buffet Lucia's Fiesta Mexicana">
+  <meta property="og:description" content="Solicita una cotización gratis para catering mexicano en Bronx, NY.">
+  <meta property="og:image" content="https://buffetluciasfiestamexicana.com/imgs/gallery/spread-1.jpg">
+  <meta property="og:url" content="https://buffetluciasfiestamexicana.com/cotizacion.html">
+  <meta property="og:locale" content="es_US">
+  <meta property="og:site_name" content="Buffet Lucia's Fiesta Mexicana">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Solicitar Cotización de Catering | Buffet Lucia's Fiesta Mexicana">
+  <meta name="twitter:description" content="Solicita una cotización gratis para catering mexicano en Bronx, NY.">
+  <meta name="twitter:image" content="https://buffetluciasfiestamexicana.com/imgs/gallery/spread-1.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./imgs/logo/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./imgs/logo/favicon-192.png">
+  <link rel="apple-touch-icon" href="./imgs/logo/favicon-192.png">
+
+  <link href="./src/output.css" rel="stylesheet" />
+  <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Mexican palette ──────────────────────────────────── */
+    :root {
+      --mex-red: #CE1126;
+      --mex-green: #006341;
+      --mex-gold: #F0A500;
+      --mex-pink: #E0457B;
+      --mex-turquoise: #12A5A6;
+      --mex-terracotta: #A8420F;
+      --mex-cream: #FBF3E1;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #8a3410 0%, #5c220a 55%, #2a0f06 100%);
+      min-height: 100vh;
+    }
+
+    /* Subtle talavera-tile lattice texture behind the whole page */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -20;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px);
+    }
+
+    /* Serape-stripe accent bar */
+    .serape-stripe {
+      height: 5px;
+      width: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--mex-red) 0 30px,
+        var(--mex-gold) 30px 60px,
+        var(--mex-green) 60px 90px,
+        var(--mex-pink) 90px 120px,
+        var(--mex-turquoise) 120px 150px
+      );
+    }
+
+    /* Papel picado (cut-paper banner) strip, built from a tiling SVG */
+    .papel-picado {
+      height: 30px;
+      width: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30'%3E%3Cline x1='0' y1='2' x2='160' y2='2' stroke='rgba(255,255,255,0.55)' stroke-width='2'/%3E%3Cpath d='M2,3 L38,3 L20,26 Z' fill='%23CE1126'/%3E%3Cpath d='M42,3 L78,3 L60,26 Z' fill='%23F0A500'/%3E%3Cpath d='M82,3 L118,3 L100,26 Z' fill='%23006341'/%3E%3Cpath d='M122,3 L158,3 L140,26 Z' fill='%23E0457B'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-position: top center;
+      filter: drop-shadow(0 3px 3px rgba(0,0,0,0.4));
+    }
+
+    /* ── Nav (shared look with the menu page) ────────────── */
+    .nav-logo {
+      height: auto;
+      max-height: 52px;
+      width: auto;
+      max-width: min(38vw, 210px);
+      display: block;
+      filter: drop-shadow(2px 2px 1px black);
+    }
+
+    .nav-bar {
+      top: 0;
+      left: 0;
+      background: linear-gradient(120deg, rgba(180,14,32,0.82), rgba(120,8,22,0.82));
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: rgba(255,255,255,0.95);
+      text-decoration: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+      background: transparent;
+      border: none;
+      border-radius: 0.6rem;
+      padding: 0.4rem 0.75rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-1px);
+    }
+
+    .nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .nav-cta {
+      flex-direction: row;
+      gap: 0.45rem;
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      box-shadow: 0 3px 12px rgba(0,99,65,0.45);
+    }
+
+    .nav-cta .nav-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    .nav-cta:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+      transform: translateY(-2px);
+    }
+
+    /* ── Language toggle ─────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 0.7rem;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .lang-btn[aria-pressed="true"] {
+      background: #fff;
+      color: #b3122a;
+    }
+
+    .mobile-lang-toggle .lang-btn {
+      font-size: 0.85rem;
+      padding: 0.55rem 1.1rem;
+    }
+
+    .mobile-overlay {
+      background: rgba(10,4,6,0.88);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      transition: background 0.18s, transform 0.18s;
+      min-width: 6rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
+    .mobile-nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .mobile-nav-link--call {
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      border: none;
+    }
+
+    .mobile-nav-link--call:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+    }
+
+    .mobile-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .mobile-close-btn:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+
+    /* ── Page header ──────────────────────────────────────── */
+    .quote-hero {
+      text-align: center;
+      padding: 2rem 1.2rem 1.5rem;
+    }
+
+    .quote-hero-title {
+      font-family: Roboto, sans-serif;
+      font-weight: 900;
+      font-size: 2.1rem;
+      letter-spacing: 0.01em;
+      color: #fff;
+      text-shadow: 2px 2px 4px black;
+    }
+
+    .quote-hero-subhead {
+      max-width: 560px;
+      margin: 0.7rem auto 0;
+      color: rgba(255,255,255,0.9);
+      font-family: Roboto, sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    /* ── Form card (invitation-paper look) ───────────────── */
+    .quote-card {
+      max-width: 620px;
+      margin: 0 auto 3rem;
+      background: var(--mex-cream);
+      border-radius: 1.4rem;
+      overflow: hidden;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.5);
+      border: 3px solid var(--mex-gold);
+    }
+
+    .quote-card-body {
+      padding: 2rem 1.8rem 2.2rem;
+    }
+
+    .quote-field {
+      margin-bottom: 1.15rem;
+    }
+
+    .quote-field label {
+      display: block;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      color: var(--mex-terracotta);
+      margin-bottom: 0.35rem;
+    }
+
+    .quote-field input,
+    .quote-field select,
+    .quote-field textarea {
+      width: 100%;
+      font-family: Roboto, sans-serif;
+      font-size: 0.95rem;
+      color: #3a2415;
+      background: #fff;
+      border: 2px solid rgba(168,66,15,0.25);
+      border-radius: 0.7rem;
+      padding: 0.65rem 0.85rem;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .quote-field input:focus,
+    .quote-field select:focus,
+    .quote-field textarea:focus {
+      outline: none;
+      border-color: var(--mex-green);
+      box-shadow: 0 0 0 3px rgba(0,99,65,0.15);
+    }
+
+    .quote-field textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .quote-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .quote-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .quote-submit-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: var(--mex-green);
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.4rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .quote-submit-btn:hover {
+      background: #007a4f;
+      transform: translateY(-2px);
+    }
+
+    .quote-submit-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+    }
+
+    .form-status {
+      text-align: center;
+      font-family: Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      padding: 1rem;
+      border-radius: 0.85rem;
+    }
+
+    .form-status.success {
+      color: #054f31;
+      background: rgba(0,99,65,0.12);
+      border: 1px solid rgba(0,99,65,0.35);
+    }
+
+    .form-status.error {
+      color: #7a1420;
+      background: rgba(206,17,38,0.1);
+      border: 1px solid rgba(206,17,38,0.35);
+    }
+
+    .back-to-menu {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+      color: var(--mex-terracotta);
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    .back-to-menu:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer-wrap {
+      position: relative;
+      background: linear-gradient(180deg, #1a0507, #0d0304);
+    }
+
+    .footer-wrap::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .footer-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2.4rem 1.5rem 0;
+    }
+
+    .footer-brand {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Cookie', system-ui;
+      font-size: 2.2rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      display: block;
+      line-height: 1.15;
+    }
+
+    .footer-brand-sub {
+      font-family: Roboto, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+
+    .footer-links-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .footer-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.9rem;
+      padding: 0.75rem 1rem;
+      min-width: 4.5rem;
+      transition: background 0.18s, transform 0.18s, border-color 0.18s;
+    }
+
+    .footer-link:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    .footer-link-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .footer-link--call:hover {
+      background: rgba(0,168,107,0.18);
+      border-color: rgba(0,168,107,0.5);
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 0;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      padding: 1rem 1rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav-bar fixed w-full h-20 flex items-center justify-between px-3 sm:px-6 z-20">
+
+    <a href="/home.html" aria-label="Buffet Lucia's Fiesta Mexicana home">
+      <img
+        src="./imgs/logo/BLFM-logo.webp"
+        class="nav-logo"
+        alt="Buffet Lucia's Fiesta Mexicana logo"
+        width="210" height="80"
+      />
+    </a>
+
+    <ul class="hidden sm:flex items-center gap-5 md:gap-7">
+      <li>
+        <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </li>
+      <li>
+        <a href="./index.html" class="nav-link" aria-label="View menu">
+          <i class="fa-solid fa-utensils text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navMenu">Menú</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="nav-link" aria-label="View location in Google Maps">
+          <i class="fa-solid fa-location-dot text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navLocation">Ubicación</span>
+        </a>
+      </li>
+      <li>
+        <a href="tel:+13476862462" class="nav-link nav-cta" aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navCall">Llamar</span>
+        </a>
+      </li>
+    </ul>
+
+    <details class="sm:hidden relative pr-2">
+      <summary class="cursor-pointer p-2 list-none" aria-label="Open navigation menu">
+        <i class="fa-solid fa-bars text-2xl text-whiteMex drop-shadow-[1px_1px_1px_black]" aria-hidden="true"></i>
+      </summary>
+
+      <div class="mobile-overlay fixed inset-0 flex flex-col items-center justify-center gap-5 z-30">
+
+        <button
+          type="button"
+          id="close-mobile"
+          class="mobile-close-btn"
+          aria-label="Close navigation menu"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <span style="font-family:'Cookie',system-ui;font-size:1.9rem;color:#fff;text-shadow:1px 1px 3px black;">
+          Buffet Lucia's
+        </span>
+
+        <div class="lang-toggle mobile-lang-toggle" role="group" aria-label="Language selector / Selector de idioma" style="margin-bottom:0.5rem;">
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+
+        <a href="./index.html" class="mobile-nav-link" aria-label="View menu">
+          <i class="fa-solid fa-utensils text-2xl" aria-hidden="true"></i>
+          <span class="mobile-nav-label" data-i18n="navMenu">Menú</span>
+        </a>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="mobile-nav-link" aria-label="View location">
+          <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
+          <span class="mobile-nav-label" data-i18n="navLocation">Ubicación</span>
+        </a>
+        <a href="tel:+13476862462" class="mobile-nav-link mobile-nav-link--call" aria-label="Call us">
+          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+          <span class="mobile-nav-label" data-i18n="navCall">Llamar</span>
+        </a>
+      </div>
+    </details>
+
+  </nav>
+
+  <!-- ── PAPEL PICADO BANNER ──────────────────────────────── -->
+  <div class="papel-picado" style="margin-top:5.25rem;" aria-hidden="true"></div>
+
+  <!-- ── PAGE HEADER ──────────────────────────────────────── -->
+  <header class="quote-hero">
+    <h1 class="quote-hero-title">
+      <span aria-hidden="true">🎉</span>
+      <span data-i18n="quotePageTitle">Solicita tu Cotización</span>
+      <span aria-hidden="true">🎉</span>
+    </h1>
+    <p class="quote-hero-subhead" data-i18n="quotePageSubhead">
+      Cuéntanos sobre tu evento y te responderemos con una cotización personalizada.
+    </p>
+  </header>
+
+  <!-- ── FORM ─────────────────────────────────────────────── -->
+  <main class="px-4 pb-6">
+    <div class="quote-card">
+      <div class="papel-picado" aria-hidden="true"></div>
+      <div class="quote-card-body">
+
+        <form id="quote-form" action="https://formspree.io/f/mykqlqnb" method="POST">
+          <input type="hidden" name="_subject" value="Nueva Solicitud de Cotización — Buffet Lucia's Fiesta Mexicana" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="quote-field">
+            <label for="qf-name" data-i18n="formName">Nombre Completo</label>
+            <input id="qf-name" type="text" name="name" required autocomplete="name" />
+          </div>
+
+          <div class="quote-row">
+            <div class="quote-field">
+              <label for="qf-phone" data-i18n="formPhone">Teléfono</label>
+              <input id="qf-phone" type="tel" name="phone" required autocomplete="tel" />
+            </div>
+            <div class="quote-field">
+              <label for="qf-email" data-i18n="formEmailLabel">Correo Electrónico</label>
+              <input id="qf-email" type="email" name="email" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="quote-row">
+            <div class="quote-field">
+              <label for="qf-date" data-i18n="formDate">Fecha del Evento</label>
+              <input id="qf-date" type="date" name="event_date" />
+            </div>
+            <div class="quote-field">
+              <label for="qf-guests" data-i18n="formGuests">Número de Invitados</label>
+              <input id="qf-guests" type="number" name="guests" min="20" placeholder="20" />
+            </div>
+          </div>
+
+          <div class="quote-field">
+            <label for="qf-type" data-i18n="formEventType">Tipo de Evento</label>
+            <select id="qf-type" name="event_type">
+              <option value="Cumpleaños" data-i18n="eventBirthday">Cumpleaños</option>
+              <option value="Bautizo" data-i18n="eventBaptism">Bautizo</option>
+              <option value="Baby Shower" data-i18n="eventBabyShower">Baby Shower</option>
+              <option value="Evento de Oficina" data-i18n="eventOffice">Evento de Oficina</option>
+              <option value="Otro" data-i18n="eventOther">Otro</option>
+            </select>
+          </div>
+
+          <div class="quote-field">
+            <label for="qf-details" data-i18n="formDetails">Detalles Adicionales</label>
+            <textarea id="qf-details" name="details" data-i18n-placeholder="formDetailsPlaceholder" placeholder="Cuéntanos más sobre tu evento, platillos que te interesan, etc."></textarea>
+          </div>
+
+          <button type="submit" class="quote-submit-btn" id="form-submit-btn">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            <span data-i18n="formSubmit">Enviar Solicitud</span>
+          </button>
+        </form>
+
+        <div id="form-status" class="form-status" hidden></div>
+
+        <a href="./index.html" class="back-to-menu">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          <span data-i18n="backToMenu">Volver al Menú</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <div class="papel-picado" aria-hidden="true"></div>
+  <footer class="footer-wrap">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <span class="footer-brand-name">Buffet Lucia's Fiesta Mexicana</span>
+        <p class="footer-brand-sub" data-i18n="footerBrandSub">Hacemos comida para eventos</p>
+      </div>
+
+      <div class="footer-links-row">
+        <a href="https://www.tiktok.com/@buffetluciasftamexicana?is_from_webapp=1&sender_device=pc"
+           class="footer-link" aria-label="Visit our TikTok page">
+          <i class="fa-brands fa-tiktok text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">TikTok</span>
+        </a>
+        <a href="https://www.facebook.com/BuffetLuciasFiestaMExicana/"
+           class="footer-link" aria-label="Visit our Facebook page">
+          <i class="fa-brands fa-facebook text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">Facebook</span>
+        </a>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
+           class="footer-link" aria-label="View our location in Google Maps">
+          <i class="fa-solid fa-map-location text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label" data-i18n="navLocation">Ubicación</span>
+        </a>
+        <a href="tel:+13476862462"
+           class="footer-link footer-link--call"
+           aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label" data-i18n="navCall">Llamar</span>
+        </a>
+      </div>
+
+    </div>
+
+    <hr class="footer-divider">
+    <p class="footer-copyright">
+      &copy; 2025 Buffet Lucia's Fiesta Mexicana &nbsp;·&nbsp; <span data-i18n="footerRights">Todos los derechos reservados</span>
+    </p>
+  </footer>
+
+  <script defer src="./src/i18n.js"></script>
+  <script defer src="./src/quoteForm.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const details  = document.querySelector("nav details");
+      const closeBtn = document.getElementById("close-mobile");
+      if (details && closeBtn) {
+        closeBtn.addEventListener("click", () => details.removeAttribute("open"));
+        details.querySelectorAll("a, button").forEach((el) => {
+          el.addEventListener("click", () => details.removeAttribute("open"));
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://buffetluciasfiestamexicana.com/sitemap.xml
