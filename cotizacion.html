@@ -355,6 +355,242 @@
       }
     }
 
+    /* ── Dish picker ──────────────────────────────────────── */
+    .dish-picker-hint {
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      color: rgba(58,36,21,0.65);
+      margin-bottom: 0.7rem;
+    }
+
+    .dish-picker {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .dish-group-title {
+      font-family: Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mex-terracotta);
+      margin: 0.4rem 0 0.1rem;
+    }
+
+    .dish-group-title:first-child {
+      margin-top: 0;
+    }
+
+    .dish-category {
+      border: 1px solid rgba(168,66,15,0.2);
+      border-radius: 0.7rem;
+      background: rgba(255,255,255,0.5);
+      overflow: hidden;
+    }
+
+    .dish-category summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 0.6rem 0.85rem;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #3a2415;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dish-category summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .dish-category summary::after {
+      content: "\2304";
+      font-size: 1rem;
+      color: var(--mex-terracotta);
+      transition: transform 0.18s;
+    }
+
+    .dish-category[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .dish-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0 0.85rem 0.85rem;
+    }
+
+    .dish-chip {
+      border: 1px solid rgba(168,66,15,0.3);
+      background: #fff;
+      color: #3a2415;
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+    }
+
+    .dish-chip:hover {
+      border-color: var(--mex-green);
+      transform: translateY(-1px);
+    }
+
+    /* Chips with a photo available get a small camera icon so it's
+       obvious which dishes can be previewed (hover on desktop, tap on
+       mobile/tablet) */
+    .dish-chip[data-img]::after {
+      content: "\f030";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 0.68rem;
+      margin-left: 0.4rem;
+      color: var(--mex-pink);
+      opacity: 1;
+    }
+
+    .dish-chip.selected {
+      background: var(--mex-green);
+      border-color: var(--mex-green);
+      color: #fff;
+    }
+
+    .dish-chip.selected[data-img]::after {
+      color: #FFE082;
+    }
+
+    .dish-selected-summary {
+      font-family: Roboto, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--mex-terracotta);
+      margin-top: 0.6rem;
+    }
+
+    /* ── Desktop hover preview ────────────────────────────── */
+    .dish-hover-preview {
+      position: fixed;
+      z-index: 70;
+      width: 200px;
+      background: #fff;
+      border: 3px solid var(--mex-gold);
+      border-radius: 0.9rem;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .dish-hover-preview.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dish-hover-preview img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dish-hover-preview span {
+      display: block;
+      padding: 0.5rem 0.7rem;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: #3a2415;
+      text-align: center;
+    }
+
+    /* ── Mobile/tablet dish confirm modal ─────────────────── */
+    #dish-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0,0,0,0.75);
+    }
+
+    #dish-modal.open {
+      display: flex;
+    }
+
+    #dish-modal-card {
+      width: 100%;
+      max-width: 340px;
+      background: var(--mex-cream);
+      border: 3px solid var(--mex-gold);
+      border-radius: 1.1rem;
+      overflow: hidden;
+      box-shadow: 0 16px 44px rgba(0,0,0,0.5);
+    }
+
+    #dish-modal-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    #dish-modal-name {
+      text-align: center;
+      font-family: Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #3a2415;
+      padding: 0.9rem 1rem 0.2rem;
+    }
+
+    .dish-modal-actions {
+      display: flex;
+      gap: 0.6rem;
+      padding: 0.9rem 1rem 1.1rem;
+    }
+
+    .dish-modal-btn {
+      flex: 1;
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem 0.5rem;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    .dish-modal-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .dish-modal-btn--add {
+      background: var(--mex-green);
+      color: #fff;
+    }
+
+    .dish-modal-btn--remove {
+      background: var(--mex-red);
+      color: #fff;
+    }
+
+    .dish-modal-btn--cancel {
+      background: rgba(58,36,21,0.1);
+      color: #3a2415;
+    }
+
     .quote-submit-btn {
       width: 100%;
       display: flex;
@@ -674,6 +910,143 @@
           </div>
 
           <div class="quote-field">
+            <label data-i18n="formDishes">Platillos de Interés (opcional)</label>
+            <p class="dish-picker-hint" data-i18n="formDishesHint">Toca los platillos que te interesan. Puedes seleccionar varios.</p>
+
+            <input type="hidden" name="selected_dishes" id="qf-selected-dishes" value="" />
+
+            <div class="dish-picker">
+              <p class="dish-group-title" data-i18n="groupMeats">Carnes y Mariscos</p>
+
+              <details class="dish-category">
+                <summary>🐐 Chivo (Goat)</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Chivo">Chivo</button>
+                  <button type="button" class="dish-chip" data-dish="Chivo Entro" data-img="./imgs/cateringMenu/Chivo.webp">Chivo Entro</button>
+                  <button type="button" class="dish-chip" data-dish="Chivo Media Charola" data-img="./imgs/cateringMenu/Chivo-Media-Charola.webp">Chivo Media Charola</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>🐖 Puerco (Pork)</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Carnitas" data-img="./imgs/cateringMenu/Carnitas.webp">Carnitas</button>
+                  <button type="button" class="dish-chip" data-dish="Pernil">Pernil</button>
+                  <button type="button" class="dish-chip" data-dish="Costillas Frita" data-img="./imgs/Catering-imgs/Costillas_Frita.jpeg">Costillas Frita</button>
+                  <button type="button" class="dish-chip" data-dish="Costillas en Salsa Verde">Costillas en Salsa Verde</button>
+                  <button type="button" class="dish-chip" data-dish="Costillas Puerco en Salsa Verde" data-img="./imgs/cateringMenu/Costillas-Puerco-Salsa-Verde.webp">Costillas Puerco en Salsa Verde</button>
+                  <button type="button" class="dish-chip" data-dish="Costillas BBQ" data-img="./imgs/Catering-imgs/Costillas_BBQ.jpeg">Costillas BBQ</button>
+                  <button type="button" class="dish-chip" data-dish="Costillas en Salsa Roja">Costillas en Salsa Roja</button>
+                  <button type="button" class="dish-chip" data-dish="Adobo de Puerco" data-img="./imgs/Catering-imgs/Adobe_Puerco.jpeg">Adobo de Puerco</button>
+                  <button type="button" class="dish-chip" data-dish="Guisado de Puerco">Guisado de Puerco</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>🐔 Pollo (Chicken)</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Pollo Enchilado" data-img="./imgs/Catering-imgs/Pollo-Enchilado.jpg">Pollo Enchilado</button>
+                  <button type="button" class="dish-chip" data-dish="Pollo Rostizado" data-img="./imgs/cateringMenu/Pollo_Rostizados.webp">Pollo Rostizado</button>
+                  <button type="button" class="dish-chip" data-dish="Mixiotes de Pollo">Mixiotes de Pollo</button>
+                  <button type="button" class="dish-chip" data-dish="Mixiotes de Pollo con Nopales" data-img="./imgs/cateringMenu/Mixiotes de Pollo.webp">Mixiotes de Pollo con Nopales</button>
+                  <button type="button" class="dish-chip" data-dish="Mole Poblano de Pollo" data-img="./imgs/cateringMenu/Mole_Poblano_Pollo.webp">Mole Poblano de Pollo</button>
+                  <button type="button" class="dish-chip" data-dish="Adobo de Pollo" data-img="./imgs/Catering-imgs/Adobo-de-pollo.jpeg">Adobo de Pollo</button>
+                  <button type="button" class="dish-chip" data-dish="Guisado de Pollo">Guisado de Pollo</button>
+                  <button type="button" class="dish-chip" data-dish="Tinga de Pollo">Tinga de Pollo</button>
+                  <button type="button" class="dish-chip" data-dish="Alas de BBQ" data-img="./imgs/Catering-imgs/Alas_BBQ.jpeg">Alas de BBQ</button>
+                  <button type="button" class="dish-chip" data-dish="Pechuga Empanizada">Pechuga Empanizada</button>
+                  <button type="button" class="dish-chip" data-dish="Piernas de Pollo Empanizadas" data-img="./imgs/Catering-imgs/Piernas_de_Pollo_Empanizada.jpeg">Piernas de Pollo Empanizadas</button>
+                  <button type="button" class="dish-chip" data-dish="Pollo a la Francesa" data-img="./imgs/Catering-imgs/Pollo_ala_Francesa.jpeg">Pollo a la Francesa</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>🐄 Res (Beef)</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Mixiotes de Res">Mixiotes de Res</button>
+                  <button type="button" class="dish-chip" data-dish="Bistec a la Mexicana" data-img="./imgs/cateringMenu/Bistec ala Mexicana.webp">Bistec a la Mexicana</button>
+                  <button type="button" class="dish-chip" data-dish="Bistec Encebollado">Bistec Encebollado</button>
+                  <button type="button" class="dish-chip" data-dish="Adobo de Res">Adobo de Res</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>🦐 Mariscos (Seafood)</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Camarones a la Diabla" data-img="./imgs/Catering-imgs/Camarones_ala_Diabla.jpeg">Camarones a la Diabla</button>
+                  <button type="button" class="dish-chip" data-dish="Camarones Fritos" data-img="./imgs/Catering-imgs/Camarones_1.jpeg">Camarones Fritos</button>
+                </div>
+              </details>
+
+              <p class="dish-group-title" data-i18n="groupSides">Guarniciones</p>
+
+              <details class="dish-category">
+                <summary>🥗 Ensaladas (Salads)</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Ensalada de Nopales" data-img="./imgs/cateringMenu/Ensalada-Nopales.webp">Ensalada de Nopales</button>
+                  <button type="button" class="dish-chip" data-dish="Ensalada Mixta" data-img="./imgs/cateringMenu/Ensalada-Mix.webp">Ensalada Mixta</button>
+                  <button type="button" class="dish-chip" data-dish="Ensalada de Frutas">Ensalada de Frutas</button>
+                  <button type="button" class="dish-chip" data-dish="Ensalada de Papas" data-img="./imgs/cateringMenu/Ensalada-Papas.webp">Ensalada de Papas</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>🍚 Arroz, Frijoles y Tortillas</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Arroz Mexicano" data-img="./imgs/cateringMenu/Arroz-Mexicano.webp">Arroz Mexicano</button>
+                  <button type="button" class="dish-chip" data-dish="Arroz Blanco" data-img="./imgs/cateringMenu/Arroz_Blanco.webp">Arroz Blanco</button>
+                  <button type="button" class="dish-chip" data-dish="Arroz Blanco con Frijoles">Arroz Blanco con Frijoles</button>
+                  <button type="button" class="dish-chip" data-dish="Arroz con Gandules" data-img="./imgs/cateringMenu/Arroz-con-Gandules.webp">Arroz con Gandules</button>
+                  <button type="button" class="dish-chip" data-dish="Arroz con Vegetales" data-img="./imgs/Catering-imgs/Arroz_con_Vegetales.jpeg">Arroz con Vegetales</button>
+                  <button type="button" class="dish-chip" data-dish="Frijoles" data-img="./imgs/cateringMenu/Frijoles.webp">Frijoles</button>
+                  <button type="button" class="dish-chip" data-dish="Tortillas hechas a Mano" data-img="./imgs/cateringMenu/Tortillas=Recien.webp">Tortillas hechas a Mano</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>🍝 Pastas (Pasta)</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Espagueti a la Mexicana" data-img="./imgs/cateringMenu/Espagueti_a_la_Mexicana.webp">Espagueti a la Mexicana</button>
+                  <button type="button" class="dish-chip" data-dish="Espagueti Estilo Marisol">Espagueti Estilo Marisol</button>
+                  <button type="button" class="dish-chip" data-dish="Espagueti con Crema y Queso" data-img="./imgs/Catering-imgs/Espageti_Crema_Queso.jpeg">Espagueti con Crema y Queso</button>
+                  <button type="button" class="dish-chip" data-dish="Macarroni con Cheese" data-img="./imgs/Catering-imgs/Macaroni_Chesse.jpeg">Macarroni con Cheese</button>
+                  <button type="button" class="dish-chip" data-dish="Pasta Penne Vodka" data-img="./imgs/Catering-imgs/Penne_Vodka.jpeg">Pasta Penne Vodka</button>
+                  <button type="button" class="dish-chip" data-dish="Lasagna" data-img="./imgs/Catering-imgs/Lasanga.jpeg">Lasagna</button>
+                </div>
+              </details>
+
+              <p class="dish-group-title" data-i18n="groupExtras">Antojitos y Especialidades</p>
+
+              <details class="dish-category">
+                <summary>🌮 Antojitos / Vegetarianos</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Chiles Rellenos" data-img="./imgs/cateringMenu/Chiles-Rellenos.webp">Chiles Rellenos</button>
+                  <button type="button" class="dish-chip" data-dish="Chilaquiles" data-img="./imgs/Catering-imgs/Chilaquiles.jpeg">Chilaquiles</button>
+                  <button type="button" class="dish-chip" data-dish="Flautas (Queso, Pollo o Papas)" data-img="./imgs/cateringMenu/Flautas.webp">Flautas (Queso, Pollo o Papas)</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>🍟 Favoritos para Niños</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Hot Dogs" data-img="./imgs/Catering-imgs/Hot_Dogs.jpeg">Hot Dogs</button>
+                  <button type="button" class="dish-chip" data-dish="Chicken Tenders" data-img="./imgs/cateringMenu/Chicken-Tenders.webp">Chicken Tenders</button>
+                </div>
+              </details>
+
+              <details class="dish-category">
+                <summary>⭐ Especialidades de la Casa</summary>
+                <div class="dish-chip-list">
+                  <button type="button" class="dish-chip" data-dish="Mole Estilo Mi Rancho" data-img="./imgs/Catering-imgs/Mole_Estilo_Mi_Rancho.jpeg">Mole Estilo Mi Rancho</button>
+                  <button type="button" class="dish-chip" data-dish="Albóndigas de Gusto">Albóndigas de Gusto</button>
+                </div>
+              </details>
+            </div>
+
+            <p class="dish-selected-summary" id="qf-selected-summary">Ningún platillo seleccionado</p>
+          </div>
+
+          <div class="quote-field">
             <label for="qf-details" data-i18n="formDetails">Detalles Adicionales</label>
             <textarea id="qf-details" name="details" data-i18n-placeholder="formDetailsPlaceholder" placeholder="Cuéntanos más sobre tu evento, platillos que te interesan, etc."></textarea>
           </div>
@@ -693,6 +1066,24 @@
       </div>
     </div>
   </main>
+
+  <!-- ── Desktop dish hover preview (tooltip) ─────────────────── -->
+  <div class="dish-hover-preview" id="dish-hover-preview" aria-hidden="true">
+    <img id="dish-hover-preview-img" src="" alt="">
+    <span id="dish-hover-preview-name"></span>
+  </div>
+
+  <!-- ── Mobile/tablet dish confirm modal ─────────────────────── -->
+  <div id="dish-modal" role="dialog" aria-modal="true" aria-labelledby="dish-modal-name">
+    <div id="dish-modal-card">
+      <img id="dish-modal-img" src="" alt="">
+      <p id="dish-modal-name"></p>
+      <div class="dish-modal-actions">
+        <button type="button" class="dish-modal-btn dish-modal-btn--add" id="dish-modal-add" data-i18n="dishModalAdd">Agregar</button>
+        <button type="button" class="dish-modal-btn dish-modal-btn--cancel" id="dish-modal-cancel" data-i18n="dishModalCancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ── FOOTER ───────────────────────────────────────────── -->
   <div class="papel-picado" aria-hidden="true"></div>
