@@ -1,0 +1,34 @@
+name = "blfm-sms-consent"
+main = "src/index.js"
+compatibility_date = "2026-07-16"
+
+# ── D1 database ────────────────────────────────────────────────
+# Create with: wrangler d1 create blfm_sms_consent
+# Then paste the returned database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "blfm_sms_consent"
+database_id = "e75f9104-426b-4aaa-bdc7-40d36672ad2a"
+
+# ── Public, non-secret config ────────────────────────────────────
+[vars]
+ALLOWED_ORIGINS = "https://buffetluciasfiestamexicana.com,https://www.buffetluciasfiestamexicana.com"
+PRIVACY_URL = "https://buffetluciasfiestamexicana.com/privacy/"
+TERMS_URL = "https://buffetluciasfiestamexicana.com/terms/"
+CONSENT_PAGE_URL = "https://buffetluciasfiestamexicana.com/sms-consent/"
+POLICY_VERSION = "2026-07-16"
+SEND_OPT_IN_CONFIRMATION = "true"
+
+# ── Secrets (never put these here — set with `wrangler secret put`) ──
+#   TWILIO_ACCOUNT_SID
+#   TWILIO_AUTH_TOKEN
+#   TWILIO_MESSAGING_SERVICE_SID
+
+# ── Deployment URL ────────────────────────────────────────────────
+# No [[routes]]/custom domain configured — this deploys to the free
+# *.workers.dev URL Cloudflare assigns automatically, e.g.:
+#   https://blfm-sms-consent.<your-account-subdomain>.workers.dev/sms-consent
+# That requires no DNS changes at all. CORS (ALLOWED_ORIGINS above)
+# still restricts who can call it. If you later move this domain's
+# DNS to Cloudflare, you can add a [[routes]] block here to serve it
+# from api.buffetluciasfiestamexicana.com instead.

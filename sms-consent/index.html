@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Terms and Conditions | Buffet Lucia's Fiesta Mexicana</title>
-  <meta name="description" content="Terms and Conditions for Buffet Lucia's Fiesta Mexicana's Receipt Notifications SMS program.">
+  <title>SMS Receipt and Order Notifications | Buffet Lucia's Fiesta Mexicana</title>
+  <meta name="description" content="Sign up to receive transactional SMS notifications from Buffet Lucia's Fiesta Mexicana about food orders, catering services, payment confirmations, receipts, and order status updates.">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Buffet Lucia's Fiesta Mexicana">
-  <link rel="canonical" href="https://buffetluciasfiestamexicana.com/terms">
+  <link rel="canonical" href="https://buffetluciasfiestamexicana.com/sms-consent/">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="/imgs/logo/favicon-32.png">
@@ -27,6 +27,8 @@
       --mex-gold: #F0A500;
       --mex-pink: #E0457B;
       --mex-turquoise: #12A5A6;
+      --mex-terracotta: #A8420F;
+      --mex-cream: #FBF3E1;
     }
 
     /* Papel picado (cut-paper banner) strip */
@@ -240,21 +242,8 @@
       text-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
 
-    .legal-updated {
-      display: inline-block;
-      margin-top: 0.7rem;
-      font-family: Roboto, sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.03em;
-      color: rgba(255,255,255,0.65);
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(240,165,0,0.4);
-      border-radius: 999px;
-      padding: 0.35rem 1rem;
-    }
-
     .legal-intro {
-      max-width: 680px;
+      max-width: 640px;
       margin: 1rem auto 0;
       color: rgba(255,255,255,0.9);
       font-family: Roboto, sans-serif;
@@ -263,69 +252,236 @@
       text-shadow: 0 1px 2px rgba(0,0,0,0.4);
     }
 
-    /* ── Legal content cards ──────────────────────────────── */
-    .legal-wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 1.5rem 1rem 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .legal-card {
-      width: 100%;
-      background: rgba(255,255,255,0.045);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border: 1px solid rgba(240,165,0,0.3);
-      border-radius: 1.1rem;
+    /* ── Form card (invitation-paper look, matches cotizacion.html) ── */
+    .quote-card {
+      max-width: 620px;
+      margin: 1.75rem auto 0;
+      background: var(--mex-cream);
+      border-radius: 1.4rem;
       overflow: hidden;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.3);
+      box-shadow: 0 14px 44px rgba(0,0,0,0.5);
+      border: 3px solid var(--mex-gold);
     }
 
-    .legal-card-header {
-      position: relative;
-      padding: 0.8rem 1.2rem 1rem;
-      background: rgba(0,0,0,0.25);
+    .quote-card-body {
+      padding: 2rem 1.8rem 2.2rem;
     }
 
-    .legal-card-header::after {
-      content: "";
+    .quote-field {
+      margin-bottom: 1.15rem;
+    }
+
+    .quote-field label {
+      display: block;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      color: var(--mex-terracotta);
+      margin-bottom: 0.35rem;
+    }
+
+    .quote-field .field-hint {
+      font-family: Roboto, sans-serif;
+      font-size: 0.75rem;
+      color: rgba(58,36,21,0.6);
+      margin-top: 0.3rem;
+    }
+
+    .quote-field input {
+      width: 100%;
+      font-family: Roboto, sans-serif;
+      font-size: 0.95rem;
+      color: #3a2415;
+      background: #fff;
+      border: 2px solid rgba(168,66,15,0.25);
+      border-radius: 0.7rem;
+      padding: 0.65rem 0.85rem;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .quote-field input:focus {
+      outline: none;
+      border-color: var(--mex-green);
+      box-shadow: 0 0 0 3px rgba(0,99,65,0.15);
+    }
+
+    .quote-field input[aria-invalid="true"] {
+      border-color: var(--mex-red);
+    }
+
+    .field-error {
+      display: none;
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--mex-red);
+      margin-top: 0.35rem;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* Honeypot: visually hidden, but not display:none so the browser
+       still lays it out (some bots skip inputs with display:none) */
+    .hp-field {
       position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 4px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--mex-red) 0 10px,
-        var(--mex-gold) 10px 20px,
-        var(--mex-green) 20px 30px
-      );
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
-    .legal-card-header h2 {
+    /* ── Consent checkbox block ────────────────────────────── */
+    .consent-block {
+      margin: 1.5rem 0 1.1rem;
+      padding: 1rem 1.1rem;
+      background: rgba(0,99,65,0.06);
+      border: 2px solid rgba(0,99,65,0.25);
+      border-radius: 0.9rem;
+    }
+
+    .consent-checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+
+    .consent-checkbox-row input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 1.35rem;
+      height: 1.35rem;
+      margin-top: 0.15rem;
+      accent-color: var(--mex-green);
+      cursor: pointer;
+    }
+
+    .consent-checkbox-row input[type="checkbox"][aria-invalid="true"] {
+      outline: 2px solid var(--mex-red);
+      outline-offset: 2px;
+    }
+
+    .consent-checkbox-row label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: #3a2415;
+      cursor: pointer;
+    }
+
+    .consent-legal-links {
+      margin: 0.8rem 0 0 2.05rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.8rem;
+      color: rgba(58,36,21,0.75);
+    }
+
+    .consent-legal-links a {
+      color: var(--mex-terracotta);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .consent-optional-note {
+      margin: 0.6rem 0 0 2.05rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.75rem;
+      color: rgba(58,36,21,0.6);
+      font-style: italic;
+    }
+
+    .quote-submit-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: var(--mex-green);
+      color: #fff;
       font-family: Roboto, sans-serif;
       font-weight: 800;
-      font-size: 1.05rem;
-      letter-spacing: 0.01em;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      margin: 0;
-      line-height: 1.3;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.4rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.18s, transform 0.18s;
     }
 
-    .legal-card-body {
-      padding: 1.1rem 1.2rem 1.3rem;
-      color: rgba(255,255,255,0.88);
+    .quote-submit-btn:hover {
+      background: #007a4f;
+      transform: translateY(-2px);
+    }
+
+    .quote-submit-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+    }
+
+    .quote-submit-btn:focus-visible {
+      outline: 3px solid var(--mex-gold);
+      outline-offset: 2px;
+    }
+
+    .form-status {
+      text-align: center;
       font-family: Roboto, sans-serif;
-      font-size: 0.92rem;
-      line-height: 1.65;
+      font-size: 1rem;
+      line-height: 1.6;
+      padding: 1rem;
+      border-radius: 0.85rem;
+      margin: 0 1.8rem 2.2rem;
+    }
+
+    .form-status.success {
+      color: #054f31;
+      background: rgba(0,99,65,0.12);
+      border: 1px solid rgba(0,99,65,0.35);
+    }
+
+    .form-status.error {
+      color: #7a1420;
+      background: rgba(206,17,38,0.1);
+      border: 1px solid rgba(206,17,38,0.35);
+    }
+
+    .sms-purpose-list {
+      max-width: 620px;
+      margin: 1.5rem auto 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+    }
+
+    @media (max-width: 560px) {
+      .sms-purpose-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sms-purpose-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(240,165,0,0.3);
+      border-radius: 0.7rem;
+      padding: 0.6rem 0.8rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.82rem;
+      color: #fff;
       text-shadow: 0 1px 2px rgba(0,0,0,0.35);
     }
 
-    .legal-card-body a {
-      color: #FFE29A;
-      text-decoration: underline;
+    .sms-purpose-list i {
+      color: var(--mex-gold);
     }
 
     /* ── Footer ──────────────────────────────────────────── */
@@ -538,107 +694,113 @@
 
   <!-- ── PAGE HEADER ──────────────────────────────────────── -->
   <header class="legal-hero">
-    <h1 class="legal-hero-title">Terms and Conditions</h1>
-    <span class="legal-updated">Last updated: July 2026</span>
+    <h1 class="legal-hero-title">SMS Receipt and Order Notifications</h1>
+    <p class="legal-intro">
+      Customers may voluntarily sign up to receive transactional text messages from Buffet Lucia's Fiesta Mexicana
+      concerning food orders, catering services, payment confirmations, receipts, and order status updates.
+      Promotional and marketing messages are not sent through this program.
+    </p>
   </header>
 
-  <!-- ── LEGAL CONTENT ─────────────────────────────────────── -->
-  <main class="legal-wrap">
+  <!-- ── What these texts cover ────────────────────────────── -->
+  <ul class="sms-purpose-list" aria-label="Types of messages sent through this program">
+    <li><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> Food orders</li>
+    <li><i class="fa-solid fa-utensils" aria-hidden="true"></i> Catering orders</li>
+    <li><i class="fa-solid fa-champagne-glasses" aria-hidden="true"></i> Catering event information</li>
+    <li><i class="fa-solid fa-credit-card" aria-hidden="true"></i> Payment confirmations</li>
+    <li><i class="fa-solid fa-receipt" aria-hidden="true"></i> Receipt confirmations</li>
+    <li><i class="fa-solid fa-truck" aria-hidden="true"></i> Order status updates</li>
+  </ul>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Program Name</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>Buffet Lucia's Fiesta Mexicana Receipt and Order Notifications</p>
-      </div>
-    </section>
+  <!-- ── FORM ─────────────────────────────────────────────── -->
+  <main class="px-4 pb-6">
+    <div class="quote-card">
+      <div class="papel-picado" aria-hidden="true"></div>
+      <div class="quote-card-body">
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Program Description</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>Buffet Lucia's Fiesta Mexicana Receipt and Order Notifications is a transactional messaging program.
-        Customers who voluntarily opt in may receive text messages concerning food orders, catering services,
-        payment confirmations, receipts, catering-event information, and order status updates. No marketing or
-        promotional messages are sent through this program.</p>
-      </div>
-    </section>
+        <form id="sms-consent-form" novalidate>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Message Frequency</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>You will receive text messages related to your food orders and catering services as needed — for
-        example, payment confirmations, receipts, and order status updates. Message frequency varies based on your
-        order activity.</p>
-      </div>
-    </section>
+          <!-- Honeypot: real users never see or fill this field -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="sms-website">Leave this field blank</label>
+            <input type="text" id="sms-website" name="company_website" tabindex="-1" autocomplete="off" />
+          </div>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Message and Data Rates</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>Message and data rates may apply, depending on your mobile carrier plan.</p>
-      </div>
-    </section>
+          <div class="quote-field">
+            <label for="sms-name">Full Name</label>
+            <input
+              id="sms-name"
+              type="text"
+              name="full_name"
+              autocomplete="name"
+              required
+              aria-describedby="sms-name-error"
+            />
+            <p class="field-error" id="sms-name-error" role="alert"></p>
+          </div>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Opt-Out and Help</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>Reply <strong>STOP</strong> at any time to opt out of future text messages. Reply <strong>HELP</strong>
-        for assistance. After opting out, you will no longer receive text messages through this program, though you
-        may still request receipts or order updates by email or phone.</p>
-      </div>
-    </section>
+          <div class="quote-field">
+            <label for="sms-phone">Mobile Phone Number</label>
+            <input
+              id="sms-phone"
+              type="tel"
+              name="phone"
+              inputmode="tel"
+              autocomplete="tel"
+              placeholder="(347) 686-2462"
+              required
+              aria-describedby="sms-phone-hint sms-phone-error"
+            />
+            <p class="field-hint" id="sms-phone-hint">U.S. mobile number. We'll format it automatically.</p>
+            <p class="field-error" id="sms-phone-error" role="alert"></p>
+          </div>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Consent Is Not a Condition of Purchase</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>Opting in to this SMS program is entirely voluntary. You are never required to consent to receive text
-        messages in order to place a food order, book catering services, or complete a purchase with Buffet Lucia's
-        Fiesta Mexicana.</p>
-      </div>
-    </section>
+          <div class="quote-field">
+            <label for="sms-reference">Order or Catering Reference Number <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <input
+              id="sms-reference"
+              type="text"
+              name="reference_number"
+              autocomplete="off"
+              maxlength="64"
+            />
+          </div>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Support Contact</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>For support or questions about this program, contact us at
-        <a href="mailto:buffetluciasfiestamexicana@gmail.com">buffetluciasfiestamexicana@gmail.com</a> or
-        <a href="tel:+13476862462">(347) 686-2462</a>.</p>
-      </div>
-    </section>
+          <div class="consent-block">
+            <div class="consent-checkbox-row">
+              <input
+                type="checkbox"
+                id="sms-consent-checkbox"
+                name="sms_consent"
+                aria-describedby="sms-consent-error"
+              />
+              <label for="sms-consent-checkbox">
+                I agree to receive transactional text messages from Buffet Lucia's Fiesta Mexicana regarding my food
+                order, catering service, payment confirmation, receipt, or order status. Message frequency varies.
+                Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a
+                condition of purchase.
+              </label>
+            </div>
+            <p class="field-error" id="sms-consent-error" role="alert" style="margin-left:2.05rem;"></p>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Privacy</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>See our <a href="/privacy/">Privacy Policy</a> for information about how we collect, use, and protect
-        your data.</p>
-      </div>
-    </section>
+            <p class="consent-legal-links">
+              View our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms and Conditions</a>.
+            </p>
 
-    <section class="legal-card">
-      <div class="legal-card-header">
-        <h2>Changes to These Terms</h2>
-      </div>
-      <div class="legal-card-body">
-        <p>We may update these terms from time to time. Continued use of our services after changes are posted
-        constitutes acceptance of the updated terms.</p>
-      </div>
-    </section>
+            <p class="consent-optional-note">
+              This checkbox is optional and is not required to place an order or purchase services.
+            </p>
+          </div>
 
+          <button type="submit" class="quote-submit-btn" id="sms-submit-btn">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            <span id="sms-submit-label">Submit</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="sms-form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+    </div>
   </main>
 
   <!-- ── FOOTER ───────────────────────────────────────────── -->
@@ -688,6 +850,7 @@
   </footer>
 
   <script defer src="/src/i18n.js"></script>
+  <script defer src="/src/smsConsent.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const details  = document.querySelector("nav details");

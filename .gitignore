@@ -1,3 +1,6 @@
 vids/
 *.mov
 *.mp4
+worker/node_modules/
+.wrangler/
+worker/.wrangler/

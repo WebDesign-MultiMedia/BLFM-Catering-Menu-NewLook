@@ -1,0 +1,13 @@
+{
+  "name": "blfm-sms-consent-worker",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 execute blfm_sms_consent --file=./schema.sql",
+    "db:migrate:remote": "wrangler d1 execute blfm_sms_consent --remote --file=./schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
