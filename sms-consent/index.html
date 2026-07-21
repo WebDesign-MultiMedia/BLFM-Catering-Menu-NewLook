@@ -392,6 +392,93 @@
       font-style: italic;
     }
 
+    .consent-hint {
+      margin: 0.5rem 0 0 2.05rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--mex-terracotta);
+      min-height: 1.1rem;
+    }
+
+    /* Neutral nudge toward the checkbox — never styled as an error */
+    .consent-checkbox-row.gentle-highlight input[type="checkbox"] {
+      outline: 3px solid var(--mex-gold);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    /* ── SMS enrollment is optional — banner above the form ────── */
+    .sms-optional-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin: 0 0 1.4rem;
+      padding: 0.85rem 1rem;
+      background: rgba(0,99,65,0.08);
+      border: 1px solid rgba(0,99,65,0.3);
+      border-radius: 0.8rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: #1d4b34;
+    }
+
+    .sms-optional-banner i {
+      color: var(--mex-green);
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Two clear choices: sign up, or continue without SMS ────── */
+    .choice-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin: 0.9rem 0;
+      font-family: Roboto, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(58,36,21,0.4);
+    }
+
+    .choice-divider::before,
+    .choice-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(168,66,15,0.2);
+    }
+
+    .no-thanks-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: transparent;
+      color: var(--mex-terracotta);
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 2px solid rgba(168,66,15,0.35);
+      border-radius: 999px;
+      padding: 0.85rem 1.4rem;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s, border-color 0.18s;
+    }
+
+    .no-thanks-btn:hover,
+    .no-thanks-btn:focus-visible {
+      background: rgba(168,66,15,0.08);
+      border-color: var(--mex-terracotta);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
     .quote-submit-btn {
       width: 100%;
       display: flex;
@@ -718,6 +805,13 @@
       <div class="papel-picado" aria-hidden="true"></div>
       <div class="quote-card-body">
 
+        <p class="sms-optional-banner">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>SMS enrollment is completely optional. You may place an order, request catering services, make a
+          payment, or receive an email receipt without providing a mobile phone number or agreeing to receive text
+          messages.</span>
+        </p>
+
         <form id="sms-consent-form" novalidate>
 
           <!-- Honeypot: real users never see or fill this field -->
@@ -733,7 +827,6 @@
               type="text"
               name="full_name"
               autocomplete="name"
-              required
               aria-describedby="sms-name-error"
             />
             <p class="field-error" id="sms-name-error" role="alert"></p>
@@ -748,10 +841,9 @@
               inputmode="tel"
               autocomplete="tel"
               placeholder="(347) 686-2462"
-              required
               aria-describedby="sms-phone-hint sms-phone-error"
             />
-            <p class="field-hint" id="sms-phone-hint">U.S. mobile number. We'll format it automatically.</p>
+            <p class="field-hint" id="sms-phone-hint">Only required if you check the box below to sign up for SMS.</p>
             <p class="field-error" id="sms-phone-error" role="alert"></p>
           </div>
 
@@ -767,12 +859,12 @@
           </div>
 
           <div class="consent-block">
-            <div class="consent-checkbox-row">
+            <div class="consent-checkbox-row" id="sms-consent-row">
               <input
                 type="checkbox"
                 id="sms-consent-checkbox"
                 name="sms_consent"
-                aria-describedby="sms-consent-error"
+                aria-describedby="sms-consent-hint"
               />
               <label for="sms-consent-checkbox">
                 I agree to receive transactional text messages from Buffet Lucia's Fiesta Mexicana regarding my food
@@ -781,7 +873,7 @@
                 condition of purchase.
               </label>
             </div>
-            <p class="field-error" id="sms-consent-error" role="alert" style="margin-left:2.05rem;"></p>
+            <p class="consent-hint" id="sms-consent-hint" role="status" aria-live="polite"></p>
 
             <p class="consent-legal-links">
               View our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms and Conditions</a>.
@@ -792,10 +884,18 @@
             </p>
           </div>
 
-          <button type="submit" class="quote-submit-btn" id="sms-submit-btn">
-            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-            <span id="sms-submit-label">Submit</span>
-          </button>
+          <div class="sms-choice-actions">
+            <button type="submit" class="quote-submit-btn" id="sms-submit-btn">
+              <i class="fa-solid fa-comment-sms" aria-hidden="true"></i>
+              <span id="sms-submit-label">Sign Up for SMS Notifications</span>
+            </button>
+
+            <div class="choice-divider" aria-hidden="true"><span>or</span></div>
+
+            <a href="/index.html" class="no-thanks-btn" id="sms-no-thanks-btn">
+              No thanks — continue without SMS
+            </a>
+          </div>
         </form>
       </div>
 
