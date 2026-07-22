@@ -1,8 +1,14 @@
--- Consent evidence for the SMS Receipt and Order Notifications program.
+-- Consent evidence for all SMS programs hosted on this domain
+-- (BLFM Receipt and Order Notifications, Julio Salas SMS Testing, ...).
 -- Apply with: wrangler d1 execute blfm_sms_consent --file=./schema.sql
+--
+-- For an existing database that already has this table, use
+-- migrations/0002_add_program_column.sql instead — this file's
+-- CREATE TABLE IF NOT EXISTS won't add the column to an existing table.
 
 CREATE TABLE IF NOT EXISTS consent_records (
   id                    TEXT PRIMARY KEY,
+  program               TEXT NOT NULL DEFAULT 'blfm_receipt_notifications',
   full_name             TEXT NOT NULL,
   phone_e164            TEXT NOT NULL,
   consent_status        TEXT NOT NULL,               -- 'granted'
@@ -21,6 +27,7 @@ CREATE TABLE IF NOT EXISTS consent_records (
 
 CREATE INDEX IF NOT EXISTS idx_consent_phone      ON consent_records(phone_e164);
 CREATE INDEX IF NOT EXISTS idx_consent_created_at ON consent_records(created_at);
+CREATE INDEX IF NOT EXISTS idx_consent_program     ON consent_records(program);
 
 -- Basic per-IP rate limiting log (see RATE_LIMIT_MAX/RATE_LIMIT_WINDOW_MIN in src/index.js)
 CREATE TABLE IF NOT EXISTS rate_limit_log (

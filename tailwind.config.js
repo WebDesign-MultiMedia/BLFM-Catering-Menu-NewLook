@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [ './index.html', './home.html', './cotizacion.html', './privacy/*.html', './terms/*.html', './sms-consent/*.html', "./src/**/*.{html,js}"],
+  content: [ './index.html', './home.html', './cotizacion.html', './privacy/*.html', './terms/*.html', './sms-consent/*.html', './julio-sms-consent/*.html', './julio-sms-privacy/*.html', './julio-sms-terms/*.html', "./src/**/*.{html,js}"],
   theme: {
     extend: {
       fontFamily:{

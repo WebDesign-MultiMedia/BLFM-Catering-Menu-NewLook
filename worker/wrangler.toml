@@ -13,16 +13,32 @@ database_id = "e75f9104-426b-4aaa-bdc7-40d36672ad2a"
 # ── Public, non-secret config ────────────────────────────────────
 [vars]
 ALLOWED_ORIGINS = "https://buffetluciasfiestamexicana.com,https://www.buffetluciasfiestamexicana.com"
+
+# BLFM "Receipt and Order Notifications" program
 PRIVACY_URL = "https://buffetluciasfiestamexicana.com/privacy/"
 TERMS_URL = "https://buffetluciasfiestamexicana.com/terms/"
 CONSENT_PAGE_URL = "https://buffetluciasfiestamexicana.com/sms-consent/"
 POLICY_VERSION = "2026-07-16"
+
+# "Julio Salas SMS Testing" program — personal sole-proprietor brand,
+# entirely separate from BLFM's registered brand/campaign.
+JULIO_PRIVACY_URL = "https://buffetluciasfiestamexicana.com/julio-sms-privacy/"
+JULIO_TERMS_URL = "https://buffetluciasfiestamexicana.com/julio-sms-terms/"
+JULIO_CONSENT_PAGE_URL = "https://buffetluciasfiestamexicana.com/julio-sms-consent/"
+JULIO_POLICY_VERSION = "2026-07-21"
+
 SEND_OPT_IN_CONFIRMATION = "true"
 
 # ── Secrets (never put these here — set with `wrangler secret put`) ──
-#   TWILIO_ACCOUNT_SID
-#   TWILIO_AUTH_TOKEN
-#   TWILIO_MESSAGING_SERVICE_SID
+#   TWILIO_ACCOUNT_SID                    (shared Twilio account)
+#   TWILIO_AUTH_TOKEN                     (shared Twilio account)
+#   TWILIO_MESSAGING_SERVICE_SID          (BLFM's registered Messaging Service)
+#   JULIO_TWILIO_MESSAGING_SERVICE_SID    (Julio Salas's registered Messaging
+#                                          Service — leave unset until that
+#                                          campaign is approved; the Worker
+#                                          just won't send a confirmation SMS
+#                                          for this program until it's set,
+#                                          but consent still records fine)
 
 # ── Deployment URL ────────────────────────────────────────────────
 # No [[routes]]/custom domain configured — this deploys to the free

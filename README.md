@@ -10,10 +10,13 @@ Preview build: https://webdesign-multimedia.github.io/BLFM-Catering-Menu-NewLook
 - `home.html` — landing page (link-in-bio style)
 - `index.html` — catering menu
 - `cotizacion.html` — quote request form (Formspree)
-- `privacy/`, `terms/` — legal pages
-- `sms-consent/` — public SMS opt-in page (Twilio A2P 10DLC)
-- `src/` — JS (`i18n.js`, `app.js`, `quoteForm.js`, `smsConsent.js`) and Tailwind input/output CSS
-- `worker/` — Cloudflare Worker + D1 backend that records SMS consent evidence for `sms-consent/`
+- `privacy/`, `terms/` — legal pages for the BLFM "Receipt and Order Notifications" SMS program
+- `sms-consent/` — public SMS opt-in page for BLFM (Twilio A2P 10DLC)
+- `julio-sms-consent/`, `julio-sms-privacy/`, `julio-sms-terms/` — public pages for the separate, personal
+  "Julio Salas SMS Testing" A2P 10DLC brand/campaign (unrelated to BLFM as the registered sender)
+- `src/` — JS (`i18n.js`, `app.js`, `quoteForm.js`, `smsConsent.js`, `julioSmsConsent.js`) and Tailwind input/output CSS
+- `worker/` — Cloudflare Worker + D1 backend that records consent evidence for both `/sms-consent` and
+  `/julio-sms-consent`, each with its own disclosure text and (optionally) its own Twilio Messaging Service SID
 
 ### Rebuilding CSS
 
@@ -140,4 +143,82 @@ domain's DNS stays with its current registrar and the site stays on GitHub Pages
 `PROD_ENDPOINT` in `src/smsConsent.js` (append `/sms-consent`), then redeploy the static site. Set
 `SEND_OPT_IN_CONFIRMATION = "false"` in `wrangler.toml` to record consent without sending any confirmation text.
 
+---
+
+## Twilio A2P 10DLC — Julio Salas SMS Testing
+
+This is a **separate program from BLFM's**, registered under the personal Sole Proprietor Twilio Brand "Julio
+Salas," not under BLFM as a business. The public pages are hosted on this same site but never identify BLFM as the
+SMS sender or registered Brand — every page states that Julio Salas personally operates this software-testing
+program.
+
+**Consent:** https://buffetluciasfiestamexicana.com/julio-sms-consent/
+**Privacy:** https://buffetluciasfiestamexicana.com/julio-sms-privacy/
+**Terms:** https://buffetluciasfiestamexicana.com/julio-sms-terms/
+
+**Campaign description**
+
+> Julio Salas uses this campaign to send low-volume transactional SMS notifications for personal
+> software-development testing. Messages are sent only to users who voluntarily opt in through a publicly
+> accessible consent form. Messages may include test food-order confirmations, catering-request confirmations,
+> test payment and receipt notifications, and application-status updates. No advertising, marketing, promotional,
+> sales, or third-party messages are sent through this campaign.
+
+**Sample message 1**
+
+> Julio Salas SMS Testing: Your test food-order payment of $[amount] was recorded on [date]. Reply STOP to opt out
+> or HELP for assistance.
+
+**Sample message 2**
+
+> Julio Salas SMS Testing: Your test catering request for [event date] was received. Reference: [reference
+> number]. Reply STOP to opt out or HELP for assistance.
+
+**Message flow / call to action**
+
+> End users voluntarily enroll through the publicly accessible SMS consent form at
+> https://buffetluciasfiestamexicana.com/julio-sms-consent/.
+>
+> Julio Salas operates this personal software-testing SMS program. Enrollment is completely optional and is not
+> required to access the website, make a purchase, submit an inquiry, complete a transaction, or use available
+> services.
+>
+> To enroll, the user voluntarily enters a mobile phone number and actively selects a separate SMS consent
+> checkbox that is unchecked by default. The mobile phone number is only required after the user chooses to
+> enroll.
+>
+> The checkbox states: "I agree to receive low-volume transactional software-test text messages from Julio Salas
+> regarding test food orders, catering requests, payment confirmations, receipt notifications, and
+> application-status updates. Message frequency varies. Message and data rates may apply. Reply STOP to
+> unsubscribe or HELP for assistance. Consent is not a condition of purchase."
+>
+> Users who do not want text messages may select "No thanks — continue without SMS" and continue using the
+> website without entering a mobile number or providing messaging consent.
+>
+> No SMS is sent and no SMS consent record is created unless the user voluntarily selects the checkbox and
+> submits the SMS enrollment form.
+>
+> Privacy Policy: https://buffetluciasfiestamexicana.com/julio-sms-privacy/
+> Terms and Conditions: https://buffetluciasfiestamexicana.com/julio-sms-terms/
+
+**Keyword opt-in:** website-form opt-in only. Leave Twilio's Opt-in Keywords and Opt-in Message fields blank when
+submitting this campaign — there is no START/YES/JOIN/SUBSCRIBE keyword flow implemented or documented.
+
+**Backend:** shares the same Worker and D1 database as BLFM's program (see above), routed separately at
+`POST /julio-sms-consent`. It uses its own disclosure text, its own Privacy/Terms/consent-page URLs
+(`JULIO_PRIVACY_URL`, `JULIO_TERMS_URL`, `JULIO_CONSENT_PAGE_URL` in `worker/wrangler.toml`), and — once Julio's
+Messaging Service SID is approved — its own `JULIO_TWILIO_MESSAGING_SERVICE_SID` secret, so a confirmation text is
+never sent under the wrong registered campaign:
+
+```bash
+cd worker
+npx wrangler secret put JULIO_TWILIO_MESSAGING_SERVICE_SID
+npx wrangler deploy
+```
+
+Until that secret is set, consent still records normally for this program — the Worker just skips sending a
+confirmation text.
+
+Approval is not guaranteed by any of the above; this only documents what the program actually does and how to
+verify it.
 

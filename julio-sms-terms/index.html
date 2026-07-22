@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Julio Salas SMS Testing — Terms and Conditions</title>
+  <meta name="description" content="Terms and Conditions for Julio Salas SMS Testing, a personal low-volume transactional SMS testing program.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Julio Salas">
+  <link rel="canonical" href="https://buffetluciasfiestamexicana.com/julio-sms-terms/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/imgs/logo/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/imgs/logo/favicon-192.png">
+  <link rel="apple-touch-icon" href="/imgs/logo/favicon-192.png">
+
+  <link href="/src/output.css" rel="stylesheet" />
+  <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Mexican palette ──────────────────────────────────── */
+    :root {
+      --mex-red: #CE1126;
+      --mex-green: #006341;
+      --mex-gold: #F0A500;
+      --mex-pink: #E0457B;
+      --mex-turquoise: #12A5A6;
+    }
+
+    /* Papel picado (cut-paper banner) strip */
+    .papel-picado {
+      height: 30px;
+      width: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30'%3E%3Cline x1='0' y1='2' x2='160' y2='2' stroke='rgba(255,255,255,0.55)' stroke-width='2'/%3E%3Cpath d='M2,3 L38,3 L20,26 Z' fill='%23CE1126'/%3E%3Cpath d='M42,3 L78,3 L60,26 Z' fill='%23F0A500'/%3E%3Cpath d='M82,3 L118,3 L100,26 Z' fill='%23006341'/%3E%3Cpath d='M122,3 L158,3 L140,26 Z' fill='%23E0457B'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-position: top center;
+      filter: drop-shadow(0 3px 3px rgba(0,0,0,0.4));
+    }
+
+    /* Subtle talavera-tile lattice texture behind the whole page */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -20;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px);
+    }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    .nav-logo {
+      height: auto;
+      max-height: 52px;
+      width: auto;
+      max-width: min(38vw, 210px);
+      display: block;
+      filter: drop-shadow(2px 2px 1px black);
+    }
+
+    .nav-bar {
+      top: 0;
+      left: 0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-bar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(120deg, rgba(180,14,32,0.82), rgba(120,8,22,0.82));
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: rgba(255,255,255,0.95);
+      text-decoration: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+      background: transparent;
+      border: none;
+      border-radius: 0.6rem;
+      padding: 0.4rem 0.75rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-1px);
+    }
+
+    .nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .nav-cta {
+      flex-direction: row;
+      gap: 0.45rem;
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      box-shadow: 0 3px 12px rgba(0,99,65,0.45);
+    }
+
+    .nav-cta .nav-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    .nav-cta:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+      transform: translateY(-2px);
+    }
+
+    /* ── Language toggle ─────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 0.7rem;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .lang-btn[aria-pressed="true"] {
+      background: #fff;
+      color: #b3122a;
+    }
+
+    .mobile-overlay {
+      background: rgba(10,4,6,0.88);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      transition: background 0.18s, transform 0.18s;
+      min-width: 6rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
+    .mobile-nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .mobile-nav-link--call {
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      border: none;
+    }
+
+    .mobile-nav-link--call:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+    }
+
+    .mobile-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .mobile-close-btn:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+
+    /* ── Page header ──────────────────────────────────────── */
+    .legal-hero {
+      text-align: center;
+      padding: 2rem 1.2rem 0.5rem;
+    }
+
+    .legal-hero-title {
+      font-family: Roboto, sans-serif;
+      font-weight: 900;
+      font-size: 2.1rem;
+      letter-spacing: 0.01em;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .legal-updated {
+      display: inline-block;
+      margin-top: 0.7rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.65);
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(240,165,0,0.4);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+    }
+
+    .operator-note {
+      max-width: 680px;
+      margin: 0.9rem auto 0;
+      padding: 0.6rem 1rem;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(240,165,0,0.4);
+      border-radius: 0.7rem;
+      color: rgba(255,255,255,0.75);
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ── Legal content cards ──────────────────────────────── */
+    .legal-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .legal-card {
+      width: 100%;
+      background: rgba(255,255,255,0.045);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(240,165,0,0.3);
+      border-radius: 1.1rem;
+      overflow: hidden;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.3);
+    }
+
+    .legal-card-header {
+      position: relative;
+      padding: 0.8rem 1.2rem 1rem;
+      background: rgba(0,0,0,0.25);
+    }
+
+    .legal-card-header::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--mex-red) 0 10px,
+        var(--mex-gold) 10px 20px,
+        var(--mex-green) 20px 30px
+      );
+    }
+
+    .legal-card-header h2 {
+      font-family: Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .legal-card-body {
+      padding: 1.1rem 1.2rem 1.3rem;
+      color: rgba(255,255,255,0.88);
+      font-family: Roboto, sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    }
+
+    .legal-card-body a {
+      color: #FFE29A;
+      text-decoration: underline;
+    }
+
+    .legal-card-body ul {
+      margin: 0.4rem 0 0.2rem 1.2rem;
+      padding: 0;
+      list-style: disc;
+    }
+
+    .legal-card-body li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer-wrap {
+      position: relative;
+      background: linear-gradient(180deg, #1a0507, #0d0304);
+    }
+
+    .footer-wrap::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .footer-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2.4rem 1.5rem 0;
+    }
+
+    .footer-brand {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Cookie', system-ui;
+      font-size: 2.2rem;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      display: block;
+      line-height: 1.15;
+    }
+
+    .footer-brand-sub {
+      font-family: Roboto, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+
+    .footer-links-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .footer-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.9rem;
+      padding: 0.75rem 1rem;
+      min-width: 4.5rem;
+      transition: background 0.18s, transform 0.18s, border-color 0.18s;
+    }
+
+    .footer-link:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    .footer-link-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .footer-link--call:hover {
+      background: rgba(0,168,107,0.18);
+      border-color: rgba(0,168,107,0.5);
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 0;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      padding: 1rem 1rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-legal-row {
+      text-align: center;
+      padding-bottom: 0.6rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.7rem;
+    }
+
+    .footer-legal-row a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-legal-row a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="bg-greenMex">
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav-bar fixed w-full h-20 flex items-center justify-between px-3 sm:px-6 z-20">
+
+    <a href="/home.html" aria-label="Buffet Lucia's Fiesta Mexicana home">
+      <img
+        src="/imgs/logo/BLFM-logo.webp"
+        class="nav-logo"
+        alt="Buffet Lucia's Fiesta Mexicana logo"
+        width="210" height="80"
+      />
+    </a>
+
+    <ul class="hidden sm:flex items-center gap-5 md:gap-7">
+      <li>
+        <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </li>
+      <li>
+        <a href="/index.html" class="nav-link" aria-label="View menu">
+          <i class="fa-solid fa-utensils text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navMenu">Menú</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="nav-link" aria-label="View location in Google Maps">
+          <i class="fa-solid fa-location-dot text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navLocation">Ubicación</span>
+        </a>
+      </li>
+      <li>
+        <a href="tel:+13476862462" class="nav-link nav-cta" aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navCall">Llamar</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile: language toggle + hamburger, both visible without opening the menu -->
+    <div class="flex sm:hidden items-center gap-2">
+      <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
+        <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+
+      <details class="relative">
+        <summary class="cursor-pointer p-2 list-none" aria-label="Open navigation menu">
+          <i class="fa-solid fa-bars text-2xl text-whiteMex drop-shadow-[1px_1px_1px_black]" aria-hidden="true"></i>
+        </summary>
+
+        <div class="mobile-overlay fixed inset-0 flex flex-col items-center justify-center gap-5 z-30">
+
+          <button
+            type="button"
+            id="close-mobile"
+            class="mobile-close-btn"
+            aria-label="Close navigation menu"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+
+          <span style="font-family:'Cookie',system-ui;font-size:1.9rem;color:#fff;text-shadow:1px 1px 3px black;">
+            Buffet Lucia's
+          </span>
+
+          <a href="/index.html" class="mobile-nav-link" aria-label="View menu">
+            <i class="fa-solid fa-utensils text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navMenu">Menú</span>
+          </a>
+          <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="mobile-nav-link" aria-label="View location">
+            <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navLocation">Ubicación</span>
+          </a>
+          <a href="tel:+13476862462" class="mobile-nav-link mobile-nav-link--call" aria-label="Call us">
+            <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navCall">Llamar</span>
+          </a>
+        </div>
+      </details>
+    </div>
+
+  </nav>
+
+  <!-- ── PAPEL PICADO BANNER ──────────────────────────────── -->
+  <div class="papel-picado" style="margin-top:5.25rem;" aria-hidden="true"></div>
+
+  <!-- ── PAGE HEADER ──────────────────────────────────────── -->
+  <header class="legal-hero">
+    <h1 class="legal-hero-title">Terms and Conditions</h1>
+    <span class="legal-updated">Last updated: July 2026</span>
+    <p class="operator-note">
+      This personal software-testing program is operated by Julio Salas. The pages are hosted on this website for
+      development and testing purposes.
+    </p>
+  </header>
+
+  <!-- ── LEGAL CONTENT ─────────────────────────────────────── -->
+  <main class="legal-wrap">
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Program Name</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Julio Salas SMS Testing</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Program Description</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Julio Salas SMS Testing is a voluntary, low-volume transactional messaging program operated by Julio
+        Salas for personal software-development testing. Users who affirmatively opt in may receive software-test
+        messages concerning test food orders, catering requests, payment confirmations, receipt notifications, and
+        application-status updates. No marketing, advertising, promotional, sales, or third-party messages are sent
+        through this program.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Types of Messages</h2>
+      </div>
+      <div class="legal-card-body">
+        <ul>
+          <li>Test food-order confirmations</li>
+          <li>Test catering-request confirmations</li>
+          <li>Test payment confirmations</li>
+          <li>Test receipt notifications</li>
+          <li>Application-status updates</li>
+          <li>SMS delivery-testing notifications</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Message Frequency</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Message frequency varies according to the user's test activity.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Message and Data Rates</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Message and data rates may apply, depending on the user's mobile carrier and service plan.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Voluntary Enrollment</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Enrollment in Julio Salas SMS Testing is entirely voluntary.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Consent Is Not a Condition of Purchase</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Consent to receive SMS messages is not a condition of purchasing any product, accessing the website,
+        submitting an inquiry, or using any available service.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Opt-Out</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Reply <strong>STOP</strong> at any time to unsubscribe. After an opt-out request is processed, no
+        additional messages will be sent unless the user voluntarily enrolls again.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Help</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Reply <strong>HELP</strong> for assistance.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Privacy</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>See the <a href="/julio-sms-privacy/">Privacy Policy</a> for information about how information is
+        collected, used, and protected.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Consent</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>Enroll or manage SMS consent at the <a href="/julio-sms-consent/">SMS Consent page</a>.</p>
+      </div>
+    </section>
+
+    <section class="legal-card">
+      <div class="legal-card-header">
+        <h2>Support</h2>
+      </div>
+      <div class="legal-card-body">
+        <p>For support or questions about this program, contact Julio Salas at
+        <a href="mailto:buffetluciasfiestamexicana@gmail.com">buffetluciasfiestamexicana@gmail.com</a>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <div class="papel-picado" aria-hidden="true"></div>
+  <footer class="footer-wrap">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <span class="footer-brand-name">Buffet Lucia's Fiesta Mexicana</span>
+        <p class="footer-brand-sub" data-i18n="footerBrandSub">Hacemos comida para eventos</p>
+      </div>
+
+      <div class="footer-links-row">
+        <a href="https://www.tiktok.com/@buffetluciasftamexicana?is_from_webapp=1&sender_device=pc"
+           class="footer-link" aria-label="Visit our TikTok page">
+          <i class="fa-brands fa-tiktok text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">TikTok</span>
+        </a>
+        <a href="https://www.facebook.com/BuffetLuciasFiestaMExicana/"
+           class="footer-link" aria-label="Visit our Facebook page">
+          <i class="fa-brands fa-facebook text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">Facebook</span>
+        </a>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
+           class="footer-link" aria-label="View our location in Google Maps">
+          <i class="fa-solid fa-map-location text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label" data-i18n="navLocation">Ubicación</span>
+        </a>
+        <a href="tel:+13476862462"
+           class="footer-link footer-link--call"
+           aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label" data-i18n="navCall">Llamar</span>
+        </a>
+      </div>
+
+    </div>
+
+    <p class="footer-legal-row">
+      <a href="/julio-sms-consent/">SMS Consent</a>·<a href="/julio-sms-privacy/">Privacy Policy</a>·<a href="/julio-sms-terms/">Terms &amp; Conditions</a>
+    </p>
+
+    <hr class="footer-divider">
+    <p class="footer-copyright">
+      &copy; 2025 Buffet Lucia's Fiesta Mexicana &nbsp;·&nbsp; <span data-i18n="footerRights">Todos los derechos reservados</span>
+    </p>
+  </footer>
+
+  <script defer src="/src/i18n.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const details  = document.querySelector("nav details");
+      const closeBtn = document.getElementById("close-mobile");
+      if (details && closeBtn) {
+        closeBtn.addEventListener("click", () => details.removeAttribute("open"));
+        details.querySelectorAll("a, button").forEach((el) => {
+          el.addEventListener("click", () => details.removeAttribute("open"));
+        });
+      }
+    });
+  </script>
+</body>
+</html>

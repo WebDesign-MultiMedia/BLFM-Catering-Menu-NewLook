@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Julio Salas SMS Testing — SMS Consent</title>
+  <meta name="description" content="Voluntary SMS consent form for Julio Salas SMS Testing, a personal software-development project testing low-volume transactional SMS notifications.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Julio Salas">
+  <link rel="canonical" href="https://buffetluciasfiestamexicana.com/julio-sms-consent/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/imgs/logo/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/imgs/logo/favicon-192.png">
+  <link rel="apple-touch-icon" href="/imgs/logo/favicon-192.png">
+
+  <link href="/src/output.css" rel="stylesheet" />
+  <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Mexican palette ──────────────────────────────────── */
+    :root {
+      --mex-red: #CE1126;
+      --mex-green: #006341;
+      --mex-gold: #F0A500;
+      --mex-pink: #E0457B;
+      --mex-turquoise: #12A5A6;
+      --mex-terracotta: #A8420F;
+      --mex-cream: #FBF3E1;
+    }
+
+    /* Papel picado (cut-paper banner) strip */
+    .papel-picado {
+      height: 30px;
+      width: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30'%3E%3Cline x1='0' y1='2' x2='160' y2='2' stroke='rgba(255,255,255,0.55)' stroke-width='2'/%3E%3Cpath d='M2,3 L38,3 L20,26 Z' fill='%23CE1126'/%3E%3Cpath d='M42,3 L78,3 L60,26 Z' fill='%23F0A500'/%3E%3Cpath d='M82,3 L118,3 L100,26 Z' fill='%23006341'/%3E%3Cpath d='M122,3 L158,3 L140,26 Z' fill='%23E0457B'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-position: top center;
+      filter: drop-shadow(0 3px 3px rgba(0,0,0,0.4));
+    }
+
+    /* Subtle talavera-tile lattice texture behind the whole page */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -20;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px);
+    }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    .nav-logo {
+      height: auto;
+      max-height: 52px;
+      width: auto;
+      max-width: min(38vw, 210px);
+      display: block;
+      filter: drop-shadow(2px 2px 1px black);
+    }
+
+    .nav-bar {
+      top: 0;
+      left: 0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-bar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(120deg, rgba(180,14,32,0.82), rgba(120,8,22,0.82));
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: rgba(255,255,255,0.95);
+      text-decoration: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+      background: transparent;
+      border: none;
+      border-radius: 0.6rem;
+      padding: 0.4rem 0.75rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-1px);
+    }
+
+    .nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .nav-cta {
+      flex-direction: row;
+      gap: 0.45rem;
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      box-shadow: 0 3px 12px rgba(0,99,65,0.45);
+    }
+
+    .nav-cta .nav-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    .nav-cta:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+      transform: translateY(-2px);
+    }
+
+    /* ── Language toggle ─────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 0.7rem;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .lang-btn[aria-pressed="true"] {
+      background: #fff;
+      color: #b3122a;
+    }
+
+    .mobile-overlay {
+      background: rgba(10,4,6,0.88);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      transition: background 0.18s, transform 0.18s;
+      min-width: 6rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
+    .mobile-nav-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .mobile-nav-link--call {
+      background: linear-gradient(135deg, #00a86b, #00623f);
+      border: none;
+    }
+
+    .mobile-nav-link--call:hover {
+      background: linear-gradient(135deg, #00c17c, #007a4d);
+    }
+
+    .mobile-close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .mobile-close-btn:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+
+    /* ── Page header ──────────────────────────────────────── */
+    .legal-hero {
+      text-align: center;
+      padding: 2rem 1.2rem 0.5rem;
+    }
+
+    .legal-hero-title {
+      font-family: Roboto, sans-serif;
+      font-weight: 900;
+      font-size: 2.1rem;
+      letter-spacing: 0.01em;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .legal-intro {
+      max-width: 640px;
+      margin: 1rem auto 0;
+      color: rgba(255,255,255,0.9);
+      font-family: Roboto, sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    /* Operator clarification note */
+    .operator-note {
+      max-width: 640px;
+      margin: 0.9rem auto 0;
+      padding: 0.6rem 1rem;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(240,165,0,0.4);
+      border-radius: 0.7rem;
+      color: rgba(255,255,255,0.75);
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ── Form card (invitation-paper look, matches cotizacion.html) ── */
+    .quote-card {
+      max-width: 620px;
+      margin: 1.75rem auto 0;
+      background: var(--mex-cream);
+      border-radius: 1.4rem;
+      overflow: hidden;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.5);
+      border: 3px solid var(--mex-gold);
+    }
+
+    .quote-card-body {
+      padding: 2rem 1.8rem 2.2rem;
+    }
+
+    .quote-field {
+      margin-bottom: 1.15rem;
+    }
+
+    .quote-field label {
+      display: block;
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      color: var(--mex-terracotta);
+      margin-bottom: 0.35rem;
+    }
+
+    .quote-field .field-hint {
+      font-family: Roboto, sans-serif;
+      font-size: 0.75rem;
+      color: rgba(58,36,21,0.6);
+      margin-top: 0.3rem;
+    }
+
+    .quote-field input {
+      width: 100%;
+      font-family: Roboto, sans-serif;
+      font-size: 0.95rem;
+      color: #3a2415;
+      background: #fff;
+      border: 2px solid rgba(168,66,15,0.25);
+      border-radius: 0.7rem;
+      padding: 0.65rem 0.85rem;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .quote-field input:focus {
+      outline: none;
+      border-color: var(--mex-green);
+      box-shadow: 0 0 0 3px rgba(0,99,65,0.15);
+    }
+
+    .quote-field input[aria-invalid="true"] {
+      border-color: var(--mex-red);
+    }
+
+    .field-error {
+      display: none;
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--mex-red);
+      margin-top: 0.35rem;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* Honeypot: visually hidden, but not display:none so the browser
+       still lays it out (some bots skip inputs with display:none) */
+    .hp-field {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ── Consent checkbox block ────────────────────────────── */
+    .consent-block {
+      margin: 1.5rem 0 1.1rem;
+      padding: 1rem 1.1rem;
+      background: rgba(0,99,65,0.06);
+      border: 2px solid rgba(0,99,65,0.25);
+      border-radius: 0.9rem;
+    }
+
+    .consent-checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+
+    .consent-checkbox-row input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 1.35rem;
+      height: 1.35rem;
+      margin-top: 0.15rem;
+      accent-color: var(--mex-green);
+      cursor: pointer;
+    }
+
+    .consent-checkbox-row input[type="checkbox"][aria-invalid="true"] {
+      outline: 2px solid var(--mex-red);
+      outline-offset: 2px;
+    }
+
+    .consent-checkbox-row label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: #3a2415;
+      cursor: pointer;
+    }
+
+    .consent-legal-links {
+      margin: 0.8rem 0 0 2.05rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.8rem;
+      color: rgba(58,36,21,0.75);
+    }
+
+    .consent-legal-links a {
+      color: var(--mex-terracotta);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .consent-optional-note {
+      margin: 0.6rem 0 0 2.05rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.75rem;
+      color: rgba(58,36,21,0.6);
+      font-style: italic;
+    }
+
+    .consent-hint {
+      margin: 0.5rem 0 0 2.05rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--mex-terracotta);
+      min-height: 1.1rem;
+    }
+
+    /* Neutral nudge toward the checkbox — never styled as an error */
+    .consent-checkbox-row.gentle-highlight input[type="checkbox"] {
+      outline: 3px solid var(--mex-gold);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    /* ── SMS enrollment is optional — banner above the form ────── */
+    .sms-optional-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin: 0 0 1.4rem;
+      padding: 0.85rem 1rem;
+      background: rgba(0,99,65,0.08);
+      border: 1px solid rgba(0,99,65,0.3);
+      border-radius: 0.8rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: #1d4b34;
+    }
+
+    .sms-optional-banner i {
+      color: var(--mex-green);
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Two clear choices: sign up, or continue without SMS ────── */
+    .choice-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin: 0.9rem 0;
+      font-family: Roboto, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(58,36,21,0.4);
+    }
+
+    .choice-divider::before,
+    .choice-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(168,66,15,0.2);
+    }
+
+    .no-thanks-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: transparent;
+      color: var(--mex-terracotta);
+      font-family: Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 2px solid rgba(168,66,15,0.35);
+      border-radius: 999px;
+      padding: 0.85rem 1.4rem;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.18s, border-color 0.18s;
+    }
+
+    .no-thanks-btn:hover,
+    .no-thanks-btn:focus-visible {
+      background: rgba(168,66,15,0.08);
+      border-color: var(--mex-terracotta);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .quote-submit-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: var(--mex-green);
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.4rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .quote-submit-btn:hover {
+      background: #007a4f;
+      transform: translateY(-2px);
+    }
+
+    .quote-submit-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+    }
+
+    .quote-submit-btn:focus-visible {
+      outline: 3px solid var(--mex-gold);
+      outline-offset: 2px;
+    }
+
+    .form-status {
+      text-align: center;
+      font-family: Roboto, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      padding: 1rem;
+      border-radius: 0.85rem;
+      margin: 0 1.8rem 2.2rem;
+    }
+
+    .form-status.success {
+      color: #054f31;
+      background: rgba(0,99,65,0.12);
+      border: 1px solid rgba(0,99,65,0.35);
+    }
+
+    .form-status.error {
+      color: #7a1420;
+      background: rgba(206,17,38,0.1);
+      border: 1px solid rgba(206,17,38,0.35);
+    }
+
+    .sms-purpose-list {
+      max-width: 620px;
+      margin: 1.5rem auto 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+    }
+
+    @media (max-width: 560px) {
+      .sms-purpose-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sms-purpose-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(240,165,0,0.3);
+      border-radius: 0.7rem;
+      padding: 0.6rem 0.8rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.82rem;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    }
+
+    .sms-purpose-list i {
+      color: var(--mex-gold);
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer-wrap {
+      position: relative;
+      background: linear-gradient(180deg, #1a0507, #0d0304);
+    }
+
+    .footer-wrap::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .footer-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2.4rem 1.5rem 0;
+    }
+
+    .footer-brand {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Cookie', system-ui;
+      font-size: 2.2rem;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      display: block;
+      line-height: 1.15;
+    }
+
+    .footer-brand-sub {
+      font-family: Roboto, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+
+    .footer-links-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .footer-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.9rem;
+      padding: 0.75rem 1rem;
+      min-width: 4.5rem;
+      transition: background 0.18s, transform 0.18s, border-color 0.18s;
+    }
+
+    .footer-link:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    .footer-link-label {
+      font-family: Roboto, sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .footer-link--call:hover {
+      background: rgba(0,168,107,0.18);
+      border-color: rgba(0,168,107,0.5);
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 0;
+    }
+
+    .footer-copyright {
+      text-align: center;
+      padding: 1rem 1rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-legal-row {
+      text-align: center;
+      padding-bottom: 0.6rem;
+      font-family: Roboto, sans-serif;
+      font-size: 0.7rem;
+    }
+
+    .footer-legal-row a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-legal-row a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="bg-greenMex">
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav-bar fixed w-full h-20 flex items-center justify-between px-3 sm:px-6 z-20">
+
+    <a href="/home.html" aria-label="Buffet Lucia's Fiesta Mexicana home">
+      <img
+        src="/imgs/logo/BLFM-logo.webp"
+        class="nav-logo"
+        alt="Buffet Lucia's Fiesta Mexicana logo"
+        width="210" height="80"
+      />
+    </a>
+
+    <ul class="hidden sm:flex items-center gap-5 md:gap-7">
+      <li>
+        <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </li>
+      <li>
+        <a href="/index.html" class="nav-link" aria-label="View menu">
+          <i class="fa-solid fa-utensils text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navMenu">Menú</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="nav-link" aria-label="View location in Google Maps">
+          <i class="fa-solid fa-location-dot text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navLocation">Ubicación</span>
+        </a>
+      </li>
+      <li>
+        <a href="tel:+13476862462" class="nav-link nav-cta" aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-xl" aria-hidden="true"></i>
+          <span class="nav-label" data-i18n="navCall">Llamar</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile: language toggle + hamburger, both visible without opening the menu -->
+    <div class="flex sm:hidden items-center gap-2">
+      <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
+        <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+
+      <details class="relative">
+        <summary class="cursor-pointer p-2 list-none" aria-label="Open navigation menu">
+          <i class="fa-solid fa-bars text-2xl text-whiteMex drop-shadow-[1px_1px_1px_black]" aria-hidden="true"></i>
+        </summary>
+
+        <div class="mobile-overlay fixed inset-0 flex flex-col items-center justify-center gap-5 z-30">
+
+          <button
+            type="button"
+            id="close-mobile"
+            class="mobile-close-btn"
+            aria-label="Close navigation menu"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+
+          <span style="font-family:'Cookie',system-ui;font-size:1.9rem;color:#fff;text-shadow:1px 1px 3px black;">
+            Buffet Lucia's
+          </span>
+
+          <a href="/index.html" class="mobile-nav-link" aria-label="View menu">
+            <i class="fa-solid fa-utensils text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navMenu">Menú</span>
+          </a>
+          <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="mobile-nav-link" aria-label="View location">
+            <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navLocation">Ubicación</span>
+          </a>
+          <a href="tel:+13476862462" class="mobile-nav-link mobile-nav-link--call" aria-label="Call us">
+            <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+            <span class="mobile-nav-label" data-i18n="navCall">Llamar</span>
+          </a>
+        </div>
+      </details>
+    </div>
+
+  </nav>
+
+  <!-- ── PAPEL PICADO BANNER ──────────────────────────────── -->
+  <div class="papel-picado" style="margin-top:5.25rem;" aria-hidden="true"></div>
+
+  <!-- ── PAGE HEADER ──────────────────────────────────────── -->
+  <header class="legal-hero">
+    <h1 class="legal-hero-title">Julio Salas SMS Testing</h1>
+    <p class="legal-intro">
+      Julio Salas SMS Testing is a personal software-development project used to test low-volume transactional SMS
+      notifications for a demo food-order and catering application. No advertising, marketing, promotional, sales,
+      or third-party messages are sent through this program.
+    </p>
+    <p class="operator-note">
+      This personal software-testing program is operated by Julio Salas. The pages are hosted on this website for
+      development and testing purposes.
+    </p>
+  </header>
+
+  <!-- ── What these test texts cover ────────────────────────────── -->
+  <ul class="sms-purpose-list" aria-label="Types of test messages sent through this program">
+    <li><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> Test food-order confirmations</li>
+    <li><i class="fa-solid fa-utensils" aria-hidden="true"></i> Test catering-request confirmations</li>
+    <li><i class="fa-solid fa-credit-card" aria-hidden="true"></i> Test payment confirmations</li>
+    <li><i class="fa-solid fa-receipt" aria-hidden="true"></i> Test receipt notifications</li>
+    <li><i class="fa-solid fa-code" aria-hidden="true"></i> Application-status updates</li>
+    <li><i class="fa-solid fa-vial" aria-hidden="true"></i> SMS delivery-testing notifications</li>
+  </ul>
+
+  <!-- ── FORM ─────────────────────────────────────────────── -->
+  <main class="px-4 pb-6">
+    <div class="quote-card">
+      <div class="papel-picado" aria-hidden="true"></div>
+      <div class="quote-card-body">
+
+        <p class="sms-optional-banner">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span>SMS enrollment is completely optional. You may continue browsing the website and using available
+          services without entering a mobile phone number or agreeing to receive text messages.</span>
+        </p>
+
+        <form id="julio-sms-consent-form" novalidate>
+
+          <!-- Honeypot: real users never see or fill this field -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="julio-sms-website">Leave this field blank</label>
+            <input type="text" id="julio-sms-website" name="company_website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="quote-field">
+            <label for="julio-sms-name">Full Name</label>
+            <input
+              id="julio-sms-name"
+              type="text"
+              name="full_name"
+              autocomplete="name"
+              aria-describedby="julio-sms-name-error"
+            />
+            <p class="field-error" id="julio-sms-name-error" role="alert"></p>
+          </div>
+
+          <div class="quote-field">
+            <label for="julio-sms-phone">Mobile Phone Number</label>
+            <input
+              id="julio-sms-phone"
+              type="tel"
+              name="phone"
+              inputmode="tel"
+              autocomplete="tel"
+              placeholder="(347) 686-2462"
+              aria-describedby="julio-sms-phone-hint julio-sms-phone-error"
+            />
+            <p class="field-hint" id="julio-sms-phone-hint">Only required if you check the box below to sign up for SMS.</p>
+            <p class="field-error" id="julio-sms-phone-error" role="alert"></p>
+          </div>
+
+          <div class="quote-field">
+            <label for="julio-sms-reference">Test Reference Number <span style="font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <input
+              id="julio-sms-reference"
+              type="text"
+              name="reference_number"
+              autocomplete="off"
+              maxlength="64"
+            />
+          </div>
+
+          <div class="consent-block">
+            <div class="consent-checkbox-row" id="julio-sms-consent-row">
+              <input
+                type="checkbox"
+                id="julio-sms-consent-checkbox"
+                name="sms_consent"
+                aria-describedby="julio-sms-consent-hint"
+              />
+              <label for="julio-sms-consent-checkbox">
+                I agree to receive low-volume transactional software-test text messages from Julio Salas regarding
+                test food orders, catering requests, payment confirmations, receipt notifications, and
+                application-status updates. Message frequency varies. Message and data rates may apply. Reply STOP
+                to unsubscribe or HELP for assistance. Consent is not a condition of purchase.
+              </label>
+            </div>
+            <p class="consent-hint" id="julio-sms-consent-hint" role="status" aria-live="polite"></p>
+
+            <p class="consent-legal-links">
+              <a href="/julio-sms-privacy/">Privacy Policy</a> | <a href="/julio-sms-terms/">Terms and Conditions</a>
+            </p>
+
+            <p class="consent-optional-note">
+              This checkbox is optional and is not required to continue browsing or using available services.
+            </p>
+          </div>
+
+          <div class="sms-choice-actions">
+            <button type="submit" class="quote-submit-btn" id="julio-sms-submit-btn">
+              <i class="fa-solid fa-comment-sms" aria-hidden="true"></i>
+              <span id="julio-sms-submit-label">Sign Up for SMS Notifications</span>
+            </button>
+
+            <div class="choice-divider" aria-hidden="true"><span>or</span></div>
+
+            <a href="/home.html" class="no-thanks-btn" id="julio-sms-no-thanks-btn">
+              No thanks — continue without SMS
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <div id="julio-sms-form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <div class="papel-picado" aria-hidden="true"></div>
+  <footer class="footer-wrap">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <span class="footer-brand-name">Buffet Lucia's Fiesta Mexicana</span>
+        <p class="footer-brand-sub" data-i18n="footerBrandSub">Hacemos comida para eventos</p>
+      </div>
+
+      <div class="footer-links-row">
+        <a href="https://www.tiktok.com/@buffetluciasftamexicana?is_from_webapp=1&sender_device=pc"
+           class="footer-link" aria-label="Visit our TikTok page">
+          <i class="fa-brands fa-tiktok text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">TikTok</span>
+        </a>
+        <a href="https://www.facebook.com/BuffetLuciasFiestaMExicana/"
+           class="footer-link" aria-label="Visit our Facebook page">
+          <i class="fa-brands fa-facebook text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label">Facebook</span>
+        </a>
+        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
+           class="footer-link" aria-label="View our location in Google Maps">
+          <i class="fa-solid fa-map-location text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label" data-i18n="navLocation">Ubicación</span>
+        </a>
+        <a href="tel:+13476862462"
+           class="footer-link footer-link--call"
+           aria-label="Call Buffet Lucia's Fiesta Mexicana">
+          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
+          <span class="footer-link-label" data-i18n="navCall">Llamar</span>
+        </a>
+      </div>
+
+    </div>
+
+    <p class="footer-legal-row">
+      <a href="/julio-sms-consent/">SMS Consent</a>·<a href="/julio-sms-privacy/">Privacy Policy</a>·<a href="/julio-sms-terms/">Terms &amp; Conditions</a>
+    </p>
+
+    <hr class="footer-divider">
+    <p class="footer-copyright">
+      &copy; 2025 Buffet Lucia's Fiesta Mexicana &nbsp;·&nbsp; <span data-i18n="footerRights">Todos los derechos reservados</span>
+    </p>
+  </footer>
+
+  <script defer src="/src/i18n.js"></script>
+  <script defer src="/src/julioSmsConsent.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const details  = document.querySelector("nav details");
+      const closeBtn = document.getElementById("close-mobile");
+      if (details && closeBtn) {
+        closeBtn.addEventListener("click", () => details.removeAttribute("open"));
+        details.querySelectorAll("a, button").forEach((el) => {
+          el.addEventListener("click", () => details.removeAttribute("open"));
+        });
+      }
+    });
+  </script>
+</body>
+</html>
