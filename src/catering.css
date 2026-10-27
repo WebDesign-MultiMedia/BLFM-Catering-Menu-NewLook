@@ -190,7 +190,29 @@ button {
     color: #06290f;
 }
 
-.btn-whatsapp[aria-disabled="true"] {
+.send-alt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-send-alt {
+    min-height: 44px;
+    padding: 8px 12px;
+    border-color: var(--line);
+    background: var(--surface);
+    color: var(--bone);
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+.btn-send-alt:hover {
+    border-color: var(--pumpkin);
+}
+
+.btn-whatsapp[aria-disabled="true"],
+.btn-send-alt[aria-disabled="true"] {
     opacity: 0.5;
 }
 
@@ -1175,6 +1197,7 @@ dialog::backdrop {
     max-height: 88vh;
     max-height: 88dvh;
     margin: 0;
+    padding-top: env(safe-area-inset-top);
     border-radius: 22px 22px 0 0;
     background: var(--night-2);
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
@@ -1186,6 +1209,13 @@ dialog::backdrop {
     animation: sheet-up 0.28s ease;
 }
 
+/* A fixed height (not just max-height) so the list area always gets the
+   space left over by the header and buttons, including in iOS Safari */
+.drawer:not(.is-empty) {
+    height: 88vh;
+    height: 88dvh;
+}
+
 @keyframes sheet-up {
     from { transform: translateY(100%); }
 }
@@ -1195,7 +1225,7 @@ dialog::backdrop {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 18px 20px 12px;
+    padding: 14px 16px 10px 20px;
     border-bottom: 1px solid var(--line);
 }
 
@@ -1209,7 +1239,7 @@ dialog::backdrop {
 .drawer-body {
     flex: 1;
     min-height: 0;
-    padding: 14px 20px;
+    padding: 12px 16px;
     overflow-y: auto;
     overscroll-behavior: contain;
 }
@@ -1222,6 +1252,17 @@ dialog::backdrop {
 
 .drawer-empty strong {
     color: var(--pumpkin-2);
+}
+
+.picked-count {
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.picked-count[hidden] {
+    display: none;
 }
 
 .picked {
@@ -1238,13 +1279,13 @@ dialog::backdrop {
 
 .picked li {
     display: grid;
-    grid-template-columns: 48px minmax(0, 1fr) auto;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
     grid-template-areas:
         'art name remove'
         'art size remove';
     align-items: center;
-    gap: 4px 12px;
-    padding: 8px;
+    gap: 4px 10px;
+    padding: 6px 6px 6px 8px;
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     background: var(--surface);
@@ -1253,8 +1294,8 @@ dialog::backdrop {
 .picked img,
 .picked-art {
     grid-area: art;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 10px;
     object-fit: cover;
 }
@@ -1268,13 +1309,6 @@ dialog::backdrop {
     grid-area: name;
     font-weight: 800;
     line-height: 1.25;
-}
-
-.picked-name small {
-    display: block;
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 0.78rem;
 }
 
 .size-select {
@@ -1350,7 +1384,7 @@ dialog::backdrop {
 }
 
 .drawer-foot {
-    padding: 14px 20px max(16px, env(safe-area-inset-bottom));
+    padding: 10px 16px max(10px, env(safe-area-inset-bottom));
     border-top: 1px solid var(--line);
 }
 
@@ -1362,8 +1396,13 @@ dialog::backdrop {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0 6px;
-    margin-top: 6px;
+    gap: 0 2px;
+    margin-top: 4px;
+}
+
+.drawer-secondary .link-btn {
+    padding: 6px 7px;
+    font-size: 0.85rem;
 }
 
 /* Photo / video viewer */
@@ -1548,7 +1587,8 @@ dialog::backdrop {
         padding: 2px 0 4px;
     }
 
-    .drawer {
+    .drawer,
+    .drawer:not(.is-empty) {
         inset: 0 0 0 auto;
         width: 420px;
         height: 100%;

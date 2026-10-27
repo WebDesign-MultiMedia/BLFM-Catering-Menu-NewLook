@@ -12,6 +12,8 @@
    ========================================================================== */
 
 const WHATSAPP_NUMBER = '13476862462';
+const SMS_NUMBER = '+13476862462';
+const EMAIL = 'buffetluciasfiestamexicana@gmail.com';
 const STORAGE_KEY = 'blfm-party-list';
 const VIEW_KEY = 'blfm-menu-view'; // 'grid' (photo cards) or 'list' (names only)
 const LANG_KEY = 'blfm-lang'; // shared with the rest of the site (src/i18n.js)
@@ -169,6 +171,7 @@ const STRINGS = {
         partyList: 'Lista de fiesta',
         fabAria: n => `Abrir lista de fiesta, ${n} ${n === 1 ? 'platillo' : 'platillos'}`,
         drawerTitle: 'Tu lista de fiesta',
+        pickedCount: n => `${n} ${n === 1 ? 'platillo' : 'platillos'} en tu lista`,
         drawerEmpty: 'Tu lista está vacía. Toca <strong>+ Agregar</strong> en cualquier platillo para armar tu menú de fiesta.',
         traySize: 'Tamaño de charola',
         sizeAny: 'Tamaño…',
@@ -179,9 +182,13 @@ const STRINGS = {
         optional: '(opcional)',
         notesPlaceholder: 'Recoger o entrega, alergias, cualquier otra cosa…',
         sendWhatsapp: 'Enviar lista por WhatsApp',
+        sendSms: 'Texto (SMS)',
+        sendEmail: 'Correo',
+        emailSubject: 'Cotización de catering',
         copyList: 'Copiar lista',
         clearAll: 'Borrar todo',
         quoteForm: 'Formulario de cotización',
+        quoteShort: 'Cotización',
         tagline: 'Barbacoa · Carnitas · Catering para toda ocasión',
         rights: 'Todos los derechos reservados',
         toastAdded: name => `${SEASON_EMOJI} Agregaste ${name}`,
@@ -250,6 +257,7 @@ const STRINGS = {
         partyList: 'Party list',
         fabAria: n => `Open party list, ${n} ${n === 1 ? 'dish' : 'dishes'}`,
         drawerTitle: 'Your party list',
+        pickedCount: n => `${n} ${n === 1 ? 'dish' : 'dishes'} on your list`,
         drawerEmpty: 'Your list is empty. Tap <strong>+ Add</strong> on any dish to start building your party menu.',
         traySize: 'Tray size',
         sizeAny: 'Size…',
@@ -260,9 +268,13 @@ const STRINGS = {
         optional: '(optional)',
         notesPlaceholder: 'Pickup or delivery, allergies, anything else…',
         sendWhatsapp: 'Send list on WhatsApp',
+        sendSms: 'Text (SMS)',
+        sendEmail: 'Email',
+        emailSubject: 'Catering quote request',
         copyList: 'Copy list',
         clearAll: 'Clear all',
         quoteForm: 'Quote form',
+        quoteShort: 'Quote form',
         tagline: 'Barbacoa · Carnitas · Catering for every occasion',
         rights: 'All rights reserved',
         toastAdded: name => `${SEASON_EMOJI} Added ${name}`,
@@ -503,7 +515,7 @@ function pickedItemHtml(d) {
         ...TRAY_SIZES.map(s => `<option value="${s}"${s === size ? ' selected' : ''}>${t('sizes')[s]}</option>`)].join('');
     return `<li data-id="${d.id}">
         ${d.img ? `<img src="${thumb(d.img)}" alt="" loading="lazy">` : '<svg class="picked-art" aria-hidden="true"><use href="#i-pumpkin"/></svg>'}
-        <span class="picked-name">${escapeHtml(d.name)}<small>${catById.get(d.cat).en}</small></span>
+        <span class="picked-name">${escapeHtml(d.name)}</span>
         <select class="size-select" data-size="${d.id}" aria-label="${escapeHtml(`${t('traySize')}: ${d.name}`)}">${options}</select>
         <button class="icon-btn" type="button" data-remove="${d.id}" aria-label="${escapeHtml(t('removeAria')(d.name))}">
             <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
@@ -547,6 +559,8 @@ function refreshListUi() {
 
     const empty = count === 0;
     $('#drawer-empty').hidden = !empty;
+    $('#picked-count').hidden = empty;
+    $('#picked-count').textContent = t('pickedCount')(count);
     $('#event-form').hidden = empty;
     $('#drawer').classList.toggle('is-empty', empty);
     updateWhatsappLink();
@@ -572,11 +586,15 @@ function buildMessage() {
     return lines.join('\n');
 }
 
+// WhatsApp, text message and email all carry the same message
 function updateWhatsappLink() {
-    const link = $('#send-whatsapp');
     const hasItems = partyList.size > 0;
-    link.href = `https://wa.me/${WHATSAPP_NUMBER}${hasItems ? `?text=${encodeURIComponent(buildMessage())}` : ''}`;
-    link.setAttribute('aria-disabled', !hasItems);
+    const msg = hasItems ? encodeURIComponent(buildMessage()) : '';
+    $('#send-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}${hasItems ? `?text=${msg}` : ''}`;
+    // "?&body=" works on both iPhone and Android
+    $('#send-sms').href = `sms:${SMS_NUMBER}${hasItems ? `?&body=${msg}` : ''}`;
+    $('#send-email').href = `mailto:${EMAIL}${hasItems ? `?subject=${encodeURIComponent(t('emailSubject'))}&body=${msg}` : ''}`;
+    document.querySelectorAll('#send-whatsapp, #send-sms, #send-email').forEach(link => link.setAttribute('aria-disabled', !hasItems));
 }
 
 async function copyList() {
@@ -738,12 +756,12 @@ function bindEvents() {
     $('#event-form').addEventListener('input', updateWhatsappLink);
     $('#event-form').addEventListener('submit', e => e.preventDefault());
     $('#copy-list').addEventListener('click', copyList);
-    $('#send-whatsapp').addEventListener('click', e => {
+    document.querySelectorAll('#send-whatsapp, #send-sms, #send-email').forEach(link => link.addEventListener('click', e => {
         if (partyList.size === 0) {
             e.preventDefault();
             toast(t('toastAddFirst'));
         }
-    });
+    }));
     $('#clear-list').addEventListener('click', () => {
         if (partyList.size === 0) return;
         partyList.clear();
