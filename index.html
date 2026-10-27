@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#14101f">
 
   <title>Menu de Catering Mexicano en Bronx, NY | Buffet Lucia's Fiesta Mexicana</title>
   <meta name="description" content="Catering mexicano auténtico en Bronx, NY para cumpleaños, bautizos, baby showers y eventos de oficina. Charolas chica, mediana o grande. Pide tu cotización hoy.">
@@ -29,10 +30,10 @@
   <link rel="icon" type="image/png" sizes="192x192" href="./imgs/logo/favicon-192.png">
   <link rel="apple-touch-icon" href="./imgs/logo/favicon-192.png">
 
-  <link href="./src/output.css" rel="stylesheet" />
-  <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.3/dist/sweetalert2.min.css" media="print" onload="this.media='all'">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Griffy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/catering.css">
 
   <!-- Structured data: local catering business -->
   <script type="application/ld+json">
@@ -63,1769 +64,221 @@
     ]
   }
   </script>
-
-  <style>
-    /* ── Mexican palette ──────────────────────────────────── */
-    :root {
-      --mex-red: #CE1126;
-      --mex-green: #006341;
-      --mex-gold: #F0A500;
-      --mex-pink: #E0457B;
-      --mex-turquoise: #12A5A6;
-    }
-
-    /* Serape-stripe accent bar — reused on the nav top edge and as a
-       divider between sections */
-    .serape-stripe {
-      height: 5px;
-      width: 100%;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--mex-red) 0 30px,
-        var(--mex-gold) 30px 60px,
-        var(--mex-green) 60px 90px,
-        var(--mex-pink) 90px 120px,
-        var(--mex-turquoise) 120px 150px
-      );
-    }
-
-    /* Papel picado (cut-paper banner) strip, built from a tiling SVG
-       so no extra image assets are needed */
-    .papel-picado {
-      height: 30px;
-      width: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='30'%3E%3Cline x1='0' y1='2' x2='160' y2='2' stroke='rgba(255,255,255,0.55)' stroke-width='2'/%3E%3Cpath d='M2,3 L38,3 L20,26 Z' fill='%23CE1126'/%3E%3Cpath d='M42,3 L78,3 L60,26 Z' fill='%23F0A500'/%3E%3Cpath d='M82,3 L118,3 L100,26 Z' fill='%23006341'/%3E%3Cpath d='M122,3 L158,3 L140,26 Z' fill='%23E0457B'/%3E%3C/svg%3E");
-      background-repeat: repeat-x;
-      background-position: top center;
-      filter: drop-shadow(0 3px 3px rgba(0,0,0,0.4));
-    }
-
-    /* Subtle talavera-tile lattice texture behind the whole page */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -20;
-      pointer-events: none;
-      background-image:
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px),
-        repeating-linear-gradient(-45deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px);
-    }
-
-    /* ── Section cards ─────────────────────────────────── */
-    .menu-section {
-      width: 100%;
-      background: rgba(255,255,255,0.045);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border: 1px solid rgba(240,165,0,0.3);
-      border-radius: 1.1rem;
-      overflow: hidden;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .menu-section:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.4);
-    }
-
-    .section-header {
-      position: relative;
-      padding: 0.8rem 1rem 1rem;
-      background: rgba(0,0,0,0.25);
-    }
-
-    .section-header::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 4px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--mex-red) 0 10px,
-        var(--mex-gold) 10px 20px,
-        var(--mex-green) 20px 30px
-      );
-    }
-
-    .section-header h2 {
-      font-family: Roboto, sans-serif;
-      font-weight: 800;
-      font-size: 1.15rem;
-      letter-spacing: 0.01em;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      margin: 0;
-      line-height: 1.3;
-      text-align: center;
-    }
-
-    /* ── Category subtitle (e.g. tray size options) ── */
-    .section-subtitle {
-      display: block;
-      text-align: center;
-      font-family: Roboto, sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.03em;
-      color: rgba(255,255,255,0.65);
-      text-shadow: none;
-      margin-top: 0.2rem;
-    }
-
-    /* ── Menu rows ──────────────────────────────────────── */
-    .menu-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .menu-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.6rem 1rem;
-      border-bottom: 1px solid rgba(206,17,38,0.15);
-      color: rgba(255,255,255,0.94);
-      font-family: Roboto, sans-serif;
-      font-weight: 400;
-      font-size: 0.92rem;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.55);
-      min-height: 2.8rem;
-      transition: background 0.18s;
-      gap: 0.5rem;
-    }
-
-    .menu-row:nth-child(even) {
-      background: rgba(255,255,255,0.025);
-    }
-
-    .menu-row:last-child {
-      border-bottom: none;
-    }
-
-    .menu-row.has-photo {
-      cursor: pointer;
-    }
-
-    .menu-row.has-photo:hover,
-    .menu-row.has-photo:focus-visible {
-      background: rgba(255,255,255,0.08);
-      outline: none;
-    }
-
-    .menu-row.has-photo:active {
-      background: rgba(255,255,255,0.13);
-    }
-
-    .item-name {
-      flex: 1;
-    }
-
-    /* ── Camera badge ───────────────────────────────────── */
-    .photo-badge {
-      flex-shrink: 0;
-      width: 1.9rem;
-      height: 1.9rem;
-      border-radius: 50%;
-      background: rgba(255,132,136,0.12);
-      border: 1px solid rgba(255,132,136,0.45);
-      color: #FF8488;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      transition: background 0.18s, color 0.18s, border-color 0.18s;
-      pointer-events: none;
-    }
-
-    .menu-row.has-photo:hover .photo-badge,
-    .menu-row.has-photo:focus-visible .photo-badge {
-      background: rgba(240,165,0,0.4);
-      color: #FFE29A;
-      border-color: #FFE29A;
-    }
-
-    /* ── Menu groups + grid layout ───────────────────────── */
-    .menu-group {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    .menu-group-title {
-      font-family: Roboto, sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      text-align: center;
-      margin: 2.2rem 0 0.4rem;
-    }
-
-    .menu-group-title::after {
-      content: "";
-      display: block;
-      width: 90px;
-      height: 4px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--mex-red) 0 15px,
-        var(--mex-gold) 15px 30px,
-        var(--mex-green) 30px 45px,
-        var(--mex-pink) 45px 60px
-      );
-      margin: 0.6rem auto 1.4rem;
-      border-radius: 999px;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.2rem;
-      align-items: start;
-      padding-bottom: 1rem;
-    }
-
-    /* ── Image Modal ────────────────────────────────────── */
-    #img-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 60;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      background: rgba(0,0,0,0.93);
-    }
-
-    #img-modal.open {
-      display: flex;
-      animation: mFadeIn 0.22s ease forwards;
-    }
-
-    @keyframes mFadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    #modal-card {
-      position: relative;
-      width: 100%;
-      max-width: 480px;
-      background: #006341;
-      border-radius: 1.1rem;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
-      border: 1px solid rgba(206,17,38,0.5);
-      animation: mCardPop 0.22s ease forwards;
-    }
-
-    @keyframes mCardPop {
-      from { transform: scale(0.88) translateY(20px); opacity: 0; }
-      to   { transform: scale(1)    translateY(0);    opacity: 1; }
-    }
-
-    #modal-close {
-      position: absolute;
-      top: 0.65rem;
-      right: 0.65rem;
-      z-index: 10;
-      width: 2.1rem;
-      height: 2.1rem;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.18s;
-    }
-
-    #modal-close:hover { background: rgba(206,17,38,0.8); }
-
-    /* fixed-height wrapper so the card never jumps while loading */
-    #modal-img-wrap {
-      position: relative;
-      min-height: 200px;
-      background: rgba(0,0,0,0.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* loading spinner */
-    #modal-loader {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #modal-loader.hidden { display: none; }
-
-    .modal-spinner {
-      width: 2.4rem;
-      height: 2.4rem;
-      border: 3px solid rgba(255,255,255,0.2);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* error fallback */
-    #modal-error {
-      position: absolute;
-      inset: 0;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      color: rgba(255,255,255,0.55);
-      font-family: Roboto, sans-serif;
-      font-size: 0.85rem;
-    }
-
-    #modal-error.visible { display: flex; }
-
-    #modal-error i { font-size: 2rem; }
-
-    #modal-img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      max-height: 65vh;
-      opacity: 0;
-      transition: opacity 0.28s ease;
-    }
-
-    #modal-img.loaded { opacity: 1; }
-
-    #modal-name {
-      text-align: center;
-      padding: 0.9rem 1rem;
-      color: #fff;
-      font-family: Roboto, sans-serif;
-      font-weight: 800;
-      font-size: 1.5rem;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-      line-height: 1.25;
-    }
-
-    /* ── Quote options modal (Texto / Llamar / Correo) ──── */
-    #quote-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 60;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      background: rgba(0,0,0,0.88);
-    }
-
-    #quote-modal.open {
-      display: flex;
-      animation: mFadeIn 0.22s ease forwards;
-    }
-
-    #quote-modal-card {
-      position: relative;
-      width: 100%;
-      max-width: 380px;
-      background: #006341;
-      border-radius: 1.1rem;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.7);
-      border: 1px solid rgba(240,165,0,0.5);
-      animation: mCardPop 0.22s ease forwards;
-      padding: 1.7rem 1.4rem 1.4rem;
-    }
-
-    #quote-modal-close {
-      position: absolute;
-      top: 0.65rem;
-      right: 0.65rem;
-      z-index: 10;
-      width: 2.1rem;
-      height: 2.1rem;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.18s;
-    }
-
-    #quote-modal-close:hover { background: rgba(206,17,38,0.8); }
-
-    .quote-modal-title {
-      text-align: center;
-      color: #fff;
-      font-family: Roboto, sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      margin: 0 0 1.2rem;
-      padding: 0 1.4rem;
-    }
-
-    .quote-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
-    .quote-option {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      background: rgba(0,0,0,0.22);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 0.85rem;
-      padding: 0.8rem 1rem;
-      color: #fff;
-      text-decoration: none;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      font-family: Roboto, sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.18s, transform 0.18s;
-    }
-
-    .quote-option i {
-      width: 1.4rem;
-      text-align: center;
-      font-size: 1.15rem;
-      color: var(--mex-gold);
-    }
-
-    .quote-option:hover {
-      background: rgba(0,0,0,0.38);
-      transform: translateY(-2px);
-    }
-
-    /* ── SweetAlert popup overrides ────────────────────── */
-    .swal-popup-custom {
-      border: 1px solid rgba(206,17,38,0.5) !important;
-      border-radius: 1.1rem !important;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.65) !important;
-      padding: 1.6rem 1.5rem 1.2rem !important;
-      max-height: none !important;
-      overflow: hidden !important;
-      width: auto !important;
-      max-width: min(94vw, 460px) !important;
-    }
-
-    /* kill the inner scroll SweetAlert adds */
-    .swal-popup-custom .swal2-html-container,
-    .swal-html-custom {
-      overflow: visible !important;
-      max-height: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-
-    .swal-timer-custom {
-      background: #CE1126 !important;
-      height: 4px !important;
-    }
-
-    /* ── Tap hint on items with photos ─────────────────── */
-    .tap-hint {
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.45);
-      font-family: Roboto, sans-serif;
-      text-shadow: none;
-      display: block;
-      margin-top: 1px;
-    }
-
-    /* ── Hero title + logistics sub-headline ─────────────── */
-    .hero-title {
-      font-family: Roboto, sans-serif;
-      font-weight: 900;
-      font-size: 2.4rem;
-      letter-spacing: 0.01em;
-      color: #fff;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-
-    .logistics-subhead {
-      max-width: 620px;
-      margin: 0 auto;
-      color: rgba(255,255,255,0.88);
-      font-family: Roboto, sans-serif;
-      font-size: 0.94rem;
-      line-height: 1.55;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-    }
-
-    /* ── Catering gallery ─────────────────────────────────── */
-    .gallery-section {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0.5rem 1rem 2.5rem;
-      text-align: center;
-    }
-
-    .gallery-title {
-      font-family: Roboto, sans-serif;
-      font-weight: 800;
-      font-size: 1.6rem;
-      letter-spacing: 0.03em;
-      color: #fff;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.45);
-      margin-bottom: 0.3rem;
-    }
-
-    .gallery-subtitle {
-      font-family: Roboto, sans-serif;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 1.3rem;
-    }
-
-    /* ── Slide carousel ───────────────────────────────────── */
-    .gallery-slider {
-      position: relative;
-      max-width: 640px;
-      margin: 0 auto 0.9rem;
-      border-radius: 1rem;
-      overflow: hidden;
-      border: 1px solid rgba(240,165,0,0.4);
-      box-shadow: 0 6px 22px rgba(0,0,0,0.4);
-    }
-
-    .gallery-track {
-      display: flex;
-      transition: transform 0.4s ease;
-    }
-
-    .gallery-slide {
-      flex: 0 0 100%;
-      aspect-ratio: 4 / 3;
-    }
-
-    .gallery-item {
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: none;
-      padding: 0;
-      margin: 0;
-      cursor: pointer;
-      background: none;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 5;
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid rgba(255,255,255,0.35);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.18s;
-    }
-
-    .gallery-arrow:hover {
-      background: rgba(0,0,0,0.7);
-    }
-
-    .gallery-arrow-prev { left: 0.6rem; }
-    .gallery-arrow-next { right: 0.6rem; }
-
-    .gallery-counter {
-      position: absolute;
-      bottom: 0.6rem;
-      right: 0.8rem;
-      z-index: 5;
-      background: rgba(0,0,0,0.55);
-      color: #fff;
-      font-family: Roboto, sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-    }
-
-    .gallery-dots {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.4rem;
-    }
-
-    .gallery-dot {
-      width: 8px;
-      height: 8px;
-      padding: 0;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.4);
-      border: none;
-      cursor: pointer;
-      transition: background 0.18s, width 0.18s;
-    }
-
-    .gallery-dot[aria-current="true"] {
-      background: #fff;
-      width: 20px;
-      border-radius: 999px;
-    }
-
-    .gallery-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem;
-    }
-
-    .gallery-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #fff;
-      text-decoration: none;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      font-family: Roboto, sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      border-radius: 999px;
-      padding: 0.6rem 1.2rem;
-      transition: background 0.18s, transform 0.18s;
-    }
-
-    .gallery-cta:hover {
-      background: rgba(0,0,0,0.4);
-      transform: translateY(-2px);
-    }
-
-    /* ── Nav ─────────────────────────────────────────────── */
-    .nav-logo {
-      /* Always fits inside the 80px nav; scales fluidly on resize */
-      height: auto;
-      max-height: 52px;
-      width: auto;
-      max-width: min(38vw, 210px);
-      display: block;
-      filter: drop-shadow(2px 2px 1px black);
-    }
-
-    /* Background lives on ::before (not .nav-bar itself) so backdrop-filter
-       doesn't create a containing block that traps the fixed-position
-       mobile menu overlay nested inside this nav. */
-    .nav-bar {
-      top: 0;
-      left: 0;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
-    }
-
-    .nav-bar::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(120deg, rgba(180,14,32,0.82), rgba(120,8,22,0.82));
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    /* Desktop nav links — minimal, transparent by default */
-    .nav-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      color: rgba(255,255,255,0.95);
-      text-decoration: none;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
-      background: transparent;
-      border: none;
-      border-radius: 0.6rem;
-      padding: 0.4rem 0.75rem;
-      transition: background 0.18s, transform 0.18s;
-    }
-
-    .nav-link:hover {
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-1px);
-    }
-
-    .nav-label {
-      font-family: Roboto, sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
-
-    /* Primary CTAs stand out as solid gradient pills */
-    .nav-cta,
-    .nav-cta-quote {
-      flex-direction: row;
-      gap: 0.45rem;
-      border-radius: 999px;
-      padding: 0.5rem 1rem;
-      color: #fff;
-    }
-
-    .nav-cta .nav-label,
-    .nav-cta-quote .nav-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.01em;
-      text-transform: none;
-      opacity: 1;
-      font-weight: 700;
-    }
-
-    .nav-cta {
-      background: linear-gradient(135deg, #00a86b, #00623f);
-      box-shadow: 0 3px 12px rgba(0,99,65,0.45);
-    }
-
-    .nav-cta:hover {
-      background: linear-gradient(135deg, #00c17c, #007a4d);
-      transform: translateY(-2px);
-    }
-
-    /* Quote button: pink pill, second primary CTA next to Llamar */
-    .nav-cta-quote {
-      background: linear-gradient(135deg, #ff5f96, #c9366a);
-      box-shadow: 0 3px 12px rgba(201,54,106,0.4);
-    }
-
-    .nav-cta-quote:hover {
-      background: linear-gradient(135deg, #ff7dab, #de407a);
-      transform: translateY(-2px);
-    }
-
-    /* ── Language toggle ─────────────────────────────────── */
-    .lang-toggle {
-      display: flex;
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.08);
-      flex-shrink: 0;
-    }
-
-    .lang-btn {
-      border: none;
-      background: transparent;
-      color: #fff;
-      font-family: Roboto, sans-serif;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 0.4rem 0.7rem;
-      cursor: pointer;
-      transition: background 0.18s, color 0.18s;
-    }
-
-    .lang-btn[aria-pressed="true"] {
-      background: #fff;
-      color: #b3122a;
-    }
-
-    /* Mobile overlay — dark frosted glass instead of a flat color field */
-    .mobile-overlay {
-      background: rgba(10,4,6,0.88);
-      backdrop-filter: blur(14px) saturate(150%);
-      -webkit-backdrop-filter: blur(14px) saturate(150%);
-    }
-
-    /* Mobile nav tiles — minimal by default */
-    .mobile-nav-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      color: #fff;
-      text-decoration: none;
-      padding: 1rem 2rem;
-      border-radius: 0.9rem;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.05);
-      transition: background 0.18s, transform 0.18s;
-      min-width: 6rem;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
-    }
-
-    .mobile-nav-link:hover,
-    .mobile-nav-link:focus {
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-2px);
-    }
-
-    .mobile-nav-label {
-      font-family: Roboto, sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
-
-    /* Primary-action pills inside the mobile menu */
-    .mobile-nav-link--call {
-      background: linear-gradient(135deg, #00a86b, #00623f);
-      border: none;
-    }
-
-    .mobile-nav-link--call:hover {
-      background: linear-gradient(135deg, #00c17c, #007a4d);
-    }
-
-    .mobile-nav-link--quote {
-      background: linear-gradient(135deg, #ff5f96, #c9366a);
-      border: none;
-    }
-
-    .mobile-nav-link--quote:hover {
-      background: linear-gradient(135deg, #ff7dab, #de407a);
-    }
-
-    .mobile-close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.18s, transform 0.18s;
-    }
-
-    .mobile-close-btn:hover {
-      background: rgba(255,255,255,0.18);
-      transform: translateY(-2px);
-    }
-
-    /* ── Footer ──────────────────────────────────────────── */
-    .footer-wrap {
-      position: relative;
-      background: linear-gradient(180deg, #1a0507, #0d0304);
-    }
-
-    .footer-wrap::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: rgba(255,255,255,0.12);
-    }
-
-    .footer-inner {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 2.4rem 1.5rem 0;
-    }
-
-    .footer-brand {
-      text-align: center;
-      margin-bottom: 1.8rem;
-    }
-
-    .footer-brand-name {
-      font-family: 'Cookie', system-ui;
-      font-size: 2.2rem;
-      color: #fff;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-      display: block;
-      line-height: 1.15;
-    }
-
-    .footer-brand-sub {
-      font-family: Roboto, sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      margin-top: 2px;
-    }
-
-    .footer-links-row {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .footer-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.9);
-      text-decoration: none;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 0.9rem;
-      padding: 0.75rem 1rem;
-      min-width: 4.5rem;
-      transition: background 0.18s, transform 0.18s, border-color 0.18s;
-    }
-
-    .footer-link:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.25);
-      transform: translateY(-2px);
-    }
-
-    .footer-link-label {
-      font-family: Roboto, sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
-
-    /* Accent the primary actions on hover */
-    .footer-link--call:hover {
-      background: rgba(0,168,107,0.18);
-      border-color: rgba(0,168,107,0.5);
-    }
-
-    .footer-link--quote:hover {
-      background: rgba(255,95,150,0.18);
-      border-color: rgba(255,95,150,0.5);
-    }
-
-    .footer-divider {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      margin: 0;
-    }
-
-    .footer-copyright {
-      text-align: center;
-      padding: 1rem 1rem;
-      font-family: Roboto, sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.04em;
-      color: rgba(255,255,255,0.35);
-    }
-
-    .footer-legal-row {
-      text-align: center;
-      padding-bottom: 0.6rem;
-      font-family: Roboto, sans-serif;
-      font-size: 0.7rem;
-    }
-
-    .footer-legal-row a {
-      color: rgba(255,255,255,0.55);
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-
-    .footer-legal-row a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-  </style>
 </head>
-<body class="bg-greenMex">
+<body>
 
-  <!-- ── NAV ─────────────────────────────────────────────── -->
-  <nav class="nav-bar fixed w-full h-20 flex items-center justify-between px-3 sm:px-6 z-20">
+<!-- Icon sprite: defined once, used with <use href="#i-..."> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-pumpkin" viewBox="0 0 64 64">
+    <path d="M31 16c0-6 3-10 8-11" fill="none" stroke="#7bc950" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="20" cy="39" rx="15" ry="19" fill="#e8650f"/>
+    <ellipse cx="44" cy="39" rx="15" ry="19" fill="#e8650f"/>
+    <ellipse cx="32" cy="39" rx="13" ry="21" fill="#ff8a2a"/>
+    <path d="M22 34l5 5h-10zM42 34l5 5h-10zM20 46c6 6 18 6 24 0l-4 2-4-3-4 3-4-3-4 3z" fill="#3a1d05"/>
+  </symbol>
+  <symbol id="i-bat" viewBox="0 0 48 24">
+    <path d="M24 8c-1-3-1-5 0-6 1 1 2 1 3 0 1 1 1 3 0 6 3-4 9-6 14-4-3 1-5 4-5 8-3-2-6-1-8 3-1-2-3-3-4-3s-3 1-4 3c-2-4-5-5-8-3 0-4-2-7-5-8 5-2 11 0 14 4z" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 16 16"><path fill="currentColor" d="M13.6 2.3A7.9 7.9 0 0 0 1.1 11.9L0 16l4.2-1.1a7.9 7.9 0 0 0 3.8 1A7.9 7.9 0 0 0 13.6 2.3M8 14.5a6.6 6.6 0 0 1-3.4-.9l-.2-.1-2.5.6.7-2.4-.2-.3A6.6 6.6 0 1 1 8 14.5m3.6-4.9c-.2-.1-1.2-.6-1.4-.7s-.3-.1-.5.1l-.6.8c-.1.1-.2.2-.4.1a5.4 5.4 0 0 1-2.7-2.3c-.2-.4.2-.4.6-1.2q.1-.2 0-.4l-.6-1.5c-.2-.4-.3-.3-.5-.3h-.4a.8.8 0 0 0-.6.3 2.4 2.4 0 0 0-.7 1.8A4.2 4.2 0 0 0 4.7 9a9.6 9.6 0 0 0 3.7 3.3c1.4.6 1.9.6 2.6.5a2.2 2.2 0 0 0 1.4-1 1.8 1.8 0 0 0 .1-1c0-.1-.2-.2-.4-.3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 16 16"><path fill="currentColor" d="M3.7 1.3a1 1 0 0 1 1.5.1l1.6 2.1c.3.4.3.9 0 1.3l-.7 1a.5.5 0 0 0 0 .5 9 9 0 0 0 3.6 3.6.5.5 0 0 0 .5 0l1-.7c.4-.3.9-.3 1.3 0l2.1 1.6a1 1 0 0 1 .1 1.5l-1 1c-.7.7-1.8 1-2.8.7a17.6 17.6 0 0 1-9.4-9.4C1.2 3.6 1.5 2.5 2.2 1.8z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 16 16"><path fill="currentColor" d="M1.5 1.5h5.5V7H1.5zM9 1.5h5.5V7H9zM1.5 9h5.5v5.5H1.5zM9 9h5.5v5.5H9z"/></symbol>
+  <symbol id="i-list" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M5.5 3.5h9M5.5 8h9M5.5 12.5h9"/><circle cx="2" cy="3.5" r="1.2" fill="currentColor"/><circle cx="2" cy="8" r="1.2" fill="currentColor"/><circle cx="2" cy="12.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 16 16"><path fill="currentColor" d="M4 2.5v11l9-5.5z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0a5.5 5.5 0 0 0-5.5 5.5C2.5 9.6 8 16 8 16s5.5-6.4 5.5-10.5A5.5 5.5 0 0 0 8 0m0 7.8a2.3 2.3 0 1 1 0-4.6 2.3 2.3 0 0 1 0 4.6"/></symbol>
+</svg>
 
-    <!-- Logo -->
-    <a href="/home.html" aria-label="Buffet Lucia's Fiesta Mexicana home">
-      <img
-        src="./imgs/logo/BLFM-logo.webp"
-        class="nav-logo"
-        alt="Buffet Lucia's Fiesta Mexicana logo"
-        width="210" height="80"
-      />
-    </a>
+<a class="skip-link" href="#menu" data-t="skip">Saltar al menú</a>
 
-    <!-- Desktop links -->
-    <ul class="hidden sm:flex items-center gap-5 md:gap-7">
-      <li>
-        <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
-          <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
-          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-      </li>
-      <li>
-        <a href="/home.html" class="nav-link" aria-label="Home">
-          <i class="fa-solid fa-house text-xl" aria-hidden="true"></i>
-          <span class="nav-label" data-i18n="navHome">Inicio</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="nav-link" aria-label="View location in Google Maps">
-          <i class="fa-solid fa-location-dot text-xl" aria-hidden="true"></i>
-          <span class="nav-label" data-i18n="navLocation">Ubicación</span>
-        </a>
-      </li>
-      <li>
-        <a href="tel:+13476862462" class="nav-link nav-cta" aria-label="Call Buffet Lucia's Fiesta Mexicana">
-          <i class="fa-solid fa-phone-volume text-xl" aria-hidden="true"></i>
-          <span class="nav-label" data-i18n="navCall">Llamar</span>
-        </a>
-      </li>
-      <li>
-        <button type="button" class="nav-link nav-cta-quote quote-trigger" aria-label="Request a quote">
-          <i class="fa-solid fa-file-invoice text-xl" aria-hidden="true"></i>
-          <span class="nav-label" data-i18n="navQuote">Cotización</span>
-        </button>
-      </li>
+<header class="site-header">
+  <a class="brand" href="/home.html">Buffet Lucia's Fiesta Mexicana</a>
+  <nav aria-label="Main">
+    <ul class="nav-links">
+      <li><a href="/home.html" data-t="navHome">Inicio</a></li>
+      <li><a href="tel:+13476862462" data-t="navContact">Contacto</a></li>
+      <li><a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" data-t="navLocation">Ubicación</a></li>
     </ul>
-
-    <!-- Mobile: language toggle + hamburger, both visible without opening the menu -->
-    <div class="flex sm:hidden items-center gap-2">
-      <div class="lang-toggle" role="group" aria-label="Language selector / Selector de idioma">
-        <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
-        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-      </div>
-
-      <details class="relative">
-        <summary class="cursor-pointer p-2 list-none" aria-label="Open navigation menu">
-          <i class="fa-solid fa-bars text-2xl text-whiteMex drop-shadow-[1px_1px_1px_black]" aria-hidden="true"></i>
-        </summary>
-
-        <!-- Full-screen overlay -->
-        <div class="mobile-overlay fixed inset-0 flex flex-col items-center justify-center gap-5 z-30">
-
-          <!-- Close button -->
-          <button
-            type="button"
-            id="close-mobile"
-            class="mobile-close-btn"
-            aria-label="Close navigation menu"
-          >
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          </button>
-
-          <!-- Brand name inside overlay -->
-          <span style="font-family:'Cookie',system-ui;font-size:1.9rem;color:#fff;text-shadow:1px 1px 3px black;">
-            Buffet Lucia's
-          </span>
-
-          <!-- Links -->
-          <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/" class="mobile-nav-link" aria-label="Home">
-            <i class="fa-solid fa-house text-2xl" aria-hidden="true"></i>
-            <span class="mobile-nav-label" data-i18n="navHome">Inicio</span>
-          </a>
-          <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA" class="mobile-nav-link" aria-label="View location">
-            <i class="fa-solid fa-location-dot text-2xl" aria-hidden="true"></i>
-            <span class="mobile-nav-label" data-i18n="navLocation">Ubicación</span>
-          </a>
-          <a href="tel:+13476862462" class="mobile-nav-link mobile-nav-link--call" aria-label="Call us">
-            <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
-            <span class="mobile-nav-label" data-i18n="navCall">Llamar</span>
-          </a>
-          <button type="button" class="mobile-nav-link quote-trigger mobile-nav-link--quote" aria-label="Request a quote">
-            <i class="fa-solid fa-file-invoice text-2xl" aria-hidden="true"></i>
-            <span class="mobile-nav-label" data-i18n="navQuote">Cotización</span>
-          </button>
-        </div>
-      </details>
-    </div>
-
   </nav>
+  <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+    <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+    <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</header>
 
-  <!-- ── BACKGROUND WATERMARK ─────────────────────────────── -->
-  <img
-    src="./imgs/logo/BLFM-logo.webp"
-    alt="" aria-hidden="true"
-    class="fixed top-[30%] w-full md:lg-fixed md:top-[10%] lg:w-[40%] lg:fixed lg:right-0 -z-10 opacity-20"
-    loading="lazy" width="1200" height="900"
-  />
-
-  <!-- ── PAPEL PICADO BANNER ──────────────────────────────── -->
-  <div class="papel-picado" style="margin-top:5.25rem;" aria-hidden="true"></div>
-
-  <!-- ── HEADER ───────────────────────────────────────────── -->
-  <header class="text-center pt-6 pb-4 px-4 ">
-    <h1 class="hero-title mb-4">
-      <span aria-hidden="true">🌵</span>
-      <span data-i18n="heroTitle">Menú de Banquetes</span>
-      <span aria-hidden="true">🌵</span>
-    </h1>
-
-    <!-- Logistics sub-headline: what we serve, where we deliver, minimum order -->
-    <p class="logistics-subhead mb-4" data-i18n="heroSubhead">
-      Auténtica comida mexicana para fiestas de cumpleaños, bautizos, baby showers, y eventos de oficina.
-      Entregas en Bronx, NY y zonas cercanas. Pedido mínimo: 20 personas.
-    </p>
-
-    <!-- Tray size pill -->
-    <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(0,0,0,0.25);border:1px solid rgba(206,17,38,0.4);border-radius:999px;padding:0.4rem 1.1rem;">
-      <img src="./imgs/iconsImg/buffet.webp" alt="Buffet tray" class="w-7 h-7" loading="lazy" width="28" height="28">
-      <span class="text-whiteMex font-head drop-shadow-[1px_1px_1px_black]" style="font-size:0.9rem;" data-i18n="traySizes">Charola: Chica, Mediana o Grande</span>
+<main>
+  <!-- Hero (seasonal decorations live in .sky; swap them for another season) -->
+  <section class="hero">
+    <div class="sky" aria-hidden="true">
+      <div class="moon"></div>
+      <svg class="bat bat-1"><use href="#i-bat"/></svg>
+      <svg class="bat bat-2"><use href="#i-bat"/></svg>
+      <svg class="bat bat-3"><use href="#i-bat"/></svg>
     </div>
 
-    <!-- Photo tap hint (shown only on mobile) -->
-    <p class="text-whiteMex mt-3" style="font-size:0.78rem;opacity:0.6;font-family:Roboto,sans-serif;">
-      <i class="fa-solid fa-camera" aria-hidden="true"></i>
-      <span data-i18n="tapHint">Toca un platillo con ícono de cámara para ver la foto</span>
-    </p>
-  </header>
-
-  <!-- ── CATERING GALLERY ─────────────────────────────────── -->
-  <section class="gallery-section" aria-labelledby="gallery-heading">
-    <h2 id="gallery-heading" class="gallery-title" data-i18n="galleryTitle">Galería de Eventos</h2>
-    <p class="gallery-subtitle" data-i18n="gallerySubtitle">Así lucen nuestras charolas en eventos reales</p>
-
-    <div class="gallery-slider">
-      <button type="button" class="gallery-arrow gallery-arrow-prev" aria-label="Previous photo" data-i18n-aria="galleryPrev">
-        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-      </button>
-
-      <div class="gallery-track" id="gallery-track">
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-1.jpg" data-name="Mesa de Catering">
-            <img src="./imgs/gallery/spread-1.jpg" alt="Mesa de catering con charolas de arroz, frijoles y guarniciones" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/tray-2.jpg" data-name="Costillas en Salsa">
-            <img src="./imgs/gallery/tray-2.jpg" alt="Charola de costillas en salsa roja" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-3.png" data-name="Mesa Completa de Catering">
-            <img src="./imgs/gallery/spread-3.png" alt="Mesa completa de catering con múltiples charolas" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-4.jpg" data-name="Mesa de Mariscos y Guarniciones">
-            <img src="./imgs/gallery/spread-4.jpg" alt="Mesa de catering con mariscos, arroz y guarniciones" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/chicken-5.jpg" data-name="Pollo Rostizado en Charola">
-            <img src="./imgs/gallery/chicken-5.jpg" alt="Charolas de pollo rostizado para evento" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/chicken-6.jpg" data-name="Pollo en Salsa con Ejotes">
-            <img src="./imgs/gallery/chicken-6.jpg" alt="Charolas de pollo en salsa con ejotes" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/spread-7.jpg" data-name="Mesa de Pastas y Carnes">
-            <img src="./imgs/gallery/spread-7.jpg" alt="Mesa de catering con pastas, carnes y ensaladas" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/bistec-8.jpg" data-name="Bistec a la Mexicana">
-            <img src="./imgs/gallery/bistec-8.jpg" alt="Charola de bistec a la mexicana con pico de gallo" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/pernil-9.jpg" data-name="Pernil Enchilado">
-            <img src="./imgs/gallery/pernil-9.jpg" alt="Charola de pernil enchilado" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/pollo-frito-10.jpg" data-name="Pollo Frito">
-            <img src="./imgs/gallery/pollo-frito-10.jpg" alt="Charola de pollo frito" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/mole-11.jpg" data-name="Mole Poblano">
-            <img src="./imgs/gallery/mole-11.jpg" alt="Charola de mole poblano con ajonjolí" loading="lazy">
-          </button>
-        </div>
-        <div class="gallery-slide">
-          <button type="button" class="gallery-item" data-img="./imgs/gallery/adobo-12.jpg" data-name="Adobo de Puerco">
-            <img src="./imgs/gallery/adobo-12.jpg" alt="Charola de adobo de puerco" loading="lazy">
-          </button>
-        </div>
+    <div class="hero-content">
+      <p class="eyebrow" data-t="eyebrow">Fiestas de Halloween · Fiestas · Toda celebración</p>
+      <h1 data-t-html="heroTitle">Menú de <span>Catering</span></h1>
+      <p class="lede" data-t="lede"></p>
+      <ul class="facts">
+        <li data-t="factDelivery">Entregas en el Bronx y zonas cercanas</li>
+        <li data-t="factMinimum">Pedido mínimo: 20 personas</li>
+        <li data-t="factTrays">Charolas: chica, mediana o grande</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#menu" data-t="browse">Ver el menú</a>
+        <a class="btn btn-ghost" href="tel:+13476862462">
+          <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> (347) 686-2462
+        </a>
       </div>
-
-      <button type="button" class="gallery-arrow gallery-arrow-next" aria-label="Next photo" data-i18n-aria="galleryNext">
-        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-      </button>
-
-      <span class="gallery-counter" id="gallery-counter" aria-hidden="true">1 / 12</span>
     </div>
 
-    <div class="gallery-dots" id="gallery-dots" role="tablist" aria-label="Gallery slides"></div>
+    <svg class="hero-pumpkin" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+  </section>
 
-    <div class="gallery-cta-row">
-      <a class="gallery-cta" href="https://www.facebook.com/BuffetLuciasFiestaMExicana/" aria-label="See more photos and videos on Facebook">
-        <i class="fa-brands fa-facebook" aria-hidden="true"></i>
-        <span data-i18n="galleryMorePhotos">Ver más fotos y videos en Facebook</span>
-      </a>
-      <a class="gallery-cta" href="https://maps.app.goo.gl/KLRJWHraB5WuDuT17" aria-label="See more photos on Google Maps">
-        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-        <span data-i18n="galleryMoreGoogle">Ver fotos en Google</span>
-      </a>
+  <!-- How it works -->
+  <section class="steps" aria-labelledby="steps-title">
+    <h2 id="steps-title" class="visually-hidden" data-t="stepsTitle">Cómo funciona</h2>
+    <ol>
+      <li><span class="step-num">1</span><div><strong data-t="step1">Explora</strong><p data-t="step1Text"></p></div></li>
+      <li><span class="step-num">2</span><div><strong data-t="step2">Agrega platillos</strong><p data-t="step2Text"></p></div></li>
+      <li><span class="step-num">3</span><div><strong data-t="step3">Envíala</strong><p data-t="step3Text"></p></div></li>
+    </ol>
+  </section>
+
+  <!-- Real events gallery -->
+  <section class="events" aria-labelledby="events-title">
+    <div class="section-head">
+      <h2 id="events-title" data-t="eventsTitle">Eventos reales</h2>
+      <p data-t="eventsSubtitle"></p>
+    </div>
+    <div class="events-strip" id="events-strip"></div>
+    <div class="events-links">
+      <a class="pill-link" href="https://www.facebook.com/BuffetLuciasFiestaMExicana/" data-t="moreFacebook">Más fotos y videos en Facebook</a>
+      <a class="pill-link" href="https://maps.app.goo.gl/KLRJWHraB5WuDuT17" data-t="moreGoogle">Fotos en Google</a>
     </div>
   </section>
 
-  <!-- ── MAIN MENU ─────────────────────────────────────────── -->
-  <main class="pb-16" style="padding-top:0.5rem;">
-
-    <!-- ══ GRUPO: Carnes y Mariscos ══════════════════════════ -->
-    <section class="menu-group">
-      <h2 class="menu-group-title" data-i18n="groupMeats">Carnes y Mariscos</h2>
-      <div class="menu-grid">
-
-        <!-- ── Chivo ──────────────────────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🐐</span> Chivo (Goat)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row">
-              <span class="item-name">Chivo</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Chivo.webp"
-                data-name="Chivo Entro">
-              <span class="item-name">Chivo Entro</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Chivo-Media-Charola.webp"
-                data-name="Chivo Media Charola">
-              <span class="item-name">Chivo Media Charola</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Puerco ─────────────────────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🐖</span> Puerco (Pork)</h2>
-            <span class="section-subtitle" data-i18n="categorySubtitle">(Charola: Chica, Mediana o Grande)</span>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Carnitas.webp"
-                data-name="Carnitas">
-              <span class="item-name">Carnitas</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Pernil</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Costillas_Frita.jpeg"
-                data-name="Costillas Frita">
-              <span class="item-name">Costillas Frita</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Costillas en Salsa Verde</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Costillas-Puerco-Salsa-Verde.webp"
-                data-name="Costillas Puerco en Salsa Verde">
-              <span class="item-name">Costillas Puerco en Salsa Verde</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Costillas_BBQ.jpeg"
-                data-name="Costillas BBQ">
-              <span class="item-name">Costillas BBQ</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Costillas en Salsa Roja</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Adobe_Puerco.jpeg"
-                data-name="Adobo de Puerco">
-              <span class="item-name">Adobo de Puerco</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Guisado de Puerco</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Pollo ──────────────────────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🐔</span> Pollo (Chicken)</h2>
-            <span class="section-subtitle" data-i18n="categorySubtitle">(Charola: Chica, Mediana o Grande)</span>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Pollo-Enchilado.jpg"
-                data-name="Pollo Enchilado">
-              <span class="item-name">Pollo Enchilado</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Pollo_Rostizados.webp"
-                data-name="Pollo Rostizado">
-              <span class="item-name">Pollo Rostizado</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Mixiotes de Pollo</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Mixiotes de Pollo.webp"
-                data-name="Mixiotes de Pollo con Nopales">
-              <span class="item-name">Mixiotes de Pollo con Nopales</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Mole_Poblano_Pollo.webp"
-                data-name="Mole Poblano de Pollo">
-              <span class="item-name">Mole Poblano de Pollo</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Adobo-de-pollo.jpeg"
-                data-name="Adobo de Pollo">
-              <span class="item-name">Adobo de Pollo</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Guisado de Pollo</span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Tinga de Pollo</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Alas_BBQ.jpeg"
-                data-name="Alas de BBQ">
-              <span class="item-name">Alas de BBQ</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Pechuga Empanizada</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Piernas_de_Pollo_Empanizada.jpeg"
-                data-name="Piernas de Pollo Empanizadas">
-              <span class="item-name">Piernas de Pollo Empanizadas</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Pollo_ala_Francesa.jpeg"
-                data-name="Pollo a la Francesa">
-              <span class="item-name">Pollo a la Francesa</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Res ────────────────────────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🐄</span> Res (Beef)</h2>
-            <span class="section-subtitle" data-i18n="categorySubtitle">(Charola: Chica, Mediana o Grande)</span>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row">
-              <span class="item-name">Mixiotes de Res</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Bistec ala Mexicana.webp"
-                data-name="Bistec a la Mexicana">
-              <span class="item-name">Bistec a la Mexicana</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Bistec Encebollado</span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Adobo de Res</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Mariscos ───────────────────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🦐</span> Mariscos (Seafood)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Camarones_ala_Diabla.jpeg"
-                data-name="Camarones a la Diabla">
-              <span class="item-name">Camarones a la Diabla</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Camarones_1.jpeg"
-                data-name="Camarones Fritos">
-              <span class="item-name">Camarones Fritos</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ══ GRUPO: Guarniciones ═══════════════════════════════ -->
-    <section class="menu-group">
-      <h2 class="menu-group-title" data-i18n="groupSides">Guarniciones</h2>
-      <div class="menu-grid">
-
-        <!-- ── Ensaladas ──────────────────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🥗</span> Ensaladas (Salads)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Ensalada-Nopales.webp"
-                data-name="Ensalada de Nopales">
-              <span class="item-name">Ensalada de Nopales</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Ensalada-Mix.webp"
-                data-name="Ensalada Mixta">
-              <span class="item-name">Ensalada Mixta</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Ensalada de Frutas</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Ensalada-Papas.webp"
-                data-name="Ensalada de Papas">
-              <span class="item-name">Ensalada de Papas</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Arroz, Frijoles y Tortillas ───────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🍚</span> Arroz, Frijoles y Tortillas (Rice, Beans &amp; Tortillas)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Arroz-Mexicano.webp"
-                data-name="Arroz Mexicano">
-              <span class="item-name">Arroz Mexicano</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Arroz_Blanco.webp"
-                data-name="Arroz Blanco">
-              <span class="item-name">Arroz Blanco</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Arroz Blanco con Frijoles</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Arroz-con-Gandules.webp"
-                data-name="Arroz con Gandules">
-              <span class="item-name">Arroz con Gandules</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Arroz_con_Vegetales.jpeg"
-                data-name="Arroz con Vegetales">
-              <span class="item-name">Arroz con Vegetales</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Frijoles.webp"
-                data-name="Frijoles">
-              <span class="item-name">Frijoles</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Tortillas=Recien.webp"
-                data-name="Tortillas hechas a Mano">
-              <span class="item-name">Tortillas hechas a Mano</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Pastas ──────────────────────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🍝</span> Pastas (Pasta)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Espagueti_a_la_Mexicana.webp"
-                data-name="Espagueti a la Mexicana">
-              <span class="item-name">Espagueti a la Mexicana</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Espagueti Estilo Marisol</span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Espageti_Crema_Queso.jpeg"
-                data-name="Espagueti con Crema y Queso">
-              <span class="item-name">Espagueti con Crema y Queso</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Macaroni_Chesse.jpeg"
-                data-name="Macarroni con Cheese">
-              <span class="item-name">Macarroni con Cheese</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Penne_Vodka.jpeg"
-                data-name="Pasta Penne Vodka">
-              <span class="item-name">Pasta Penne Vodka</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Lasanga.jpeg"
-                data-name="Lasagna">
-              <span class="item-name">Lasagna</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ══ GRUPO: Antojitos y Especialidades ═════════════════ -->
-    <section class="menu-group">
-      <h2 class="menu-group-title" data-i18n="groupExtras">Antojitos y Especialidades</h2>
-      <div class="menu-grid">
-
-        <!-- ── Antojitos / Vegetarianos ───────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🌮</span> Antojitos / Vegetarianos (Appetizers / Vegetarian)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Chiles-Rellenos.webp"
-                data-name="Chiles Rellenos">
-              <span class="item-name">Chiles Rellenos</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Chilaquiles.jpeg"
-                data-name="Chilaquiles">
-              <span class="item-name">Chilaquiles</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Flautas.webp"
-                data-name="Flautas (Queso, Pollo o Papas)">
-              <span class="item-name">Flautas (Queso, Pollo o Papas)</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Favoritos para Niños ───────────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">🍟</span> Favoritos para Niños (Kids' Favorites)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Hot_Dogs.jpeg"
-                data-name="Hot Dogs">
-              <span class="item-name">Hot Dogs</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/cateringMenu/Chicken-Tenders.webp"
-                data-name="Chicken Tenders">
-              <span class="item-name">Chicken Tenders</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- ── Especialidades de la Casa ─────────── -->
-        <div class="menu-section">
-          <div class="section-header">
-            <h2><span aria-hidden="true">⭐</span> Especialidades de la Casa (House Specialties)</h2>
-          </div>
-          <ul class="menu-list">
-            <li class="menu-row has-photo" role="button" tabindex="0"
-                data-img="./imgs/Catering-imgs/Mole_Estilo_Mi_Rancho.jpeg"
-                data-name="Mole Estilo Mi Rancho">
-              <span class="item-name">Mole Estilo Mi Rancho</span>
-              <span class="photo-badge" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
-            </li>
-            <li class="menu-row">
-              <span class="item-name">Albóndigas de Gusto</span>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ── IMAGE MODAL ──────────────────────────────────────── -->
-  <div id="img-modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
-    <div id="modal-card">
-
-      <button id="modal-close" aria-label="Cerrar foto" data-i18n-aria="modalClose">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-      </button>
-
-      <!-- Image area — fixed min-height prevents layout jumping during load -->
-      <div id="modal-img-wrap">
-        <div id="modal-loader" aria-hidden="true">
-          <div class="modal-spinner"></div>
-        </div>
-        <div id="modal-error" role="status">
-          <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
-          <span data-i18n="modalUnavailable">Imagen no disponible</span>
-        </div>
-        <img id="modal-img" src="" alt="">
-      </div>
-
-      <p id="modal-name"></p>
+  <!-- Search + filters -->
+  <div class="toolbar" id="menu">
+    <div class="toolbar-inner">
+      <label class="search">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="visually-hidden" data-t="searchLabel">Buscar platillos</span>
+        <input id="search" type="search" autocomplete="off" enterkeyhint="search">
+      </label>
+      <div class="chips" id="chips" role="group"></div>
     </div>
   </div>
 
-  <!-- ── QUOTE OPTIONS MODAL ──────────────────────────────── -->
-  <div id="quote-modal" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
-    <div id="quote-modal-card">
-
-      <button id="quote-modal-close" aria-label="Cerrar" data-i18n-aria="modalClose">
-        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+  <div class="results-bar">
+    <p class="result-count" id="result-count" aria-live="polite"></p>
+    <div class="view-toggle" role="group" data-t-aria="viewLabel">
+      <button class="view-btn" type="button" data-view="grid" aria-pressed="true">
+        <svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg><span data-t="viewGrid">Fotos</span>
       </button>
-
-      <p id="quote-modal-title" class="quote-modal-title" data-i18n="quoteModalTitle">
-        ¿Cómo prefieres pedir tu cotización?
-      </p>
-
-      <div class="quote-options">
-        <a class="quote-option"
-           href="sms:+13476862462?&body=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20evento.">
-          <i class="fa-solid fa-message" aria-hidden="true"></i>
-          <span data-i18n="quoteText">Texto</span>
-        </a>
-        <a class="quote-option"
-           href="https://wa.me/13476862462?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20evento."
-           target="_blank" rel="noopener">
-          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-          <span data-i18n="quoteWhatsapp">WhatsApp</span>
-        </a>
-        <a class="quote-option" href="tel:+13476862462">
-          <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
-          <span data-i18n="quoteCall">Llamar</span>
-        </a>
-        <a class="quote-option" href="./cotizacion.html">
-          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-          <span data-i18n="quoteEmail">Correo</span>
-        </a>
-      </div>
-
+      <button class="view-btn" type="button" data-view="list" aria-pressed="false">
+        <svg class="icon" aria-hidden="true"><use href="#i-list"/></svg><span data-t="viewList">Lista</span>
+      </button>
     </div>
   </div>
 
-  <!-- ── FOOTER ───────────────────────────────────────────── -->
-  <div class="papel-picado" aria-hidden="true"></div>
-  <footer class="footer-wrap">
-    <div class="footer-inner">
+  <div class="menu" id="menu-sections"></div>
 
-      <!-- Brand -->
-      <div class="footer-brand">
-        <span class="footer-brand-name">Buffet Lucia's Fiesta Mexicana</span>
-        <p class="footer-brand-sub" data-i18n="footerBrandSub">Hacemos comida para eventos</p>
-      </div>
+  <div class="empty" id="empty" hidden>
+    <svg class="empty-art" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+    <p id="empty-text"></p>
+    <button class="btn btn-ghost" id="clear-search" type="button" data-t="clearSearch">Borrar búsqueda</button>
+  </div>
+</main>
 
-      <!-- Links -->
-      <div class="footer-links-row">
-        <a href="https://www.tiktok.com/@buffetluciasftamexicana?is_from_webapp=1&sender_device=pc"
-           class="footer-link" aria-label="Visit our TikTok page">
-          <i class="fa-brands fa-tiktok text-2xl" aria-hidden="true"></i>
-          <span class="footer-link-label">TikTok</span>
-        </a>
-        <a href="https://www.facebook.com/BuffetLuciasFiestaMExicana/"
-           class="footer-link" aria-label="Visit our Facebook page">
-          <i class="fa-brands fa-facebook text-2xl" aria-hidden="true"></i>
-          <span class="footer-link-label">Facebook</span>
-        </a>
-        <a href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"
-           class="footer-link" aria-label="View our location in Google Maps">
-          <i class="fa-solid fa-map-location text-2xl" aria-hidden="true"></i>
-          <span class="footer-link-label" data-i18n="navLocation">Ubicación</span>
-        </a>
-        <a href="tel:+13476862462"
-           class="footer-link footer-link--call"
-           aria-label="Call Buffet Lucia's Fiesta Mexicana">
-          <i class="fa-solid fa-phone-volume text-2xl" aria-hidden="true"></i>
-          <span class="footer-link-label" data-i18n="navCall">Llamar</span>
-        </a>
-        <button type="button" class="footer-link quote-trigger footer-link--quote"
-           aria-label="Request a quote">
-          <i class="fa-solid fa-file-invoice text-2xl" aria-hidden="true"></i>
-          <span class="footer-link-label" data-i18n="navQuote">Cotización</span>
-        </button>
-      </div>
+<footer class="site-footer">
+  <p class="footer-brand">Buffet Lucia's Fiesta Mexicana</p>
+  <p class="footer-tagline" data-t="tagline">Barbacoa · Carnitas · Catering para toda ocasión</p>
+  <div class="footer-links">
+    <a class="pill-link" href="tel:+13476862462"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg> (347) 686-2462</a>
+    <a class="pill-link" href="https://wa.me/13476862462"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> WhatsApp</a>
+    <a class="pill-link" href="https://www.facebook.com/BuffetLuciasFiestaMExicana/">Facebook</a>
+    <a class="pill-link" href="https://www.tiktok.com/@buffetluciasftamexicana">TikTok</a>
+    <a class="pill-link" href="https://maps.app.goo.gl/FMe5ttYLM7DmJkHJA"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> <span data-t="navLocation">Ubicación</span></a>
+    <a class="pill-link" href="./cotizacion.html" data-t="quoteForm">Formulario de cotización</a>
+  </div>
+  <p class="footer-legal">
+    <a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms &amp; Conditions</a> · <a href="/sms-consent/">SMS Consent</a>
+  </p>
+  <p class="footer-copy">&copy; <span id="year">2026</span> Buffet Lucia's Fiesta Mexicana · <span data-t="rights">Todos los derechos reservados</span></p>
+</footer>
 
+<!-- Floating party list button -->
+<button class="fab" id="fab" type="button" aria-haspopup="dialog">
+  <svg class="icon fab-pumpkin" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+  <span data-t="partyList">Lista de fiesta</span>
+  <span class="fab-count" id="fab-count">0</span>
+</button>
+
+<!-- Party list drawer -->
+<dialog class="drawer" id="drawer" aria-labelledby="drawer-title">
+  <div class="drawer-head">
+    <h2 id="drawer-title" data-t="drawerTitle">Tu lista de fiesta</h2>
+    <button class="icon-btn" type="button" data-close data-t-aria="close"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+
+  <div class="drawer-body">
+    <div class="drawer-empty" id="drawer-empty">
+      <svg class="empty-art" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+      <p data-t-html="drawerEmpty"></p>
     </div>
+    <ul class="picked" id="picked"></ul>
 
-    <!-- Bottom bar -->
-    <p class="footer-legal-row">
-      <a href="/privacy/">Privacy Policy</a>·<a href="/terms/">Terms &amp; Conditions</a>·<a href="/sms-consent/">SMS Consent</a>
-    </p>
+    <form class="event-form" id="event-form">
+      <div class="field">
+        <label for="guests" data-t="guests">Número de invitados</label>
+        <input id="guests" name="guests" type="number" min="1" inputmode="numeric" placeholder="40">
+      </div>
+      <div class="field">
+        <label for="event-date" data-t="eventDate">Fecha del evento</label>
+        <input id="event-date" name="date" type="date">
+      </div>
+      <div class="field field-wide">
+        <label for="notes"><span data-t="notes">Notas</span> <span class="optional" data-t="optional">(opcional)</span></label>
+        <textarea id="notes" name="notes" rows="2"></textarea>
+      </div>
+    </form>
+  </div>
 
-    <hr class="footer-divider">
-    <p class="footer-copyright">
-      &copy; 2025 Buffet Lucia's Fiesta Mexicana &nbsp;·&nbsp; <span data-i18n="footerRights">Todos los derechos reservados</span>
-    </p>
-  </footer>
+  <div class="drawer-foot">
+    <a class="btn btn-whatsapp" id="send-whatsapp" href="https://wa.me/13476862462" target="_blank" rel="noopener">
+      <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> <span data-t="sendWhatsapp">Enviar lista por WhatsApp</span>
+    </a>
+    <div class="drawer-secondary">
+      <button class="link-btn" type="button" id="copy-list" data-t="copyList">Copiar lista</button>
+      <a class="link-btn" href="./cotizacion.html" data-t="quoteForm">Formulario de cotización</a>
+      <button class="link-btn danger" type="button" id="clear-list" data-t="clearAll">Borrar todo</button>
+    </div>
+  </div>
+</dialog>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.3/dist/sweetalert2.all.min.js"></script>
-  <script defer src="./src/i18n.js"></script>
-  <script defer src="./src/alertPopup.js"></script>
-  <script defer src="./src/app.js"></script>
+<!-- Photo / video viewer -->
+<dialog class="lightbox" id="lightbox" aria-labelledby="lb-title">
+  <button class="icon-btn lb-close" type="button" data-close data-t-aria="close"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  <figure class="lb-figure">
+    <div class="lb-media" id="lb-media"></div>
+    <figcaption>
+      <div>
+        <p class="lb-cat" id="lb-cat"></p>
+        <h2 id="lb-title"></h2>
+      </div>
+      <button class="add-btn add-btn-lg" type="button" id="lb-add"></button>
+    </figcaption>
+  </figure>
+  <button class="lb-nav lb-prev" type="button" id="lb-prev" data-t-aria="prev">&#8249;</button>
+  <button class="lb-nav lb-next" type="button" id="lb-next" data-t-aria="next">&#8250;</button>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="./src/catering.js"></script>
 </body>
 </html>
