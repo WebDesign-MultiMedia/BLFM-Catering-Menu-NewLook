@@ -1,13 +1,23 @@
 // Cloudflare Worker: records SMS consent evidence for two separate A2P 10DLC
 // programs hosted on this domain:
-//   POST /sms-consent         — Buffet Lucia's Fiesta Mexicana "Receipt and
-//                                Order Notifications" (BLFM brand)
+//   POST /sms-consent         — Buffet Lucia's Fiesta Mexicana "SMS
+//                                Notifications and Specials" (BLFM brand,
+//                                BLFM's own Twilio account)
 //   POST /julio-sms-consent   — "Julio Salas SMS Testing" (personal sole
 //                                proprietor brand, unrelated to BLFM)
 //
 // Each program has its own canonical disclosure text, Privacy/Terms URLs,
-// and (optionally) its own Twilio Messaging Service SID, so a message never
-// goes out under the wrong brand's registered campaign.
+// Twilio credentials, and (optionally) its own Twilio Messaging Service
+// SID, so a message never goes out under the wrong brand's registered
+// campaign.
+//
+// Two-checkbox design for /sms-consent: BLFM's single A2P campaign covers
+// both order/receipt texts AND promotional specials, but each is a
+// separate, independent opt-in on the page (order_consent and
+// specials_consent). We record one consent_records row per sub-program the
+// customer actually checked, each with that checkbox's exact disclosure
+// text, so the evidence shows precisely what they agreed to. At least one
+// must be true. Only one opt-in confirmation SMS is sent per sign-up.
 //
 // Nothing here trusts client-side validation — every field is re-checked.
 // Twilio/D1 credentials are Worker secrets and are never sent to the browser.
@@ -17,14 +27,22 @@ const RATE_LIMIT_WINDOW_MIN = 60;
 const MAX_NAME_LEN = 100;
 const MAX_REFERENCE_LEN = 64;
 
-const BLFM_DISCLOSURE_TEXT =
+// Must match the checkbox labels on /sms-consent/ word for word.
+const BLFM_ORDER_DISCLOSURE_TEXT =
   "I agree to receive transactional text messages from Buffet Lucia's Fiesta Mexicana regarding my food order, " +
   "catering service, payment confirmation, receipt, or order status. Message frequency varies. Message and data " +
   "rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a condition of purchase.";
 
+const BLFM_SPECIALS_DISCLOSURE_TEXT =
+  "I agree to receive promotional text messages from Buffet Lucia's Fiesta Mexicana about weekend specials, " +
+  "menu updates, catering availability, and events. Message frequency varies, up to 4 messages per month. " +
+  "Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. Consent is not a " +
+  "condition of purchase.";
+
+// Must match the campaign's registered Opt-in Message exactly.
 const BLFM_OPT_IN_CONFIRMATION_SMS =
-  "Buffet Lucia's Fiesta Mexicana: You're confirmed to receive order, payment, and receipt texts. Msg frequency " +
-  "varies. Msg & data rates may apply. Reply STOP to unsubscribe or HELP for assistance.";
+  "Buffet Lucia's Fiesta Mexicana: You're signed up for texts from us! Msg frequency varies. Msg & data rates " +
+  "may apply. Reply HELP for help, STOP to unsubscribe.";
 
 const JULIO_DISCLOSURE_TEXT =
   "I agree to receive low-volume transactional software-test text messages from Julio Salas regarding test food " +
@@ -44,25 +62,35 @@ const JULIO_OPT_IN_CONFIRMATION_SMS =
 function programConfig(pathname, env) {
   if (pathname === "/sms-consent") {
     return {
-      id: "blfm_receipt_notifications",
-      disclosureText: BLFM_DISCLOSURE_TEXT,
+      id: "blfm",
+      // One row is recorded per sub-program the customer checked.
+      subPrograms: [
+        { id: "blfm_receipt_notifications", field: "order_consent", disclosureText: BLFM_ORDER_DISCLOSURE_TEXT },
+        { id: "blfm_specials", field: "specials_consent", disclosureText: BLFM_SPECIALS_DISCLOSURE_TEXT },
+      ],
       confirmationSms: BLFM_OPT_IN_CONFIRMATION_SMS,
       privacyUrl: env.PRIVACY_URL,
       termsUrl: env.TERMS_URL,
       consentPageUrl: env.CONSENT_PAGE_URL,
       policyVersion: env.POLICY_VERSION,
+      // BLFM has its own Twilio account, separate from the shared one.
+      twilioAccountSid: env.BLFM_TWILIO_ACCOUNT_SID,
+      twilioAuthToken: env.BLFM_TWILIO_AUTH_TOKEN,
       messagingServiceSid: env.TWILIO_MESSAGING_SERVICE_SID,
     };
   }
   if (pathname === "/julio-sms-consent") {
     return {
       id: "julio_sms_testing",
-      disclosureText: JULIO_DISCLOSURE_TEXT,
+      subPrograms: [{ id: "julio_sms_testing", field: "sms_consent", disclosureText: JULIO_DISCLOSURE_TEXT }],
       confirmationSms: JULIO_OPT_IN_CONFIRMATION_SMS,
       privacyUrl: env.JULIO_PRIVACY_URL,
       termsUrl: env.JULIO_TERMS_URL,
       consentPageUrl: env.JULIO_CONSENT_PAGE_URL,
       policyVersion: env.JULIO_POLICY_VERSION,
+      // Julio keeps the existing shared Twilio account.
+      twilioAccountSid: env.TWILIO_ACCOUNT_SID,
+      twilioAuthToken: env.TWILIO_AUTH_TOKEN,
       messagingServiceSid: env.JULIO_TWILIO_MESSAGING_SERVICE_SID,
     };
   }
@@ -122,10 +150,10 @@ async function isRateLimited(env, ipHash) {
 
 async function sendOptInConfirmation(env, program, phoneE164) {
   if (env.SEND_OPT_IN_CONFIRMATION !== "true") return false;
-  if (!env.TWILIO_ACCOUNT_SID || !env.TWILIO_AUTH_TOKEN || !program.messagingServiceSid) return false;
+  if (!program.twilioAccountSid || !program.twilioAuthToken || !program.messagingServiceSid) return false;
 
-  const url = `https://api.twilio.com/2010-04-01/Accounts/${env.TWILIO_ACCOUNT_SID}/Messages.json`;
-  const auth = btoa(`${env.TWILIO_ACCOUNT_SID}:${env.TWILIO_AUTH_TOKEN}`);
+  const url = `https://api.twilio.com/2010-04-01/Accounts/${program.twilioAccountSid}/Messages.json`;
+  const auth = btoa(`${program.twilioAccountSid}:${program.twilioAuthToken}`);
   const body = new URLSearchParams({
     To: phoneE164,
     MessagingServiceSid: program.messagingServiceSid,
@@ -190,7 +218,8 @@ export default {
     const fullName = sanitize(payload?.full_name, MAX_NAME_LEN);
     const phoneE164 = typeof payload?.phone === "string" ? payload.phone.trim() : "";
     const referenceNumber = payload?.reference_number ? sanitize(payload.reference_number, MAX_REFERENCE_LEN) : null;
-    const smsConsent = payload?.sms_consent === true;
+    // Only an explicit boolean `true` counts as consent for a sub-program.
+    const consented = program.subPrograms.filter((sp) => payload?.[sp.field] === true);
 
     if (!fullName) {
       return json({ ok: false, error: "Full name is required." }, 400, cors);
@@ -198,38 +227,42 @@ export default {
     if (!isValidE164Us(phoneE164)) {
       return json({ ok: false, error: "A valid U.S. mobile number is required." }, 400, cors);
     }
-    if (!smsConsent) {
+    if (consented.length === 0) {
       return json({ ok: false, error: "SMS consent must be actively selected." }, 400, cors);
     }
 
-    const id = crypto.randomUUID();
+    const ids = consented.map(() => crypto.randomUUID());
     const consentTimestampUtc = new Date().toISOString();
     const userAgent = sanitize(request.headers.get("User-Agent") || "", 256);
 
     try {
-      await env.DB.prepare(
+      const insert = env.DB.prepare(
         `INSERT INTO consent_records (
           id, program, full_name, phone_e164, consent_status, consent_timestamp_utc,
           page_url, disclosure_text, privacy_policy_url, terms_url, policy_version,
           reference_number, ip_hash, user_agent
         ) VALUES (?, ?, ?, ?, 'granted', ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-      )
-        .bind(
-          id,
-          program.id,
-          fullName,
-          phoneE164,
-          consentTimestampUtc,
-          program.consentPageUrl,
-          program.disclosureText,
-          program.privacyUrl,
-          program.termsUrl,
-          program.policyVersion,
-          referenceNumber,
-          ipHash,
-          userAgent
+      );
+      // One row per sub-program consented to, written atomically.
+      await env.DB.batch(
+        consented.map((sp, i) =>
+          insert.bind(
+            ids[i],
+            sp.id,
+            fullName,
+            phoneE164,
+            consentTimestampUtc,
+            program.consentPageUrl,
+            sp.disclosureText,
+            program.privacyUrl,
+            program.termsUrl,
+            program.policyVersion,
+            referenceNumber,
+            ipHash,
+            userAgent
+          )
         )
-        .run();
+      );
     } catch (err) {
       return json({ ok: false, error: "Unable to record consent. Please try again." }, 500, cors);
     }
@@ -237,10 +270,15 @@ export default {
     // Consent is now durably recorded. Only after that do we attempt to
     // send the opt-in confirmation text — a failed send never undoes
     // the recorded consent, and we never send anything before this point.
+    // Exactly one confirmation SMS per sign-up, even if both boxes were checked.
     try {
       const sent = await sendOptInConfirmation(env, program, phoneE164);
       if (sent) {
-        await env.DB.prepare(`UPDATE consent_records SET confirmation_sms_sent = 1 WHERE id = ?`).bind(id).run();
+        await env.DB.batch(
+          ids.map((rowId) =>
+            env.DB.prepare(`UPDATE consent_records SET confirmation_sms_sent = 1 WHERE id = ?`).bind(rowId)
+          )
+        );
       }
     } catch {
       // Delivery failure doesn't affect the recorded consent.

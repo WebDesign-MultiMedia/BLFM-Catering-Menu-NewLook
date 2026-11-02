@@ -14,11 +14,12 @@ database_id = "e75f9104-426b-4aaa-bdc7-40d36672ad2a"
 [vars]
 ALLOWED_ORIGINS = "https://buffetluciasfiestamexicana.com,https://www.buffetluciasfiestamexicana.com"
 
-# BLFM "Receipt and Order Notifications" program
+# BLFM "SMS Notifications and Specials" program (order texts + specials,
+# two separate opt-in checkboxes, one consent_records row per box checked)
 PRIVACY_URL = "https://buffetluciasfiestamexicana.com/privacy/"
 TERMS_URL = "https://buffetluciasfiestamexicana.com/terms/"
 CONSENT_PAGE_URL = "https://buffetluciasfiestamexicana.com/sms-consent/"
-POLICY_VERSION = "2026-07-16"
+POLICY_VERSION = "2026-11-02"
 
 # "Julio Salas SMS Testing" program — personal sole-proprietor brand,
 # entirely separate from BLFM's registered brand/campaign.
@@ -30,9 +31,18 @@ JULIO_POLICY_VERSION = "2026-07-21"
 SEND_OPT_IN_CONFIRMATION = "true"
 
 # ── Secrets (never put these here — set with `wrangler secret put`) ──
-#   TWILIO_ACCOUNT_SID                    (shared Twilio account)
-#   TWILIO_AUTH_TOKEN                     (shared Twilio account)
-#   TWILIO_MESSAGING_SERVICE_SID          (BLFM's registered Messaging Service)
+#   BLFM_TWILIO_ACCOUNT_SID               (BLFM's own Twilio account)
+#   BLFM_TWILIO_AUTH_TOKEN                (BLFM's own Twilio account)
+#   TWILIO_MESSAGING_SERVICE_SID          (BLFM's registered Messaging Service,
+#                                          in BLFM's own Twilio account. If
+#                                          any of these three BLFM secrets is
+#                                          unset, consent still records but no
+#                                          confirmation SMS is sent.)
+#   TWILIO_ACCOUNT_SID                    (shared Twilio account — used only
+#                                          by the Julio Salas program)
+#   TWILIO_AUTH_TOKEN                     (shared Twilio account — used only
+#                                          by the Julio Salas program; also
+#                                          the salt for IP hashing)
 #   JULIO_TWILIO_MESSAGING_SERVICE_SID    (Julio Salas's registered Messaging
 #                                          Service — leave unset until that
 #                                          campaign is approved; the Worker

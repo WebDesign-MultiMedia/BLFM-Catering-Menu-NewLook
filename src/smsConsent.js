@@ -1,8 +1,13 @@
 // ── SMS consent form (/sms-consent/) ────────────────────────────
 // SMS enrollment is entirely optional (Twilio A2P 10DLC requirement —
 // see Error 30923). Nothing on this page may block or require a
-// mobile number/consent unless the customer has actively checked the
-// consent box themselves. The "No thanks" action is a plain link
+// mobile number/consent unless the customer has actively checked at
+// least one consent box themselves.
+//
+// Two separate, independent opt-ins under one BLFM SMS program:
+//   - order_consent:    transactional order/receipt texts
+//   - specials_consent: promotional texts (up to 4/month)
+// Both start unchecked and are never checked by script. The "No thanks" action is a plain link
 // (see sms-consent/index.html) and never touches this validation
 // logic at all, so it always works regardless of field state.
 //
@@ -16,8 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameInput      = document.getElementById("sms-name");
   const phoneInput     = document.getElementById("sms-phone");
   const referenceInput = document.getElementById("sms-reference");
-  const consentBox     = document.getElementById("sms-consent-checkbox");
-  const consentRow     = document.getElementById("sms-consent-row");
+  const orderBox       = document.getElementById("sms-order-consent-checkbox");
+  const specialsBox    = document.getElementById("sms-specials-consent-checkbox");
+  const orderRow       = document.getElementById("sms-order-consent-row");
+  const specialsRow    = document.getElementById("sms-specials-consent-row");
   const honeypot       = document.getElementById("sms-website");
 
   const nameError  = document.getElementById("sms-name-error");
@@ -55,15 +62,16 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
-  // Never let the checkbox start (or become) checked automatically.
-  consentBox.checked = false;
+  // Never let either checkbox start (or become) checked automatically.
+  orderBox.checked = false;
+  specialsBox.checked = false;
 
   // The name/phone fields only matter at all if the customer is
-  // actively trying to sign up for SMS (checkbox checked). If it's
-  // unchecked, nothing on this form is required and nothing is
+  // actively trying to sign up for SMS (at least one box checked). If
+  // both are unchecked, nothing on this form is required and nothing is
   // validated — no error is ever shown for an unchecked checkbox.
   function validate() {
-    const consentChecked = consentBox.checked === true;
+    const consentChecked = orderBox.checked === true || specialsBox.checked === true;
 
     // Always clear stale errors first.
     setFieldError(nameInput, nameError, "");
@@ -91,14 +99,16 @@ document.addEventListener("DOMContentLoaded", () => {
     return { valid, consentChecked, name, e164 };
   }
 
-  // Clear errors the moment the customer unchecks the box, so nothing
+  // Clear errors the moment the customer unchecks both boxes, so nothing
   // stays flagged as invalid for fields that are no longer required.
-  consentBox.addEventListener("change", () => {
-    if (!consentBox.checked) {
-      setFieldError(nameInput, nameError, "");
-      setFieldError(phoneInput, phoneError, "");
+  [orderBox, specialsBox].forEach((box) => {
+    box.addEventListener("change", () => {
       consentHint.textContent = "";
-    }
+      if (!orderBox.checked && !specialsBox.checked) {
+        setFieldError(nameInput, nameError, "");
+        setFieldError(phoneInput, phoneError, "");
+      }
+    });
   });
 
   form.addEventListener("submit", async (e) => {
@@ -107,12 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const { valid, consentChecked, name, e164 } = validate();
 
     if (!consentChecked) {
-      // Not a validation error — the checkbox is optional. Just draw
-      // attention to it with a neutral, non-error nudge.
-      consentHint.textContent = "Check the box above to sign up for SMS, or use “No thanks” to continue without it.";
-      consentBox.focus();
-      consentRow.classList.add("gentle-highlight");
-      setTimeout(() => consentRow.classList.remove("gentle-highlight"), 1200);
+      // Not a validation error — the checkboxes are optional. Just draw
+      // attention to them with a neutral, non-error nudge.
+      consentHint.textContent = "Check one or both boxes above to sign up for SMS, or use “No thanks” to continue without it.";
+      orderBox.focus();
+      [orderRow, specialsRow].forEach((row) => row.classList.add("gentle-highlight"));
+      setTimeout(() => [orderRow, specialsRow].forEach((row) => row.classList.remove("gentle-highlight")), 1200);
       return;
     }
 
@@ -121,6 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (firstInvalid) firstInvalid.focus();
       return;
     }
+
+    const orderConsent = orderBox.checked === true;
+    const specialsConsent = specialsBox.checked === true;
 
     submitBtn.disabled = true;
     submitLabel.textContent = "Submitting…";
@@ -133,7 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
           full_name: name,
           phone: e164,
           reference_number: referenceInput.value.trim() || null,
-          sms_consent: true,
+          order_consent: orderConsent,
+          specials_consent: specialsConsent,
           company_website: honeypot.value, // must stay empty
         }),
       });
@@ -147,8 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
       form.hidden = true;
       statusBox.hidden = false;
       statusBox.className = "form-status success";
+      let joined;
+      if (orderConsent && specialsConsent) {
+        joined = "You're signed up for order texts (about your food order, catering service, payment, receipt, or order status) and for specials (weekend specials, menu updates, catering availability, and events — up to 4 messages per month).";
+      } else if (orderConsent) {
+        joined = "You're signed up for order texts about your food order, catering service, payment, receipt, or order status.";
+      } else {
+        joined = "You're signed up for specials: weekend specials, menu updates, catering availability, and events — up to 4 messages per month.";
+      }
       statusBox.textContent =
-        "Thank you. Your SMS consent has been recorded. You may receive transactional messages concerning your food order, catering service, payment, receipt, or order status. Reply STOP at any time to unsubscribe.";
+        `Thank you. Your SMS consent has been recorded. ${joined} Reply STOP at any time to unsubscribe or HELP for assistance.`;
       statusBox.setAttribute("tabindex", "-1");
       statusBox.focus();
     } catch (err) {
@@ -157,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
       statusBox.textContent =
         "There was a problem submitting your consent. Please try again or call us directly at (347) 686-2462.";
       submitBtn.disabled = false;
-      submitLabel.textContent = "Sign Up for SMS Notifications";
+      submitLabel.textContent = "Sign Up for SMS";
     }
   });
 });
