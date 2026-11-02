@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <meta name="theme-color" content="#14101f">
+  <meta name="theme-color" content="#1e110b">
 
   <title>Menu de Catering Mexicano en Bronx, NY | Buffet Lucia's Fiesta Mexicana</title>
   <meta name="description" content="Catering mexicano auténtico en Bronx, NY para cumpleaños, bautizos, baby showers y eventos de oficina. Charolas chica, mediana o grande. Pide tu cotización hoy.">
@@ -32,7 +32,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Griffy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./src/catering.css">
 
   <!-- Structured data: local catering business -->
@@ -69,15 +69,26 @@
 
 <!-- Icon sprite: defined once, used with <use href="#i-..."> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="i-pumpkin" viewBox="0 0 64 64">
-    <path d="M31 16c0-6 3-10 8-11" fill="none" stroke="#7bc950" stroke-width="4" stroke-linecap="round"/>
-    <ellipse cx="20" cy="39" rx="15" ry="19" fill="#e8650f"/>
-    <ellipse cx="44" cy="39" rx="15" ry="19" fill="#e8650f"/>
-    <ellipse cx="32" cy="39" rx="13" ry="21" fill="#ff8a2a"/>
-    <path d="M22 34l5 5h-10zM42 34l5 5h-10zM20 46c6 6 18 6 24 0l-4 2-4-3-4 3-4-3-4 3z" fill="#3a1d05"/>
+  <!-- Seasonal art (Día de Acción de Gracias): a folk-art guajolote -->
+  <symbol id="i-season" viewBox="0 0 64 64">
+    <g transform="rotate(-66 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#3c7cc4"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+    <g transform="rotate(-44 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a9c25c"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+    <g transform="rotate(-22 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a3283b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+    <g><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#eaa53b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+    <g transform="rotate(22 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a3283b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+    <g transform="rotate(44 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a9c25c"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+    <g transform="rotate(66 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#3c7cc4"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+    <path d="M28 55v6M36 55v6M26 61h4M34 61h4" stroke="#eaa53b" stroke-width="1.8" stroke-linecap="round"/>
+    <ellipse cx="32" cy="42" rx="13" ry="14.5" fill="#7a4326"/>
+    <ellipse cx="32" cy="46" rx="8" ry="8.5" fill="#c75b32"/>
+    <circle cx="32" cy="42.5" r="1.5" fill="#f6c66e"/><circle cx="29" cy="47" r="1.5" fill="#f6c66e"/><circle cx="35" cy="47" r="1.5" fill="#f6c66e"/>
+    <circle cx="32" cy="24" r="7" fill="#8f5232"/>
+    <circle cx="29.6" cy="22.6" r="1.3" fill="#1e110b"/><circle cx="34.4" cy="22.6" r="1.3" fill="#1e110b"/>
+    <path d="M30 25.2h4l-2 3.4z" fill="#eaa53b"/>
+    <path d="M33.2 27.2c2.2 2.4 1.2 5.4-.6 6.4-.9-1.8-.6-4.2.6-6.4z" fill="#a3283b"/>
   </symbol>
-  <symbol id="i-bat" viewBox="0 0 48 24">
-    <path d="M24 8c-1-3-1-5 0-6 1 1 2 1 3 0 1 1 1 3 0 6 3-4 9-6 14-4-3 1-5 4-5 8-3-2-6-1-8 3-1-2-3-3-4-3s-3 1-4 3c-2-4-5-5-8-3 0-4-2-7-5-8 5-2 11 0 14 4z" fill="currentColor"/>
+  <symbol id="i-leaf" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 1.5c1 2.8 2.6 4 5 4-.8 1.8-.7 3.2 1.4 4.8-2.1.3-3.2 1.3-3.2 3.3-1.8-.9-2.8-.6-2.7 1.4v7.5h-1v-7.5c.1-2-.9-2.3-2.7-1.4 0-2-1.1-3-3.2-3.3 2.1-1.6 2.2-3 1.4-4.8 2.4 0 4-1.2 5-4z"/>
   </symbol>
   <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
   <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -114,15 +125,20 @@
   <!-- Hero (seasonal decorations live in .sky; swap them for another season) -->
   <section class="hero">
     <div class="sky" aria-hidden="true">
-      <div class="moon"></div>
-      <svg class="bat bat-1"><use href="#i-bat"/></svg>
-      <svg class="bat bat-2"><use href="#i-bat"/></svg>
-      <svg class="bat bat-3"><use href="#i-bat"/></svg>
+      <ul class="papel-picado">
+        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+      </ul>
+      <svg class="leaf leaf-1"><use href="#i-leaf"/></svg>
+      <svg class="leaf leaf-2"><use href="#i-leaf"/></svg>
+      <svg class="leaf leaf-3"><use href="#i-leaf"/></svg>
+      <svg class="leaf leaf-4"><use href="#i-leaf"/></svg>
+      <svg class="leaf leaf-5"><use href="#i-leaf"/></svg>
     </div>
 
     <div class="hero-content">
-      <p class="eyebrow" data-t="eyebrow">Fiestas de Halloween · Fiestas · Toda celebración</p>
-      <h1 data-t-html="heroTitle">Menú de <span>Catering</span></h1>
+      <p class="eyebrow" data-t="eyebrow">Día de Acción de Gracias · Fiestas · Toda celebración</p>
+      <h1 data-t-html="heroTitle">Hacemos Comida Para Eventos <span>Menú</span></h1>
       <p class="lede" data-t="lede"></p>
       <ul class="facts">
         <li data-t="factDelivery">Entregas en el Bronx y zonas cercanas</li>
@@ -137,7 +153,7 @@
       </div>
     </div>
 
-    <svg class="hero-pumpkin" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+    <svg class="hero-art" aria-hidden="true"><use href="#i-season"/></svg>
   </section>
 
   <!-- How it works -->
@@ -190,7 +206,7 @@
   <div class="menu" id="menu-sections"></div>
 
   <div class="empty" id="empty" hidden>
-    <svg class="empty-art" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+    <svg class="empty-art" aria-hidden="true"><use href="#i-season"/></svg>
     <p id="empty-text"></p>
     <button class="btn btn-ghost" id="clear-search" type="button" data-t="clearSearch">Borrar búsqueda</button>
   </div>
@@ -215,7 +231,7 @@
 
 <!-- Floating party list button -->
 <button class="fab" id="fab" type="button" aria-haspopup="dialog">
-  <svg class="icon fab-pumpkin" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+  <svg class="icon fab-art" aria-hidden="true"><use href="#i-season"/></svg>
   <span data-t="partyList">Lista de fiesta</span>
   <span class="fab-count" id="fab-count">0</span>
 </button>
@@ -229,7 +245,7 @@
 
   <div class="drawer-body">
     <div class="drawer-empty" id="drawer-empty">
-      <svg class="empty-art" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+      <svg class="empty-art" aria-hidden="true"><use href="#i-season"/></svg>
       <p data-t-html="drawerEmpty"></p>
     </div>
     <p class="picked-count" id="picked-count"></p>

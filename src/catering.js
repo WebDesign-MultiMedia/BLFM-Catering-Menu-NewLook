@@ -17,7 +17,7 @@ const EMAIL = 'buffetluciasfiestamexicana@gmail.com';
 const STORAGE_KEY = 'blfm-party-list';
 const VIEW_KEY = 'blfm-menu-view'; // 'grid' (photo cards) or 'list' (names only)
 const LANG_KEY = 'blfm-lang'; // shared with the rest of the site (src/i18n.js)
-const SEASON_EMOJI = '🎃';
+const SEASON_EMOJI = '🦃';
 
 const CATEGORIES = [
     { id: 'chivo', name: 'Chivo', en: 'Goat' },
@@ -125,10 +125,10 @@ const STRINGS = {
         navContact: 'Contacto',
         navLocation: 'Ubicación',
         // seasonal
-        eyebrow: 'Fiestas de Halloween · Fiestas · Toda celebración',
-        heroTitle: 'Menú de <span>Catering</span>',
-        lede: 'Comida mexicana de miedo… ¡de lo rica! para tu próxima fiesta. Elige tus platillos favoritos, agrégalos a tu lista y envíanosla por WhatsApp para tu cotización.',
-        emptyText: term => `Ningún platillo coincide con <strong>"${term}"</strong>. ¡Los fantasmas se los comieron!`,
+        eyebrow: 'Día de Acción de Gracias · Fiestas · Toda celebración',
+        heroTitle: 'Hacemos Comida Para Eventos <span>Menú</span>',
+        lede: 'Este Día de Acción de Gracias, reúne a tu familia alrededor de una mesa bien mexicana. Elige tus platillos favoritos, agrégalos a tu lista y envíanosla por WhatsApp para tu cotización.',
+        emptyText: term => `Ningún platillo coincide con <strong>"${term}"</strong>. ¡Se lo acabaron en la sobremesa!`,
         // end seasonal
         factDelivery: 'Entregas en el Bronx y zonas cercanas',
         factMinimum: 'Pedido mínimo: 20 personas',
@@ -211,10 +211,10 @@ const STRINGS = {
         navContact: 'Contact',
         navLocation: 'Location',
         // seasonal
-        eyebrow: 'Halloween parties · Fiestas · Every celebration',
-        heroTitle: 'Catering <span>Menu</span>',
-        lede: 'Spooky-good Mexican food for your next party. Pick your favorite dishes, add them to your party list, and send it to us on WhatsApp for a quote.',
-        emptyText: term => `No dishes match <strong>"${term}"</strong>. The ghosts must have eaten them!`,
+        eyebrow: 'Thanksgiving · Fiestas · Every celebration',
+        heroTitle: 'We Do Catering <span>Menu</span>',
+        lede: 'This Thanksgiving, gather your family around a truly Mexican table. Pick your favorite dishes, add them to your party list, and send it to us on WhatsApp for a quote.',
+        emptyText: term => `No dishes match <strong>"${term}"</strong>. Looks like they were gone before dessert!`,
         // end seasonal
         factDelivery: 'Delivery in the Bronx & nearby',
         factMinimum: 'Minimum order: 20 guests',
@@ -405,7 +405,7 @@ function dishHtml(dish) {
                 ${popular}
            </button>`
         : `<div class="dish-media is-empty">
-                <svg class="placeholder-art" aria-hidden="true"><use href="#i-pumpkin"/></svg>
+                <svg class="placeholder-art" aria-hidden="true"><use href="#i-season"/></svg>
                 <span>${t('photoSoon')}</span>
                 ${popular}
            </div>`;
@@ -514,7 +514,7 @@ function pickedItemHtml(d) {
     const options = [`<option value="">${t('sizeAny')}</option>`,
         ...TRAY_SIZES.map(s => `<option value="${s}"${s === size ? ' selected' : ''}>${t('sizes')[s]}</option>`)].join('');
     return `<li data-id="${d.id}">
-        ${d.img ? `<img src="${thumb(d.img)}" alt="" loading="lazy">` : '<svg class="picked-art" aria-hidden="true"><use href="#i-pumpkin"/></svg>'}
+        ${d.img ? `<img src="${thumb(d.img)}" alt="" loading="lazy">` : '<svg class="picked-art" aria-hidden="true"><use href="#i-season"/></svg>'}
         <span class="picked-name">${escapeHtml(d.name)}</span>
         <select class="size-select" data-size="${d.id}" aria-label="${escapeHtml(`${t('traySize')}: ${d.name}`)}">${options}</select>
         <button class="icon-btn" type="button" data-remove="${d.id}" aria-label="${escapeHtml(t('removeAria')(d.name))}">

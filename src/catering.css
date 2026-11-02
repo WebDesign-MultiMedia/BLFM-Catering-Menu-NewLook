@@ -1,37 +1,51 @@
 /* ==========================================================================
-   Catering menu: "Halloween night" theme.
+   Catering menu: "Día de Acción de Gracias" theme — a Mexican harvest
+   table: mole-brown night, maíz gold, nopal green, barro (clay) and
+   talavera blue, with papel picado and falling autumn leaves.
    Every color lives in :root, so re-theming for another season
-   (Navidad, Día de Muertos...) only means editing this block.
+   (Navidad, Día de Muertos...) only means editing this block, plus the
+   decorations inside .sky in index.html.
    ========================================================================== */
 
 :root {
-    --night: #14101f;
-    --night-2: #1d1730;
-    --surface: #251d3b;
-    --surface-2: #2f2649;
-    --line: rgba(255, 255, 255, 0.09);
+    /* backgrounds: mole / barro browns */
+    --bg: #1e110b;
+    --bg-rgb: 30, 17, 11;
+    --bg-2: #2a1810;
+    --surface: #3a2318;
+    --surface-2: #4a2e20;
+    --line: rgba(255, 228, 190, 0.11);
 
-    --pumpkin: #ff7a1a;
-    --pumpkin-2: #ffa24c;
-    --pumpkin-ink: #2a1200;
-    --slime: #8fdc5a;
-    --slime-ink: #10220a;
+    /* accent: maíz gold (buttons, highlights) */
+    --accent: #eaa53b;
+    --accent-rgb: 234, 165, 59;
+    --accent-2: #f6c66e;
+    --accent-ink: #2b1604;
+
+    /* alt: nopal green ("favorite" badge, added state) */
+    --alt: #a9c25c;
+    --alt-rgb: 169, 194, 92;
+    --alt-ink: #1b2408;
+
     --whatsapp: #25d366;
-    --danger: #ff8f8f;
+    --danger: #ff9b8a;
 
-    --bone: #f7f0e6;
-    --muted: #b8aecd;
+    --text: #fbf1e2;
+    --muted: #d4bea4;
 
-    --glow-1: rgba(255, 122, 26, 0.16);
-    --glow-2: rgba(143, 220, 90, 0.09);
-    --moon: #fff4d6;
+    /* decoration colors */
+    --terracotta: #c75b32;
+    --cranberry: #a3283b;
+    --talavera: #3c7cc4;
+    --glow-1: rgba(234, 165, 59, 0.15);
+    --glow-2: rgba(199, 91, 50, 0.14);
 
     --radius: 18px;
     --radius-sm: 12px;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    --focus: 0 0 0 3px rgba(255, 122, 26, 0.55);
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --focus: 0 0 0 3px rgba(var(--accent-rgb), 0.55);
 
-    --font-display: 'Griffy', 'Nunito', cursive;
+    --font-display: 'Yeseva One', Georgia, serif;
     --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
     --gutter: 16px;
@@ -58,12 +72,12 @@ body {
     font-family: var(--font-body);
     font-size: 1rem;
     line-height: 1.5;
-    color: var(--bone);
+    color: var(--text);
     background:
         radial-gradient(60rem 40rem at 85% -10%, var(--glow-1), transparent 60%),
         radial-gradient(50rem 40rem at -10% 40%, var(--glow-2), transparent 60%),
         radial-gradient(40rem 30rem at 100% 90%, var(--glow-1), transparent 60%),
-        var(--night);
+        var(--bg);
     background-attachment: fixed;
     overflow-x: hidden;
 }
@@ -99,7 +113,7 @@ button {
 }
 
 :focus-visible {
-    outline: 2px solid var(--pumpkin);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
 
@@ -128,8 +142,8 @@ button {
     z-index: 100;
     padding: 10px 16px;
     border-radius: 999px;
-    background: var(--pumpkin);
-    color: var(--pumpkin-ink);
+    background: var(--accent);
+    color: var(--accent-ink);
     font-weight: 800;
     text-decoration: none;
     transform: translateY(-160%);
@@ -165,23 +179,23 @@ button {
 }
 
 .btn-primary {
-    background: linear-gradient(180deg, var(--pumpkin-2), var(--pumpkin));
-    color: var(--pumpkin-ink);
-    box-shadow: 0 6px 24px rgba(255, 122, 26, 0.35);
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    color: var(--accent-ink);
+    box-shadow: 0 6px 24px rgba(var(--accent-rgb), 0.35);
 }
 
 .btn-primary:hover {
-    box-shadow: 0 8px 30px rgba(255, 122, 26, 0.55);
+    box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.55);
 }
 
 .btn-ghost {
     background: rgba(255, 255, 255, 0.04);
     border-color: var(--line);
-    color: var(--bone);
+    color: var(--text);
 }
 
 .btn-ghost:hover {
-    border-color: var(--pumpkin);
+    border-color: var(--accent);
 }
 
 .btn-whatsapp {
@@ -202,13 +216,13 @@ button {
     padding: 8px 12px;
     border-color: var(--line);
     background: var(--surface);
-    color: var(--bone);
+    color: var(--text);
     font-size: 0.92rem;
     white-space: nowrap;
 }
 
 .btn-send-alt:hover {
-    border-color: var(--pumpkin);
+    border-color: var(--accent);
 }
 
 .btn-whatsapp[aria-disabled="true"],
@@ -230,7 +244,7 @@ button {
 }
 
 .icon-btn:hover {
-    border-color: var(--pumpkin);
+    border-color: var(--accent);
 }
 
 .icon-btn .icon {
@@ -252,7 +266,7 @@ button {
 }
 
 .link-btn:hover {
-    color: var(--bone);
+    color: var(--text);
 }
 
 .link-btn.danger:hover {
@@ -276,8 +290,8 @@ button {
 
 .pill-link:hover,
 .pill-link:focus-visible {
-    border-color: var(--pumpkin);
-    box-shadow: 0 0 18px rgba(255, 122, 26, 0.25);
+    border-color: var(--accent);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.25);
 }
 
 /* ---------- header ---------- */
@@ -299,9 +313,9 @@ button {
     font-family: var(--font-display);
     font-size: 1.6rem;
     line-height: 1;
-    color: var(--pumpkin-2);
+    color: var(--accent-2);
     text-decoration: none;
-    text-shadow: 0 0 18px rgba(255, 122, 26, 0.45);
+    text-shadow: 0 0 18px rgba(var(--accent-rgb), 0.3);
 }
 
 .nav-links {
@@ -326,7 +340,7 @@ button {
 }
 
 .nav-links a:hover {
-    color: var(--bone);
+    color: var(--text);
     background: rgba(255, 255, 255, 0.06);
 }
 
@@ -351,8 +365,8 @@ button {
 }
 
 .lang-btn[aria-pressed="true"] {
-    background: var(--pumpkin);
-    color: var(--pumpkin-ink);
+    background: var(--accent);
+    color: var(--accent-ink);
 }
 
 /* ---------- hero ---------- */
@@ -360,7 +374,7 @@ button {
     position: relative;
     max-width: var(--max);
     margin: 0 auto;
-    padding: 24px var(--gutter) 28px;
+    padding: 52px var(--gutter) 28px;
     overflow: hidden;
 }
 
@@ -370,77 +384,83 @@ button {
     pointer-events: none;
 }
 
-/* Small and tucked in the corner on phones so it never covers the headline */
-.moon {
+/* Papel picado: a string of cut-paper flags in harvest colors */
+.papel-picado {
     position: absolute;
-    top: 6px;
-    right: 14px;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #fff, var(--moon) 55%, #f0d9a6);
-    box-shadow: 0 0 30px 8px rgba(255, 236, 190, 0.25), 0 0 80px 20px rgba(255, 200, 120, 0.12);
-    opacity: 0.85;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0 6px;
+    list-style: none;
 }
 
-.moon::after {
+.papel-picado::before {
     content: '';
     position: absolute;
-    top: 30%;
-    left: 55%;
-    width: 18%;
-    height: 18%;
-    border-radius: 50%;
-    background: rgba(200, 170, 120, 0.35);
-    box-shadow: -14px 10px 0 -2px rgba(200, 170, 120, 0.25);
+    top: 2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 228, 190, 0.35);
 }
 
-.bat {
+.papel-picado li {
+    flex: 1;
+    max-width: 64px;
+    height: 34px;
+    background:
+        radial-gradient(circle at 50% 38%, var(--bg) 0 3px, transparent 3.5px),
+        radial-gradient(circle at 28% 62%, var(--bg) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 72% 62%, var(--bg) 0 2px, transparent 2.5px),
+        var(--flag);
+    clip-path: polygon(0 0, 100% 0, 100% 78%, 87% 100%, 75% 78%, 62% 100%, 50% 78%, 37% 100%, 25% 78%, 12% 100%, 0 78%);
+    opacity: 0.92;
+    transform-origin: top center;
+    animation: flutter 4s ease-in-out infinite;
+}
+
+.papel-picado li:nth-child(5n + 1) { --flag: var(--terracotta); }
+.papel-picado li:nth-child(5n + 2) { --flag: var(--accent); animation-delay: -1s; }
+.papel-picado li:nth-child(5n + 3) { --flag: var(--alt); animation-delay: -2s; }
+.papel-picado li:nth-child(5n + 4) { --flag: var(--cranberry); animation-delay: -3s; }
+.papel-picado li:nth-child(5n + 5) { --flag: var(--talavera); animation-delay: -1.5s; }
+
+/* Only as many flags as fit: extra flags hide on narrow screens */
+.papel-picado li:nth-child(n + 9) {
+    display: none;
+}
+
+@keyframes flutter {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+/* Falling autumn leaves, kept to the right so they never cover the headline */
+.leaf {
     position: absolute;
-    width: 30px;
-    height: 15px;
-    color: #0b0812;
-    filter: drop-shadow(0 0 1px rgba(255, 220, 180, 0.5));
-    animation: drift 14s ease-in-out infinite;
+    top: -30px;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+    animation: leaf-fall 11s linear infinite;
 }
 
-.bat use {
-    transform-origin: center;
-    animation: flap 0.35s ease-in-out infinite alternate;
-}
+.leaf-1 { right: 8%; color: var(--terracotta); }
+.leaf-2 { right: 22%; color: var(--accent); width: 14px; height: 14px; animation-duration: 14s; animation-delay: -4s; }
+.leaf-3 { right: 3%; color: var(--cranberry); width: 22px; height: 22px; animation-duration: 12s; animation-delay: -8s; }
+.leaf-4 { right: 34%; color: var(--accent-2); width: 13px; height: 13px; animation-duration: 16s; animation-delay: -11s; }
+.leaf-5 { right: 15%; color: var(--terracotta); width: 15px; height: 15px; animation-duration: 13s; animation-delay: -2s; }
 
-.bat-1 {
-    top: 58px;
-    right: 22%;
-}
-
-.bat-2 {
-    top: 18px;
-    right: 42%;
-    width: 22px;
-    height: 11px;
-    animation-duration: 18s;
-    animation-delay: -6s;
-}
-
-.bat-3 {
-    top: 92px;
-    right: 6%;
-    width: 24px;
-    height: 12px;
-    animation-duration: 16s;
-    animation-delay: -3s;
-}
-
-@keyframes flap {
-    to { transform: scaleY(0.45); }
-}
-
-@keyframes drift {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(-30px, 10px); }
-    50% { transform: translate(-10px, -12px); }
-    75% { transform: translate(20px, 6px); }
+@keyframes leaf-fall {
+    0% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+    10% { opacity: 0.85; }
+    50% { transform: translate(-28px, 160px) rotate(160deg); }
+    85% { opacity: 0.75; }
+    100% { opacity: 0; transform: translate(10px, 340px) rotate(320deg); }
 }
 
 .hero-content {
@@ -450,12 +470,11 @@ button {
 
 .eyebrow {
     display: inline-block;
-    max-width: calc(100% - 60px); /* leave room for the moon on phones */
     padding: 6px 14px;
-    border: 1px solid rgba(143, 220, 90, 0.35);
+    border: 1px solid rgba(var(--alt-rgb), 0.35);
     border-radius: 999px;
-    background: rgba(143, 220, 90, 0.08);
-    color: var(--slime);
+    background: rgba(var(--alt-rgb), 0.08);
+    color: var(--alt);
     font-weight: 700;
     font-size: 0.8rem;
 }
@@ -464,14 +483,20 @@ button {
     margin: 14px 0 12px;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.6rem, 11vw, 4.6rem);
-    line-height: 1.02;
-    letter-spacing: 0.01em;
+    font-size: clamp(1.9rem, 7.5vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-wrap: balance;
 }
 
+/* "Menú" sits on its own line under the slogan, larger and in gold */
 .hero h1 span {
-    color: var(--pumpkin);
-    text-shadow: 0 0 22px rgba(255, 122, 26, 0.6), 0 0 48px rgba(255, 122, 26, 0.3);
+    display: block;
+    margin-top: 2px;
+    font-size: 1.6em;
+    line-height: 1;
+    color: var(--accent);
+    text-shadow: 0 2px 0 var(--terracotta), 0 0 34px rgba(var(--accent-rgb), 0.35);
 }
 
 .lede {
@@ -494,7 +519,7 @@ button {
     background: var(--surface);
     font-size: 0.82rem;
     font-weight: 700;
-    color: var(--bone);
+    color: var(--text);
 }
 
 .hero-actions {
@@ -509,7 +534,7 @@ button {
     height: 16px;
 }
 
-.hero-pumpkin {
+.hero-art {
     display: none;
 }
 
@@ -540,7 +565,7 @@ button {
     padding: 14px 16px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: var(--night-2);
+    background: var(--bg-2);
 }
 
 .step-num {
@@ -550,8 +575,8 @@ button {
     height: 34px;
     flex: none;
     border-radius: 50%;
-    background: var(--pumpkin);
-    color: var(--pumpkin-ink);
+    background: var(--accent);
+    color: var(--accent-ink);
     font-family: var(--font-display);
     font-size: 1.15rem;
 }
@@ -579,7 +604,7 @@ button {
     font-weight: 400;
     font-size: clamp(1.6rem, 6vw, 2.1rem);
     line-height: 1.1;
-    color: var(--pumpkin-2);
+    color: var(--accent-2);
 }
 
 .section-head p {
@@ -628,8 +653,8 @@ button {
 .event-card:hover,
 .event-card:focus-visible {
     outline: none;
-    border-color: var(--pumpkin);
-    box-shadow: var(--focus), 0 0 24px rgba(255, 122, 26, 0.3);
+    border-color: var(--accent);
+    box-shadow: var(--focus), 0 0 24px rgba(var(--accent-rgb), 0.3);
 }
 
 .event-card:hover img {
@@ -648,7 +673,7 @@ button {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: rgba(20, 16, 31, 0.78);
+    background: rgba(var(--bg-rgb), 0.86);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
@@ -696,7 +721,7 @@ button {
 
 .search input:focus {
     outline: none;
-    border-color: var(--pumpkin);
+    border-color: var(--accent);
     box-shadow: var(--focus);
 }
 
@@ -720,7 +745,7 @@ button {
     border: 1px solid var(--line);
     border-radius: 999px;
     background: var(--surface);
-    color: var(--bone);
+    color: var(--text);
     font-weight: 700;
     font-size: 0.9rem;
     white-space: nowrap;
@@ -728,7 +753,7 @@ button {
 }
 
 .chip:hover {
-    border-color: var(--pumpkin);
+    border-color: var(--accent);
 }
 
 .chip:focus-visible {
@@ -737,9 +762,9 @@ button {
 }
 
 .chip[aria-pressed="true"] {
-    background: var(--pumpkin);
-    border-color: var(--pumpkin);
-    color: var(--pumpkin-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
 }
 
 .results-bar {
@@ -788,7 +813,7 @@ button {
 }
 
 .view-btn:hover {
-    color: var(--bone);
+    color: var(--text);
 }
 
 .view-btn:focus-visible {
@@ -797,8 +822,8 @@ button {
 }
 
 .view-btn[aria-pressed="true"] {
-    background: var(--pumpkin);
-    color: var(--pumpkin-ink);
+    background: var(--accent);
+    color: var(--accent-ink);
 }
 
 /* ---------- menu ---------- */
@@ -831,8 +856,8 @@ button {
 
 .dish:hover {
     transform: translateY(-2px);
-    border-color: rgba(255, 122, 26, 0.5);
-    box-shadow: var(--shadow), 0 0 26px rgba(255, 122, 26, 0.18);
+    border-color: rgba(var(--accent-rgb), 0.5);
+    box-shadow: var(--shadow), 0 0 26px rgba(var(--accent-rgb), 0.18);
 }
 
 .dish-media {
@@ -860,7 +885,7 @@ button.dish-media:focus-visible img {
 
 button.dish-media:focus-visible {
     outline: none;
-    box-shadow: inset 0 0 0 3px var(--pumpkin);
+    box-shadow: inset 0 0 0 3px var(--accent);
 }
 
 .dish-media.is-empty {
@@ -869,7 +894,7 @@ button.dish-media:focus-visible {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: radial-gradient(circle at 50% 45%, rgba(255, 122, 26, 0.22), transparent 70%), var(--surface-2);
+    background: radial-gradient(circle at 50% 45%, rgba(var(--accent-rgb), 0.22), transparent 70%), var(--surface-2);
     color: var(--muted);
     font-size: 0.8rem;
     font-weight: 700;
@@ -908,8 +933,8 @@ button.dish-media:focus-visible {
 .badge-popular {
     top: 8px;
     left: 8px;
-    background: var(--slime);
-    color: var(--slime-ink);
+    background: var(--alt);
+    color: var(--alt-ink);
 }
 
 .dish-body {
@@ -935,10 +960,10 @@ button.dish-media:focus-visible {
     width: 100%;
     min-height: 40px;
     padding: 6px 12px;
-    border: 1px solid rgba(255, 122, 26, 0.6);
+    border: 1px solid rgba(var(--accent-rgb), 0.6);
     border-radius: 999px;
-    background: rgba(255, 122, 26, 0.12);
-    color: var(--pumpkin-2);
+    background: rgba(var(--accent-rgb), 0.12);
+    color: var(--accent-2);
     font-weight: 800;
     font-size: 0.92rem;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -950,9 +975,9 @@ button.dish-media:focus-visible {
 }
 
 .add-btn:hover {
-    background: var(--pumpkin);
-    color: var(--pumpkin-ink);
-    box-shadow: 0 0 18px rgba(255, 122, 26, 0.4);
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.4);
 }
 
 .add-btn:focus-visible {
@@ -961,13 +986,13 @@ button.dish-media:focus-visible {
 }
 
 .add-btn.is-added {
-    border-color: var(--slime);
-    background: var(--slime);
-    color: var(--slime-ink);
+    border-color: var(--alt);
+    background: var(--alt);
+    color: var(--alt-ink);
 }
 
 .add-btn.is-added:hover {
-    box-shadow: 0 0 18px rgba(143, 220, 90, 0.4);
+    box-shadow: 0 0 18px rgba(var(--alt-rgb), 0.4);
 }
 
 .badge-inline {
@@ -1029,8 +1054,8 @@ button.dish-media:focus-visible {
     margin-left: 6px;
     padding: 1px 8px;
     border-radius: 999px;
-    background: var(--slime);
-    color: var(--slime-ink);
+    background: var(--alt);
+    color: var(--alt-ink);
     font-size: 0.7rem;
     font-weight: 800;
     vertical-align: 2px;
@@ -1057,7 +1082,7 @@ button.dish-media:focus-visible {
 }
 
 .empty strong {
-    color: var(--bone);
+    color: var(--text);
 }
 
 .empty-art {
@@ -1071,14 +1096,14 @@ button.dish-media:focus-visible {
 .site-footer {
     padding: 36px var(--gutter) 110px; /* room for the floating button */
     border-top: 1px solid var(--line);
-    background: var(--night-2);
+    background: var(--bg-2);
     text-align: center;
 }
 
 .footer-brand {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    color: var(--pumpkin-2);
+    color: var(--accent-2);
 }
 
 .footer-tagline {
@@ -1122,16 +1147,16 @@ button.dish-media:focus-visible {
     gap: 8px;
     min-height: 52px;
     padding: 8px 10px 8px 14px;
-    border: 1px solid rgba(255, 122, 26, 0.5);
+    border: 1px solid rgba(var(--accent-rgb), 0.5);
     border-radius: 999px;
     background: var(--surface-2);
-    color: var(--bone);
+    color: var(--text);
     font-weight: 800;
     box-shadow: var(--shadow);
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
-.fab-pumpkin {
+.fab-art {
     width: 26px;
     height: 26px;
 }
@@ -1148,15 +1173,15 @@ button.dish-media:focus-visible {
 }
 
 .fab.has-items {
-    background: var(--pumpkin);
-    border-color: var(--pumpkin-2);
-    color: var(--pumpkin-ink);
-    box-shadow: var(--shadow), 0 0 28px rgba(255, 122, 26, 0.5);
+    background: var(--accent);
+    border-color: var(--accent-2);
+    color: var(--accent-ink);
+    box-shadow: var(--shadow), 0 0 28px rgba(var(--accent-rgb), 0.5);
 }
 
 .fab.has-items .fab-count {
-    background: var(--pumpkin-ink);
-    color: var(--pumpkin-2);
+    background: var(--accent-ink);
+    color: var(--accent-2);
 }
 
 .fab:focus-visible {
@@ -1180,11 +1205,11 @@ dialog {
     padding: 0;
     border: 0;
     background: none;
-    color: var(--bone);
+    color: var(--text);
 }
 
 dialog::backdrop {
-    background: rgba(8, 5, 15, 0.72);
+    background: rgba(var(--bg-rgb), 0.78);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
 }
@@ -1199,7 +1224,7 @@ dialog::backdrop {
     margin: 0;
     padding-top: env(safe-area-inset-top);
     border-radius: 22px 22px 0 0;
-    background: var(--night-2);
+    background: var(--bg-2);
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -1233,7 +1258,7 @@ dialog::backdrop {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 1.6rem;
-    color: var(--pumpkin-2);
+    color: var(--accent-2);
 }
 
 .drawer-body {
@@ -1251,7 +1276,7 @@ dialog::backdrop {
 }
 
 .drawer-empty strong {
-    color: var(--pumpkin-2);
+    color: var(--accent-2);
 }
 
 .picked-count {
@@ -1302,7 +1327,7 @@ dialog::backdrop {
 
 .picked-art {
     padding: 6px;
-    background: radial-gradient(circle, rgba(255, 122, 26, 0.25), transparent 70%), var(--surface-2);
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.25), transparent 70%), var(--surface-2);
 }
 
 .picked-name {
@@ -1379,7 +1404,7 @@ dialog::backdrop {
 .field textarea:focus,
 .size-select:focus {
     outline: none;
-    border-color: var(--pumpkin);
+    border-color: var(--accent);
     box-shadow: var(--focus);
 }
 
@@ -1425,7 +1450,7 @@ dialog::backdrop {
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: var(--night-2);
+    background: var(--bg-2);
     box-shadow: var(--shadow);
 }
 
@@ -1453,7 +1478,7 @@ dialog::backdrop {
 }
 
 .lb-cat {
-    color: var(--slime);
+    color: var(--alt);
     font-weight: 700;
     font-size: 0.85rem;
 }
@@ -1492,7 +1517,7 @@ dialog::backdrop {
 }
 
 .lb-nav:hover {
-    border-color: var(--pumpkin);
+    border-color: var(--accent);
 }
 
 .lb-nav[hidden] {
@@ -1551,26 +1576,23 @@ dialog::backdrop {
         grid-auto-columns: 200px;
     }
 
-    .moon {
-        top: 18px;
-        right: 30px;
-        width: 80px;
-        height: 80px;
+    .papel-picado li:nth-child(n + 9) {
+        display: block;
     }
 
-    .eyebrow {
-        max-width: none;
+    .papel-picado li:nth-child(n + 15) {
+        display: none;
     }
 
-    .bat {
-        width: 40px;
-        height: 20px;
+    .leaf {
+        width: 24px;
+        height: 24px;
     }
 }
 
 @media (min-width: 768px) {
     .hero {
-        padding: 48px var(--gutter) 40px;
+        padding: 72px var(--gutter) 40px;
     }
 
     .steps ol {
@@ -1619,37 +1641,19 @@ dialog::backdrop {
         min-height: 400px;
     }
 
-    .moon {
-        top: 30px;
-        right: 90px;
-        width: 130px;
-        height: 130px;
+    .papel-picado li:nth-child(n + 15) {
+        display: block;
     }
 
-    .bat-1 {
-        top: 120px;
-        right: 300px;
-    }
-
-    .bat-2 {
-        top: 40px;
-        right: 360px;
-    }
-
-    .bat-3 {
-        top: 200px;
-        right: 60px;
-    }
-
-    .hero-pumpkin {
+    .hero-art {
         display: block;
         position: absolute;
-        right: 120px;
-        bottom: 24px;
-        width: 150px;
-        height: 150px;
-        filter: drop-shadow(0 0 30px rgba(255, 122, 26, 0.5));
-        animation: bob 4s ease-in-out infinite;
+        right: 90px;
+        bottom: 28px;
+        width: 220px;
+        height: 220px;
+        filter: drop-shadow(0 10px 30px rgba(var(--accent-rgb), 0.3));
+        animation: bob 5s ease-in-out infinite;
     }
 }
 
