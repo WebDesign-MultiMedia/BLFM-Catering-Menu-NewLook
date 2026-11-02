@@ -3,11 +3,11 @@ function showEventAlert() {
   const copy = {
     es: {
       title: "Hacemos Comida Para Eventos",
-      body: "Perfecto para fiestas de cumpleaños, bautizos, baby showers, eventos de oficina y más. Todos los platillos están disponibles en charola chica, mediana o grande.",
+      body: "Perfecto para fiestas de cumpleaños, bautizos, baby showers, eventos de oficina y más. Todos los platillos están disponibles en media charola o charola entera.",
     },
     en: {
       title: "We Cater Your Events",
-      body: "Perfect for birthday parties, baptisms, baby showers, office events and more. All dishes are available in small, medium, or full trays.",
+      body: "Perfect for birthday parties, baptisms, baby showers, office events and more. All dishes are available in half or whole trays.",
     },
   }[lang];
 

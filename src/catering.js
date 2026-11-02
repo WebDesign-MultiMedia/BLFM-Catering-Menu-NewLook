@@ -116,7 +116,7 @@ const EVENTS = [
     { img: 'evento-adobo', es: 'Adobo de puerco', en: 'Pork adobo' },
 ].map((ev, i) => ({ ...ev, id: `e${i}` }));
 
-const TRAY_SIZES = ['chica', 'mediana', 'grande'];
+const TRAY_SIZES = ['media', 'entera'];
 
 const STRINGS = {
     es: {
@@ -132,7 +132,7 @@ const STRINGS = {
         // end seasonal
         factDelivery: 'Entregas en el Bronx y zonas cercanas',
         factMinimum: 'Pedido mínimo: 20 personas',
-        factTrays: 'Charolas: chica, mediana o grande',
+        factTrays: 'Charolas: media o entera',
         browse: 'Ver el menú',
         stepsTitle: 'Cómo funciona',
         step1: 'Explora',
@@ -177,7 +177,7 @@ const STRINGS = {
         drawerEmpty: 'Tu lista está vacía. Toca <strong>+ Agregar</strong> en cualquier platillo para armar tu menú de fiesta.',
         traySize: 'Tamaño de charola',
         sizeAny: 'Tamaño…',
-        sizes: { chica: 'Chica', mediana: 'Mediana', grande: 'Grande' },
+        sizes: { media: 'Media charola', entera: 'Charola entera' },
         guests: 'Número de invitados',
         eventDate: 'Fecha del evento',
         notes: 'Notas',
@@ -204,7 +204,7 @@ const STRINGS = {
         msgGuests: 'Invitados',
         msgDate: 'Fecha del evento',
         msgNotes: 'Notas',
-        msgTray: size => `charola ${size.toLowerCase()}`,
+        msgTray: size => size.toLowerCase(),
         locale: 'es-US',
     },
     en: {
@@ -220,7 +220,7 @@ const STRINGS = {
         // end seasonal
         factDelivery: 'Delivery in the Bronx & nearby',
         factMinimum: 'Minimum order: 20 guests',
-        factTrays: 'Trays: small, medium or large',
+        factTrays: 'Trays: half or whole',
         browse: 'Browse the menu',
         stepsTitle: 'How it works',
         step1: 'Browse',
@@ -265,7 +265,7 @@ const STRINGS = {
         drawerEmpty: 'Your list is empty. Tap <strong>+ Add</strong> on any dish to start building your party menu.',
         traySize: 'Tray size',
         sizeAny: 'Size…',
-        sizes: { chica: 'Small', mediana: 'Medium', grande: 'Large' },
+        sizes: { media: 'Half tray', entera: 'Whole tray' },
         guests: 'Number of guests',
         eventDate: 'Event date',
         notes: 'Notes',
@@ -292,7 +292,7 @@ const STRINGS = {
         msgGuests: 'Guests',
         msgDate: 'Event date',
         msgNotes: 'Notes',
-        msgTray: size => `${size.toLowerCase()} tray`,
+        msgTray: size => size.toLowerCase(),
         locale: 'en-US',
     },
 };
