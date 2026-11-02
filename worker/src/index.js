@@ -172,6 +172,65 @@ async function sendOptInConfirmation(env, program, phoneE164) {
   return response.ok;
 }
 
+// HMAC-SHA256 as hex, used to sign the Google Sheet copy of each sign-up.
+async function hmacHex(key, message) {
+  const cryptoKey = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(key),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", cryptoKey, new TextEncoder().encode(message));
+  return Array.from(new Uint8Array(sig))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+// Copies a BLFM sign-up into the "SMSSignups" tab of the orders Google Sheet
+// (via SheetDB) so the owner can see the list and the POS broadcast can read
+// it. D1 stays the authoritative consent record; this is a convenience copy.
+//
+// Anyone with the sheet open could type a row in by hand, so each row carries
+// a Signature (HMAC of ConsentId|phone|Specials with SIGNUP_SIGNING_KEY, a
+// secret shared with the POS). The broadcast skips rows whose signature
+// doesn't verify, so only form sign-ups ever get texted.
+//
+// The phone is written as (347) 555-0100 rather than +1… because Sheets would
+// turn a leading + into a number.
+async function copySignupToSheet(env, { consentId, fullName, phoneE164, referenceNumber, orders, specials, timestamp }) {
+  if (!env.SHEETDB_ID || !env.SIGNUP_SIGNING_KEY) return false;
+
+  const digits = phoneE164.slice(2);
+  const phone = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  const specialsValue = specials ? "Yes" : "No";
+  const signature = await hmacHex(env.SIGNUP_SIGNING_KEY, `${consentId}|${phoneE164}|${specialsValue}`);
+
+  const headers = { "Content-Type": "application/json" };
+  if (env.SHEETDB_USER && env.SHEETDB_PASS) {
+    headers.Authorization = `Basic ${btoa(`${env.SHEETDB_USER}:${env.SHEETDB_PASS}`)}`;
+  }
+  const response = await fetch(`https://sheetdb.io/api/v1/${encodeURIComponent(env.SHEETDB_ID)}?sheet=SMSSignups`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      data: [
+        {
+          Date: timestamp,
+          Name: fullName,
+          Phone: phone,
+          Reference: referenceNumber || "",
+          Orders: orders ? "Yes" : "No",
+          Specials: specialsValue,
+          ConsentId: consentId,
+          Signature: signature,
+        },
+      ],
+    }),
+  });
+  return response.ok;
+}
+
 export default {
   async fetch(request, env) {
     const cors = corsHeaders(request, env);
@@ -282,6 +341,24 @@ export default {
       }
     } catch {
       // Delivery failure doesn't affect the recorded consent.
+    }
+
+    if (program.id === "blfm") {
+      try {
+        const ok = await copySignupToSheet(env, {
+          consentId: ids[0],
+          fullName,
+          phoneE164,
+          referenceNumber,
+          orders: consented.some((sp) => sp.id === "blfm_receipt_notifications"),
+          specials: consented.some((sp) => sp.id === "blfm_specials"),
+          timestamp: consentTimestampUtc,
+        });
+        if (!ok) console.error("sms-consent: Google Sheet copy was not written");
+      } catch (err) {
+        // The sheet is only a copy; consent is already recorded in D1.
+        console.error("sms-consent: Google Sheet copy failed", err);
+      }
     }
 
     return json({ ok: true }, 200, cors);

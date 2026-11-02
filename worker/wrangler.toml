@@ -38,6 +38,15 @@ SEND_OPT_IN_CONFIRMATION = "true"
 #                                          any of these three BLFM secrets is
 #                                          unset, consent still records but no
 #                                          confirmation SMS is sent.)
+#   SHEETDB_ID, SHEETDB_USER, SHEETDB_PASS (the POS orders sheet's SheetDB
+#                                          API; each BLFM sign-up is copied
+#                                          to its "SMSSignups" tab)
+#   SIGNUP_SIGNING_KEY                    (signs each sheet row; the same
+#                                          value is set in the POS's Vercel
+#                                          env so its broadcast only texts
+#                                          rows the form wrote. If this or
+#                                          SHEETDB_ID is unset, nothing is
+#                                          copied to the sheet.)
 #   TWILIO_ACCOUNT_SID                    (shared Twilio account — used only
 #                                          by the Julio Salas program)
 #   TWILIO_AUTH_TOKEN                     (shared Twilio account — used only
