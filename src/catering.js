@@ -149,6 +149,8 @@ const STRINGS = {
         searchLabel: 'Buscar platillos',
         searchPlaceholder: 'Buscar platillos… (ej. pollo, arroz)',
         filterLabel: 'Filtrar por categoría',
+        chipsPrev: 'Categorías anteriores',
+        chipsNext: 'Más categorías',
         viewLabel: 'Ver el menú como',
         viewGrid: 'Fotos',
         viewList: 'Lista',
@@ -235,6 +237,8 @@ const STRINGS = {
         searchLabel: 'Search dishes',
         searchPlaceholder: 'Search dishes… (e.g. pollo, arroz)',
         filterLabel: 'Filter by category',
+        chipsPrev: 'Previous categories',
+        chipsNext: 'More categories',
         viewLabel: 'Show the menu as',
         viewGrid: 'Photos',
         viewList: 'List',
@@ -432,10 +436,45 @@ function renderMenu() {
         </section>`).join('');
 }
 
+// "All" is pinned outside the scroller so it's always one tap away.
 function renderChips() {
-    const chips = [{ id: 'all', name: t('all') }, ...CATEGORIES];
-    $('#chips').innerHTML = chips.map(c => `
-        <button class="chip" type="button" data-cat="${c.id}" aria-pressed="${state.category === c.id}">${c.name}</button>`).join('');
+    const chip = c => `<button class="chip${c.id === 'all' ? ' chip-all' : ''}" type="button" data-cat="${c.id}" aria-pressed="${state.category === c.id}">${c.name}</button>`;
+    const arrow = (dir, label, icon) => `<button class="chip-arrow" type="button" data-dir="${dir}" aria-label="${label}"><svg class="icon" aria-hidden="true"><use href="#i-${icon}"/></svg></button>`;
+    $('#chips').innerHTML = `
+        ${chip({ id: 'all', name: t('all') })}
+        ${arrow(-1, t('chipsPrev'), 'chev-left')}
+        <div class="chip-scroll" id="chip-scroll">${CATEGORIES.map(chip).join('')}</div>
+        ${arrow(1, t('chipsNext'), 'chev-right')}`;
+
+    const scroller = $('#chip-scroll');
+    scroller.addEventListener('scroll', updateChipArrows, { passive: true });
+    if ('ResizeObserver' in window) new ResizeObserver(updateChipArrows).observe(scroller);
+    updateChipArrows();
+}
+
+// Show the arrows only when the categories overflow; dim the one at the end
+// and fade the edge that has more chips hidden behind it.
+function updateChipArrows() {
+    const scroller = $('#chip-scroll');
+    if (!scroller) return;
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    const canLeft = scroller.scrollLeft > 4;
+    const canRight = scroller.scrollLeft < max - 4;
+    const bar = $('#chips');
+    bar.classList.toggle('no-overflow', max <= 4);
+    bar.classList.toggle('can-left', canLeft);
+    bar.classList.toggle('can-right', canRight);
+    bar.querySelector('[data-dir="-1"]').disabled = !canLeft;
+    bar.querySelector('[data-dir="1"]').disabled = !canRight;
+}
+
+const scrollBehavior = () => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
+
+// Scrolls only the category bar (never the page) so the chip is centered.
+function centerChip(chip) {
+    const scroller = $('#chip-scroll');
+    if (!scroller || !scroller.contains(chip)) return;
+    scroller.scrollTo({ left: chip.offsetLeft - (scroller.clientWidth - chip.offsetWidth) / 2, behavior: scrollBehavior() });
 }
 
 function renderEvents() {
@@ -678,11 +717,23 @@ function bindEvents() {
     });
 
     $('#chips').addEventListener('click', e => {
+        const arrow = e.target.closest('.chip-arrow');
+        if (arrow) {
+            const scroller = $('#chip-scroll');
+            scroller.scrollBy({ left: Number(arrow.dataset.dir) * scroller.clientWidth * 0.7, behavior: scrollBehavior() });
+            return;
+        }
         const chip = e.target.closest('.chip');
         if (!chip) return;
         state.category = chip.dataset.cat;
         applyFilters();
-        chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        if (chip.dataset.cat === 'all') $('#chip-scroll').scrollTo({ left: 0, behavior: scrollBehavior() });
+        else centerChip(chip);
+    });
+
+    // Keyboard users tabbing through the chips: keep the focused one in view.
+    $('#chips').addEventListener('focusin', e => {
+        if (e.target.matches('.chip-scroll .chip')) centerChip(e.target);
     });
 
     document.querySelectorAll('.view-btn').forEach(btn => {

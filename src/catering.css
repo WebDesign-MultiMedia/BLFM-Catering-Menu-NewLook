@@ -725,16 +725,97 @@ button {
     box-shadow: var(--focus);
 }
 
+/* Category bar: "All" is pinned on the left; the categories scroll
+   (swipe, trackpad, or the ‹ › arrows, which hide when everything fits) */
 .chips {
     display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+
+.chip-scroll {
+    position: relative; /* offsetParent for centering the active chip */
+    display: flex;
+    flex: 1;
     gap: 8px;
-    margin: 0 calc(var(--gutter) * -1);
-    padding: 2px var(--gutter) 4px;
+    min-width: 0;
+    padding: 2px 2px 4px;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
 }
 
-.chips::-webkit-scrollbar {
+.chip-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Fade the edge that has more chips behind it */
+.chips.can-left .chip-scroll {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 32px);
+    mask-image: linear-gradient(90deg, transparent, #000 32px);
+}
+
+.chips.can-right .chip-scroll {
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 32px), transparent);
+}
+
+.chips.can-left.can-right .chip-scroll {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+}
+
+.chip-all {
+    position: relative;
+    margin-right: 6px;
+}
+
+/* Small divider between the pinned "All" chip and the scrolling ones */
+.chip-all::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    right: -8px;
+    width: 1px;
+    background: var(--line);
+}
+
+.chip-arrow {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--accent-2);
+    transition: border-color 0.2s, opacity 0.2s;
+}
+
+.chip-arrow .icon {
+    width: 14px;
+    height: 14px;
+}
+
+.chip-arrow:hover:not(:disabled) {
+    border-color: var(--accent);
+}
+
+.chip-arrow:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+}
+
+.chip-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.chips.no-overflow .chip-arrow {
     display: none;
 }
 
@@ -1602,11 +1683,6 @@ dialog::backdrop {
     .toolbar-inner {
         grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
         align-items: center;
-    }
-
-    .chips {
-        margin: 0;
-        padding: 2px 0 4px;
     }
 
     .drawer,

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#1e110b">
 
   <title>Buffet Lucia's Fiesta Mexicana | Catering Mexicano en Bronx, NY</title>
   <meta name="description" content="Auténtico catering mexicano en Bronx, NY para cumpleaños, bautizos, baby showers y eventos de oficina. Ve el menú, pide una cotización o llámanos hoy.">
@@ -34,7 +35,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Structured data: local catering business -->
   <script type="application/ld+json">
@@ -67,6 +68,31 @@
   </script>
 
   <style>
+    /* Seasonal theme: "Día de Acción de Gracias", matching the catering
+       menu (src/catering.css). Colors live in :root. */
+    :root {
+      --bg: #1e110b;
+      --bg-2: #2a1810;
+      --surface: #3a2318;
+      --surface-2: #4a2e20;
+      --line: rgba(255, 228, 190, 0.12);
+      --accent: #eaa53b;
+      --accent-rgb: 234, 165, 59;
+      --accent-2: #f6c66e;
+      --accent-ink: #2b1604;
+      --alt: #a9c25c;
+      --alt-rgb: 169, 194, 92;
+      --text: #fbf1e2;
+      --muted: #d4bea4;
+      --terracotta: #c75b32;
+      --cranberry: #a3283b;
+      --talavera: #3c7cc4;
+      --focus: 0 0 0 3px rgba(var(--accent-rgb), 0.55);
+      --font-display: 'Yeseva One', Georgia, serif;
+      --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color-scheme: dark;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
@@ -75,15 +101,66 @@
     }
 
     body {
-      background: linear-gradient(160deg, #001f13 0%, #006341 55%, #001f13 100%);
+      background:
+        radial-gradient(50rem 34rem at 85% -10%, rgba(var(--accent-rgb), 0.16), transparent 60%),
+        radial-gradient(44rem 34rem at -10% 60%, rgba(199, 91, 50, 0.15), transparent 60%),
+        var(--bg);
       background-attachment: fixed;
-      font-family: Roboto, sans-serif;
-      color: #fff;
+      font-family: var(--font-body);
+      color: var(--text);
       overflow-x: hidden;
     }
 
-    /* ── Particles ─────────────────────────────────────────── */
-    .bg-particles {
+    /* ── Papel picado banner ───────────────────────────────── */
+    .papel-picado {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 6px;
+      list-style: none;
+    }
+
+    .papel-picado::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 228, 190, 0.35);
+    }
+
+    .papel-picado li {
+      flex: 1;
+      max-width: 64px;
+      height: 34px;
+      background:
+        radial-gradient(circle at 50% 38%, var(--bg) 0 3px, transparent 3.5px),
+        radial-gradient(circle at 28% 62%, var(--bg) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 72% 62%, var(--bg) 0 2px, transparent 2.5px),
+        var(--flag);
+      clip-path: polygon(0 0, 100% 0, 100% 78%, 87% 100%, 75% 78%, 62% 100%, 50% 78%, 37% 100%, 25% 78%, 12% 100%, 0 78%);
+      opacity: 0.92;
+      transform-origin: top center;
+      animation: flutter 4s ease-in-out infinite;
+    }
+
+    .papel-picado li:nth-child(5n + 1) { --flag: var(--terracotta); }
+    .papel-picado li:nth-child(5n + 2) { --flag: var(--accent); animation-delay: -1s; }
+    .papel-picado li:nth-child(5n + 3) { --flag: var(--alt); animation-delay: -2s; }
+    .papel-picado li:nth-child(5n + 4) { --flag: var(--cranberry); animation-delay: -3s; }
+    .papel-picado li:nth-child(5n + 5) { --flag: var(--talavera); animation-delay: -1.5s; }
+    .papel-picado li:nth-child(n + 9) { display: none; }
+
+    @keyframes flutter {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    /* ── Falling autumn leaves ─────────────────────────────── */
+    .leaves {
       position: fixed;
       inset: 0;
       overflow: hidden;
@@ -91,65 +168,92 @@
       z-index: 0;
     }
 
-    @keyframes floatUp {
-      0%   { transform: translateY(100vh) scale(0.8); opacity: 0; }
-      10%  { opacity: 0.6; }
-      90%  { opacity: 0.4; }
-      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+    .leaf {
+      position: absolute;
+      top: -30px;
+      width: 18px;
+      height: 18px;
+      opacity: 0;
+      animation: leaf-fall 16s linear infinite;
     }
 
-    .p {
-      position: absolute;
-      border-radius: 50%;
-      animation: floatUp linear infinite;
+    @keyframes leaf-fall {
+      0%   { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+      8%   { opacity: 0.7; }
+      50%  { transform: translate(-40px, 55vh) rotate(180deg); }
+      90%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translate(20px, 110vh) rotate(360deg); }
     }
 
     /* ── Page wrapper ──────────────────────────────────────── */
     .page {
       position: relative;
       z-index: 1;
-      min-height: 100vh;
+      min-height: calc(100vh - 34px);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2.5rem 1rem;
+      padding: 2rem 1rem 2.5rem;
     }
 
-    /* ── Center column ─────────────────────────────────────── */
     .col {
       width: 100%;
       max-width: 480px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.25rem;
+      gap: 1.15rem;
     }
 
-    /* ── Logo ──────────────────────────────────────────────── */
+    /* ── Logo + brand ──────────────────────────────────────── */
     .logo {
       width: min(220px, 58vw);
       height: auto;
       display: block;
-      filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.7));
+      filter: drop-shadow(2px 4px 10px rgba(0, 0, 0, 0.6));
     }
 
-    /* ── Brand text ────────────────────────────────────────── */
-    .brand-name {
-      font-family: 'Cookie', system-ui;
-      font-size: clamp(1.9rem, 5.5vw, 2.8rem);
-      color: #fff;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
       text-align: center;
-      line-height: 1.2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem 0.3rem 0.45rem;
+      border: 1px solid rgba(var(--alt-rgb), 0.35);
+      border-radius: 999px;
+      background: rgba(var(--alt-rgb), 0.08);
+      color: var(--alt);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .eyebrow svg {
+      width: 22px;
+      height: 22px;
+      flex: none;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.8rem, 7vw, 2.6rem);
+      line-height: 1.12;
+      color: var(--text);
+      text-wrap: balance;
     }
 
     .brand-sub {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      text-align: center;
-      margin-top: 2px;
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 4vw, 1.3rem);
+      color: var(--accent);
+      text-shadow: 0 1px 0 rgba(199, 91, 50, 0.45);
     }
 
     /* ── Link cards ────────────────────────────────────────── */
@@ -158,7 +262,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.7rem;
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
     }
 
     .card {
@@ -166,141 +270,190 @@
       align-items: center;
       gap: 0.9rem;
       width: 100%;
-      padding: 0.85rem 1.1rem;
-      border-radius: 1rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(10px) saturate(140%);
-      -webkit-backdrop-filter: blur(10px) saturate(140%);
-      color: #fff;
+      min-height: 3.6rem;
+      padding: 0.75rem 1.1rem 0.75rem 0.8rem;
+      border-radius: 1.1rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
       text-decoration: none;
-      font-size: 0.97rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-      transition: background 0.2s, transform 0.18s, box-shadow 0.2s, border-color 0.2s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      font-size: 1rem;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.2s, transform 0.18s, box-shadow 0.2s, border-color 0.2s;
     }
 
-    .card:hover,
-    .card:focus-visible {
-      background: rgba(255,255,255,0.12);
-      border-color: rgba(255,255,255,0.22);
+    .card:hover {
+      background: var(--surface-2);
+      border-color: rgba(var(--accent-rgb), 0.55);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 22px rgba(var(--accent-rgb), 0.15);
+    }
+
+    .card:focus-visible {
       outline: none;
+      box-shadow: var(--focus);
     }
 
     .card:active {
       transform: translateY(0);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
-    /* Primary actions: solid gradient pills, matching the menu page's nav CTAs */
-    .card--primary {
-      border: none;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-    }
-
+    /* Primary actions: maíz gold (menu) and terracotta (call) */
     .card--menu {
-      background: linear-gradient(135deg, #00a86b, #00623f);
+      border-color: transparent;
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: var(--accent-ink);
+      box-shadow: 0 6px 24px rgba(var(--accent-rgb), 0.35);
     }
 
     .card--menu:hover {
-      background: linear-gradient(135deg, #00c17c, #007a4d);
+      background: linear-gradient(180deg, #ffd384, var(--accent-2));
+      border-color: transparent;
+      box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.5);
     }
 
     .card--call {
-      background: linear-gradient(135deg, #ff5f96, #c9366a) !important;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--terracotta), var(--cranberry));
+      color: #fff;
     }
 
     .card--call:hover {
-      background: linear-gradient(135deg, #ff7dab, #de407a) !important;
+      background: linear-gradient(135deg, #d96a3f, #b8324a);
+      border-color: transparent;
     }
 
     .card-icon {
       flex-shrink: 0;
       width: 2.5rem;
       height: 2.5rem;
-      border-radius: 0.6rem;
+      border-radius: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
     }
 
+    .card--menu .card-icon,
+    .card--call .card-icon {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
     .card-label { flex: 1; }
 
     .card-arrow {
-      color: rgba(255,255,255,0.4);
+      color: var(--muted);
       font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .card--menu .card-arrow,
+    .card--call .card-arrow {
+      color: inherit;
     }
 
     /* ── Footer ────────────────────────────────────────────── */
     .legal-links {
-      font-size: 0.68rem;
-      letter-spacing: 0.03em;
-      color: rgba(255,255,255,0.45);
+      font-size: 0.78rem;
+      color: var(--muted);
       text-align: center;
-      margin-top: 1.1rem;
+      margin-top: 1rem;
     }
 
     .legal-links a {
-      color: rgba(255,255,255,0.6);
+      display: inline-block;
+      padding: 0.6rem 0.4rem;
+      color: var(--muted);
       text-decoration: none;
-      margin: 0 0.4rem;
     }
 
     .legal-links a:hover {
-      color: #fff;
+      color: var(--text);
       text-decoration: underline;
     }
 
     .copyright {
-      font-size: 0.62rem;
-      letter-spacing: 0.05em;
-      color: rgba(255,255,255,0.28);
+      font-size: 0.72rem;
+      color: rgba(212, 190, 164, 0.6);
       text-align: center;
-      margin-top: 0.5rem;
     }
 
-    /* ── Desktop: wider card column ────────────────────────── */
     @media (min-width: 640px) {
       .col { max-width: 520px; }
-      .logo { width: 260px; }
-      .card { padding: 1rem 1.3rem; font-size: 1.05rem; }
+      .logo { width: 250px; }
+      .card { padding: 0.9rem 1.3rem 0.9rem 0.9rem; font-size: 1.05rem; }
       .card-icon { width: 2.8rem; height: 2.8rem; font-size: 1.3rem; }
+      .leaf { width: 24px; height: 24px; }
+      .papel-picado li:nth-child(n + 9) { display: block; }
+      .papel-picado li:nth-child(n + 15) { display: none; }
     }
 
-    @media (min-width: 1024px) {
-      .col { max-width: 560px; }
-      .logo { width: 290px; }
+    @media (min-width: 960px) {
+      .papel-picado li:nth-child(n + 15) { display: block; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .leaves { display: none; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Particles -->
-  <div class="bg-particles" aria-hidden="true">
-    <span class="p" style="width:7px;height:7px;background:rgba(255,255,255,0.25);left:8%;animation-duration:14s;animation-delay:0s;"></span>
-    <span class="p" style="width:5px;height:5px;background:rgba(206,17,38,0.4);left:22%;animation-duration:10s;animation-delay:-3s;"></span>
-    <span class="p" style="width:9px;height:9px;background:rgba(255,255,255,0.15);left:38%;animation-duration:17s;animation-delay:-7s;"></span>
-    <span class="p" style="width:6px;height:6px;background:rgba(0,99,65,0.6);left:55%;animation-duration:12s;animation-delay:-1s;"></span>
-    <span class="p" style="width:4px;height:4px;background:rgba(255,255,255,0.3);left:70%;animation-duration:9s;animation-delay:-5s;"></span>
-    <span class="p" style="width:8px;height:8px;background:rgba(206,17,38,0.3);left:85%;animation-duration:15s;animation-delay:-9s;"></span>
-    <span class="p" style="width:5px;height:5px;background:rgba(255,255,255,0.2);left:15%;animation-duration:11s;animation-delay:-4s;"></span>
-    <span class="p" style="width:7px;height:7px;background:rgba(0,99,65,0.5);left:60%;animation-duration:13s;animation-delay:-6s;"></span>
-    <span class="p" style="width:4px;height:4px;background:rgba(255,255,255,0.25);left:45%;animation-duration:16s;animation-delay:-2s;"></span>
-    <span class="p" style="width:6px;height:6px;background:rgba(206,17,38,0.25);left:92%;animation-duration:10s;animation-delay:-8s;"></span>
+  <!-- Seasonal art (Día de Acción de Gracias) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-season" viewBox="0 0 64 64">
+      <g transform="rotate(-66 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#3c7cc4"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(-44 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a9c25c"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(-22 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a3283b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#eaa53b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(22 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a3283b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(44 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a9c25c"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(66 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#3c7cc4"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <path d="M28 55v6M36 55v6M26 61h4M34 61h4" stroke="#eaa53b" stroke-width="1.8" stroke-linecap="round"/>
+      <ellipse cx="32" cy="42" rx="13" ry="14.5" fill="#7a4326"/>
+      <ellipse cx="32" cy="46" rx="8" ry="8.5" fill="#c75b32"/>
+      <circle cx="32" cy="42.5" r="1.5" fill="#f6c66e"/><circle cx="29" cy="47" r="1.5" fill="#f6c66e"/><circle cx="35" cy="47" r="1.5" fill="#f6c66e"/>
+      <circle cx="32" cy="24" r="7" fill="#8f5232"/>
+      <circle cx="29.6" cy="22.6" r="1.3" fill="#1e110b"/><circle cx="34.4" cy="22.6" r="1.3" fill="#1e110b"/>
+      <path d="M30 25.2h4l-2 3.4z" fill="#eaa53b"/>
+      <path d="M33.2 27.2c2.2 2.4 1.2 5.4-.6 6.4-.9-1.8-.6-4.2.6-6.4z" fill="#a3283b"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 1.5c1 2.8 2.6 4 5 4-.8 1.8-.7 3.2 1.4 4.8-2.1.3-3.2 1.3-3.2 3.3-1.8-.9-2.8-.6-2.7 1.4v7.5h-1v-7.5c.1-2-.9-2.3-2.7-1.4 0-2-1.1-3-3.2-3.3 2.1-1.6 2.2-3 1.4-4.8 2.4 0 4-1.2 5-4z"/>
+    </symbol>
+  </svg>
+
+  <!-- Falling leaves -->
+  <div class="leaves" aria-hidden="true">
+    <svg class="leaf" style="left:6%;color:var(--terracotta);animation-duration:16s;animation-delay:0s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:18%;color:var(--accent);animation-duration:19s;animation-delay:-6s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:31%;color:var(--cranberry);animation-duration:14s;animation-delay:-11s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:47%;color:var(--accent-2);animation-duration:21s;animation-delay:-3s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:62%;color:var(--terracotta);animation-duration:17s;animation-delay:-9s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:74%;color:var(--alt);animation-duration:15s;animation-delay:-14s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:86%;color:var(--accent);animation-duration:20s;animation-delay:-1s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:94%;color:var(--cranberry);animation-duration:18s;animation-delay:-7s;"><use href="#i-leaf"/></svg>
   </div>
+
+  <!-- Papel picado -->
+  <ul class="papel-picado" aria-hidden="true">
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  </ul>
 
   <div class="page">
     <div class="col">
 
       <!-- Logo -->
-      <a href="https://webdesign-multimedia.github.io/BuffetLuciasFiestaMexicana/"
-         aria-label="Buffet Lucia's Fiesta Mexicana home">
+      <a href="/index.html"
+         aria-label="Ver el menú de catering">
         <img
           src="./imgs/logo/BLFM-logo.webp"
           alt="Buffet Lucia's Fiesta Mexicana logo"
@@ -310,7 +463,11 @@
       </a>
 
       <!-- Brand -->
-      <div>
+      <div class="brand">
+        <p class="eyebrow">
+          <svg aria-hidden="true"><use href="#i-season"/></svg>
+          Feliz Día de Acción de Gracias
+        </p>
         <h1 class="brand-name">Buffet Lucia's Fiesta Mexicana</h1>
         <p class="brand-sub">Hacemos comida para eventos</p>
       </div>
@@ -320,7 +477,7 @@
 
         <a href="https://buffetluciasfiestamexicana.com/"
            class="card card--primary card--menu" aria-label="Ver el menú de catering">
-          <span class="card-icon" style="background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);">
+          <span class="card-icon">
             <i class="fa-solid fa-utensils" aria-hidden="true"></i>
           </span>
           <span class="card-label">Catering Menu</span>
@@ -366,7 +523,7 @@
         <a href="tel:+13476862462"
            class="card card--primary card--call"
            aria-label="Llamar a Buffet Lucia's Fiesta Mexicana">
-          <span class="card-icon" style="background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);">
+          <span class="card-icon">
             <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
           </span>
           <span class="card-label">Llamar: (347) 686-2462</span>
