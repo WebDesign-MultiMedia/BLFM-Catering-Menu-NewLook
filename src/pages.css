@@ -1,0 +1,809 @@
+/* ==========================================================================
+   Secondary pages (quote form, SMS consent, privacy, terms).
+   Loaded after catering.css, which supplies the theme tokens, the header,
+   the papel picado, buttons and the footer, so these pages always match
+   the menu. Only page-specific pieces live here.
+   ========================================================================== */
+
+/* No floating party-list button on these pages, so no extra footer room */
+.page .site-footer {
+    padding-bottom: 36px;
+}
+
+/* ---------- page hero ---------- */
+.legal-hero,
+.quote-hero {
+    position: relative;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 64px var(--gutter) 28px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.legal-hero > :not(.sky),
+.quote-hero > :not(.sky) {
+    position: relative;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legal-hero-title,
+.quote-hero-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 7vw, 2.8rem);
+    line-height: 1.1;
+    color: var(--text);
+    text-wrap: balance;
+}
+
+.quote-hero-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.legal-updated {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 6px 14px;
+    border: 1px solid rgba(var(--alt-rgb), 0.35);
+    border-radius: 999px;
+    background: rgba(var(--alt-rgb), 0.08);
+    color: var(--alt);
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.legal-intro,
+.quote-hero-subhead {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.legal-intro strong {
+    color: var(--text);
+}
+
+.operator-note {
+    margin-top: 14px;
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--bg-2);
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* ---------- legal content cards ---------- */
+.legal-wrap {
+    display: grid;
+    gap: 12px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 var(--gutter) 48px;
+}
+
+.legal-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+}
+
+.legal-card-header {
+    padding: 18px 20px 0;
+}
+
+.legal-card-header h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    color: var(--accent-2);
+}
+
+.legal-card-body {
+    padding: 10px 20px 20px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.legal-card-body strong {
+    color: var(--text);
+}
+
+.legal-card-body a,
+.consent-legal-links a {
+    color: var(--accent-2);
+    font-weight: 700;
+    text-underline-offset: 3px;
+}
+
+.legal-card-body a:hover,
+.consent-legal-links a:hover {
+    color: var(--text);
+}
+
+.legal-card-body p + p,
+.legal-card-body p + ul,
+.legal-card-body ul + p {
+    margin-top: 12px;
+}
+
+.legal-card-body ul {
+    margin: 8px 0 0;
+    padding-left: 1.3rem;
+}
+
+.legal-card-body li + li {
+    margin-top: 6px;
+}
+
+.legal-card-body li::marker {
+    color: var(--accent);
+}
+
+/* ---------- what the SMS program covers ---------- */
+.sms-purpose-heading,
+.sms-purpose-list {
+    width: min(640px, 100% - 2 * var(--gutter));
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sms-purpose-heading {
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--accent-2);
+}
+
+.sms-purpose-heading span {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.sms-purpose-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 24px;
+    padding: 0;
+    list-style: none;
+}
+
+.sms-purpose-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--bg-2);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.sms-purpose-list i {
+    width: 1.2em;
+    color: var(--accent);
+    text-align: center;
+}
+
+@media (min-width: 560px) {
+    .sms-purpose-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ---------- form card ---------- */
+.page-main {
+    padding: 0 var(--gutter) 48px;
+}
+
+.quote-card {
+    max-width: 640px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    box-shadow: var(--shadow);
+}
+
+.quote-card-body {
+    padding: 24px 18px 26px;
+}
+
+.quote-field {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    margin-bottom: 16px;
+}
+
+.quote-field > label {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.quote-field label span {
+    color: var(--muted);
+}
+
+.quote-field input,
+.quote-field select,
+.quote-field textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quote-field select {
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23eaa53b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+.quote-field input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.quote-field input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+}
+
+.quote-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.quote-field input::placeholder,
+.quote-field textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+}
+
+.quote-field input:focus,
+.quote-field select:focus,
+.quote-field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: var(--focus);
+}
+
+.quote-field input[aria-invalid="true"] {
+    border-color: var(--danger);
+}
+
+.field-hint {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.field-error {
+    display: none;
+    color: var(--danger);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.field-error.visible {
+    display: block;
+}
+
+.quote-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 14px;
+}
+
+@media (min-width: 480px) {
+    .quote-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Honeypot: visually hidden, but not display:none so the browser
+   still lays it out (some bots skip inputs with display:none) */
+.hp-field {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---------- dish picker (quote form) ---------- */
+.dish-picker-hint {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.dish-picker {
+    display: grid;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.dish-group-title {
+    margin-top: 8px;
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.dish-group-title:first-child {
+    margin-top: 0;
+}
+
+.dish-category {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+}
+
+.dish-category summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 46px;
+    padding: 8px 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    list-style: none;
+    cursor: pointer;
+}
+
+.dish-category summary::-webkit-details-marker {
+    display: none;
+}
+
+.dish-category summary::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform 0.2s;
+}
+
+.dish-category[open] summary::after {
+    transform: translateY(3px) rotate(-135deg);
+}
+
+.dish-category summary:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+    border-radius: var(--radius-sm);
+}
+
+.dish-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 12px 12px;
+}
+
+.dish-chip {
+    min-height: 40px;
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.88rem;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.dish-chip:hover {
+    border-color: var(--accent);
+}
+
+.dish-chip:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+}
+
+/* Chips with a photo get a small camera icon (hover on desktop, tap on phones) */
+.dish-chip[data-img]::after {
+    content: "\f030";
+    margin-left: 6px;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.7rem;
+    color: var(--accent);
+}
+
+.dish-chip.selected {
+    border-color: var(--alt);
+    background: var(--alt);
+    color: var(--alt-ink);
+}
+
+.dish-chip.selected[data-img]::after {
+    color: var(--alt-ink);
+}
+
+.dish-selected-summary {
+    margin-top: 4px;
+    color: var(--accent-2);
+    font-weight: 700;
+    font-size: 0.88rem;
+}
+
+/* Desktop hover preview */
+.dish-hover-preview {
+    position: fixed;
+    z-index: 70;
+    width: 200px;
+    overflow: hidden;
+    border: 1px solid rgba(var(--accent-rgb), 0.5);
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    box-shadow: var(--shadow);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.15s, transform 0.15s;
+}
+
+.dish-hover-preview.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.dish-hover-preview img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.dish-hover-preview span {
+    display: block;
+    padding: 8px 10px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+/* Phone/tablet dish confirm modal */
+#dish-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--gutter);
+    background: rgba(var(--bg-rgb), 0.78);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+#dish-modal.open {
+    display: flex;
+}
+
+#dish-modal-card {
+    width: 100%;
+    max-width: 340px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    box-shadow: var(--shadow);
+}
+
+#dish-modal-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+#dish-modal-name {
+    padding: 14px 16px 0;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.dish-modal-actions {
+    display: flex;
+    gap: 8px;
+    padding: 14px 16px 16px;
+}
+
+.dish-modal-btn {
+    flex: 1;
+    min-height: 46px;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-weight: 800;
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.dish-modal-btn:hover {
+    transform: translateY(-1px);
+}
+
+.dish-modal-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+}
+
+.dish-modal-btn--add {
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    color: var(--accent-ink);
+}
+
+.dish-modal-btn--remove {
+    background: var(--cranberry);
+    color: var(--text);
+}
+
+.dish-modal-btn--cancel {
+    border-color: var(--line);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+}
+
+/* ---------- submit / secondary actions ---------- */
+.quote-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 8px;
+    padding: 10px 22px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    color: var(--accent-ink);
+    font-weight: 800;
+    font-size: 1.05rem;
+    box-shadow: 0 6px 24px rgba(var(--accent-rgb), 0.35);
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.quote-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.55);
+}
+
+.quote-submit-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+}
+
+.quote-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: default;
+    transform: none;
+}
+
+.no-thanks-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 50px;
+    padding: 10px 22px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+}
+
+.no-thanks-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.no-thanks-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus);
+}
+
+.choice-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+    color: var(--muted);
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.choice-divider::before,
+.choice-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+}
+
+.back-to-menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    margin-top: 12px;
+    color: var(--muted);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.back-to-menu:hover {
+    color: var(--text);
+}
+
+.form-status {
+    margin: 0 18px 24px;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.quote-card-body .form-status {
+    margin: 0;
+}
+
+.form-status.success {
+    border: 1px solid rgba(var(--alt-rgb), 0.45);
+    background: rgba(var(--alt-rgb), 0.1);
+    color: var(--text);
+}
+
+.form-status.error {
+    border: 1px solid rgba(255, 155, 138, 0.45);
+    background: rgba(255, 155, 138, 0.1);
+    color: var(--danger);
+}
+
+/* ---------- SMS consent ---------- */
+.sms-optional-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    border: 1px solid rgba(var(--alt-rgb), 0.35);
+    border-radius: var(--radius-sm);
+    background: rgba(var(--alt-rgb), 0.08);
+    font-size: 0.92rem;
+}
+
+.sms-optional-banner i {
+    flex: none;
+    margin-top: 4px;
+    color: var(--alt);
+}
+
+.consent-block {
+    margin: 20px 0 16px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+}
+
+.consent-checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.consent-checkbox-row + .consent-checkbox-row {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+}
+
+.consent-checkbox-row input[type="checkbox"] {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin: 2px 0 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.consent-checkbox-row input[type="checkbox"][aria-invalid="true"] {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
+}
+
+/* Neutral nudge toward the checkbox: never styled as an error */
+.consent-checkbox-row.gentle-highlight input[type="checkbox"] {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.consent-checkbox-row label {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    cursor: pointer;
+}
+
+.consent-hint,
+.consent-legal-links,
+.consent-optional-note {
+    margin-left: 34px;
+}
+
+.consent-hint {
+    min-height: 1.2em;
+    margin-top: 8px;
+    color: var(--accent-2);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.consent-legal-links {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.consent-optional-note {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-style: italic;
+}
+
+/* ---------- larger screens ---------- */
+@media (min-width: 600px) {
+    .quote-card-body {
+        padding: 32px 32px 34px;
+    }
+
+    .form-status {
+        margin: 0 32px 32px;
+    }
+}
+
+@media (min-width: 768px) {
+    .legal-hero,
+    .quote-hero {
+        padding: 80px var(--gutter) 36px;
+    }
+}

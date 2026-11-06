@@ -4,6 +4,15 @@
 const translations = {
   es: {
     navHome: "Inicio",
+    navContact: "Contacto",
+    homeSeason: "Feliz Día de Acción de Gracias",
+    homeMenu: "Menú de Catering",
+    homeMenuAria: "Ver el menú de catering",
+    homeFacebookAria: "Visítanos en Facebook",
+    homeTiktokAria: "Síguenos en TikTok",
+    homeWhatsappAria: "Contáctanos por WhatsApp",
+    homeMapsAria: "Ver nuestra ubicación en Google Maps",
+    homeCallAria: "Llamar a Buffet Lucia's Fiesta Mexicana",
     navLocation: "Ubicación",
     navCall: "Llamar",
     navQuote: "Cotización",
@@ -23,6 +32,8 @@ const translations = {
     quoteCall: "Llamar",
     quoteEmail: "Correo",
     footerBrandSub: "Hacemos comida para eventos",
+    footerTagline: "Barbacoa · Carnitas · Catering para toda ocasión",
+    quoteForm: "Formulario de cotización",
     footerRights: "Todos los derechos reservados",
     navMenu: "Menú",
     quotePageTitle: "Solicita tu Cotización",
@@ -61,6 +72,15 @@ const translations = {
   },
   en: {
     navHome: "Home",
+    navContact: "Contact",
+    homeSeason: "Happy Thanksgiving",
+    homeMenu: "Catering Menu",
+    homeMenuAria: "View the catering menu",
+    homeFacebookAria: "Visit us on Facebook",
+    homeTiktokAria: "Follow us on TikTok",
+    homeWhatsappAria: "Contact us on WhatsApp",
+    homeMapsAria: "See our location on Google Maps",
+    homeCallAria: "Call Buffet Lucia's Fiesta Mexicana",
     navLocation: "Location",
     navCall: "Call",
     navQuote: "Quote",
@@ -80,6 +100,8 @@ const translations = {
     quoteCall: "Call",
     quoteEmail: "Email",
     footerBrandSub: "Catering for all your events",
+    footerTagline: "Barbacoa · Carnitas · Catering for every occasion",
+    quoteForm: "Quote form",
     footerRights: "All rights reserved",
     navMenu: "Menu",
     quotePageTitle: "Request Your Quote",
@@ -142,11 +164,12 @@ function applyLanguage(lang) {
     btn.setAttribute("aria-pressed", btn.dataset.lang === lang ? "true" : "false");
   });
 
-  localStorage.setItem("blfm-lang", lang);
+  try { localStorage.setItem("blfm-lang", lang); } catch { /* storage blocked: choice just won't persist */ }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("blfm-lang") || "es";
+  let saved = "es";
+  try { saved = localStorage.getItem("blfm-lang") === "en" ? "en" : "es"; } catch { /* storage blocked */ }
   applyLanguage(saved);
 
   document.querySelectorAll(".lang-btn").forEach((btn) => {

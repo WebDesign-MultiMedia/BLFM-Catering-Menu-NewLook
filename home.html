@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -394,6 +394,40 @@
       .papel-picado li:nth-child(n + 15) { display: block; }
     }
 
+    /* ── Language toggle (same look as the menu header) ────── */
+    .lang-toggle {
+      display: inline-flex;
+      align-self: flex-end;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .lang-btn {
+      min-width: 40px;
+      min-height: 40px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--muted);
+      font: inherit;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .lang-btn[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    .lang-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus);
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation: none !important;
@@ -450,10 +484,14 @@
 
   <div class="page">
     <div class="col">
+      <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+        <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
 
       <!-- Logo -->
       <a href="/index.html"
-         aria-label="Ver el menú de catering">
+         aria-label="Ver el menú de catering" data-i18n-aria="homeMenuAria">
         <img
           src="./imgs/logo/BLFM-logo.webp"
           alt="Buffet Lucia's Fiesta Mexicana logo"
@@ -466,26 +504,26 @@
       <div class="brand">
         <p class="eyebrow">
           <svg aria-hidden="true"><use href="#i-season"/></svg>
-          Feliz Día de Acción de Gracias
+          <span data-i18n="homeSeason">Feliz Día de Acción de Gracias</span>
         </p>
         <h1 class="brand-name">Buffet Lucia's Fiesta Mexicana</h1>
-        <p class="brand-sub">Hacemos comida para eventos</p>
+        <p class="brand-sub" data-i18n="footerBrandSub">Hacemos comida para eventos</p>
       </div>
 
       <!-- Links -->
       <nav class="links" aria-label="Links">
 
         <a href="https://buffetluciasfiestamexicana.com/"
-           class="card card--primary card--menu" aria-label="Ver el menú de catering">
+           class="card card--primary card--menu" aria-label="Ver el menú de catering" data-i18n-aria="homeMenuAria">
           <span class="card-icon">
             <i class="fa-solid fa-utensils" aria-hidden="true"></i>
           </span>
-          <span class="card-label">Catering Menu</span>
+          <span class="card-label" data-i18n="homeMenu">Menú de Catering</span>
           <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
         </a>
 
         <a href="https://www.facebook.com/BuffetLuciasFiestaMExicana?mibextid=kFxxJD"
-           class="card" aria-label="Visítanos en Facebook">
+           class="card" aria-label="Visítanos en Facebook" data-i18n-aria="homeFacebookAria">
           <span class="card-icon" style="background:rgba(24,119,242,0.45);border:1px solid rgba(24,119,242,0.6);">
             <i class="fa-brands fa-facebook" aria-hidden="true"></i>
           </span>
@@ -494,7 +532,7 @@
         </a>
 
         <a href="https://www.tiktok.com/@buffetluciasftamexicana?_t=8kE1UeSK24E&_r=1"
-           class="card" aria-label="Síguenos en TikTok">
+           class="card" aria-label="Síguenos en TikTok" data-i18n-aria="homeTiktokAria">
           <span class="card-icon" style="background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.18);">
             <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
           </span>
@@ -503,7 +541,7 @@
         </a>
 
         <a href="https://wa.me/13476862462"
-           class="card" aria-label="Contáctanos por WhatsApp">
+           class="card" aria-label="Contáctanos por WhatsApp" data-i18n-aria="homeWhatsappAria">
           <span class="card-icon" style="background:rgba(37,211,102,0.3);border:1px solid rgba(37,211,102,0.5);">
             <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
           </span>
@@ -512,7 +550,7 @@
         </a>
 
         <a href="https://maps.app.goo.gl/keJLrDemqZXZHPRAA"
-           class="card" aria-label="Ver nuestra ubicación en Google Maps">
+           class="card" aria-label="Ver nuestra ubicación en Google Maps" data-i18n-aria="homeMapsAria">
           <span class="card-icon" style="background:rgba(251,188,4,0.25);border:1px solid rgba(251,188,4,0.5);">
             <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
           </span>
@@ -522,11 +560,11 @@
 
         <a href="tel:+13476862462"
            class="card card--primary card--call"
-           aria-label="Llamar a Buffet Lucia's Fiesta Mexicana">
+           aria-label="Llamar a Buffet Lucia's Fiesta Mexicana" data-i18n-aria="homeCallAria">
           <span class="card-icon">
             <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
           </span>
-          <span class="card-label">Llamar: (347) 686-2462</span>
+          <span class="card-label"><span data-i18n="navCall">Llamar</span>: (347) 686-2462</span>
           <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
         </a>
 
@@ -536,10 +574,11 @@
         <a href="/privacy/">Privacy Policy</a>·<a href="/terms/">Terms &amp; Conditions</a>·<a href="/sms-consent/">SMS Consent</a>
       </p>
 
-      <p class="copyright">&copy; 2025 Buffet Lucia's Fiesta Mexicana</p>
+      <p class="copyright">&copy; 2026 Buffet Lucia's Fiesta Mexicana · <span data-i18n="footerRights">Todos los derechos reservados</span></p>
 
     </div>
   </div>
 
+  <script defer src="./src/i18n.js"></script>
 </body>
 </html>
