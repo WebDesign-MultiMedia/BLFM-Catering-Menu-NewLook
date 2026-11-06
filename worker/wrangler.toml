@@ -36,7 +36,8 @@ SEND_OPT_IN_CONFIRMATION = "true"
 # SIGNUP_ALERT_FROM (optional): defaults to "BLFM Sign-ups <onboarding@resend.dev>",
 #   which Resend only delivers to the Resend account's own email; use an
 #   address on a domain verified in Resend to email anyone else.
-# SIGNUP_ALERT_TO = "owner@example.com"
+SIGNUP_ALERT_TO = "buffetluciasfiestamexicana@gmail.com"
+SIGNUP_ALERT_FROM = "Buffet Lucia's Sign-ups <alerts@buffetluciasfiestamexicana.com>"
 
 # ── Secrets (never put these here — set with `wrangler secret put`) ──
 #   BLFM_TWILIO_ACCOUNT_SID               (BLFM's own Twilio account)
