@@ -231,8 +231,37 @@ async function copySignupToSheet(env, { consentId, fullName, phoneE164, referenc
   return response.ok;
 }
 
+// Emails the owner when someone signs up on /sms-consent, so they don't have
+// to keep checking the sheet. Off unless RESEND_API_KEY (secret) and
+// SIGNUP_ALERT_TO (var) are set. Plain-text only, and it carries just the
+// first name, last 4 phone digits and what they opted into; the full row is
+// in the sheet's SMSSignups tab. Never affects the recorded consent.
+async function sendSignupAlert(env, { fullName, phoneE164, orders, specials, timestamp }) {
+  if (!env.RESEND_API_KEY || !env.SIGNUP_ALERT_TO) return false;
+
+  const firstName = fullName.split(/\s+/)[0] || "Someone";
+  const last4 = phoneE164.slice(-4);
+  const optedInto = [specials && "weekend specials", orders && "order texts"].filter(Boolean).join(" and ");
+  const when = new Date(timestamp).toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "short" });
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: env.SIGNUP_ALERT_FROM || "BLFM Sign-ups <onboarding@resend.dev>",
+      to: env.SIGNUP_ALERT_TO.split(",").map((a) => a.trim()).filter(Boolean),
+      subject: `New SMS sign-up: ${firstName} (…${last4})`,
+      text:
+        `${firstName} (phone ending ${last4}) signed up for ${optedInto} on ${when}.\n\n` +
+        `Full details are in the SMSSignups tab of the orders sheet. ` +
+        `The POS "Text Customers" page shows the current number of subscribers.`,
+    }),
+  });
+  return response.ok;
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const cors = corsHeaders(request, env);
 
     if (request.method === "OPTIONS") {
@@ -359,6 +388,22 @@ export default {
         // The sheet is only a copy; consent is already recorded in D1.
         console.error("sms-consent: Google Sheet copy failed", err);
       }
+
+      // Owner alert runs after the response is sent (waitUntil), so a slow
+      // or failed email never delays or breaks the customer's sign-up.
+      const alert = sendSignupAlert(env, {
+        fullName,
+        phoneE164,
+        orders: consented.some((sp) => sp.id === "blfm_receipt_notifications"),
+        specials: consented.some((sp) => sp.id === "blfm_specials"),
+        timestamp: consentTimestampUtc,
+      })
+        .then((ok) => {
+          if (!ok && env.RESEND_API_KEY && env.SIGNUP_ALERT_TO) console.error("sms-consent: sign-up alert email was not sent");
+        })
+        .catch((err) => console.error("sms-consent: sign-up alert failed", err));
+      if (ctx?.waitUntil) ctx.waitUntil(alert);
+      else await alert;
     }
 
     return json({ ok: true }, 200, cors);

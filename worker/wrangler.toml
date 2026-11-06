@@ -30,6 +30,14 @@ JULIO_POLICY_VERSION = "2026-07-21"
 
 SEND_OPT_IN_CONFIRMATION = "true"
 
+# Owner email alert for each new /sms-consent sign-up (sent via Resend).
+# Off until both SIGNUP_ALERT_TO and the RESEND_API_KEY secret are set.
+# SIGNUP_ALERT_TO: one address, or several separated by commas.
+# SIGNUP_ALERT_FROM (optional): defaults to "BLFM Sign-ups <onboarding@resend.dev>",
+#   which Resend only delivers to the Resend account's own email; use an
+#   address on a domain verified in Resend to email anyone else.
+# SIGNUP_ALERT_TO = "owner@example.com"
+
 # ── Secrets (never put these here — set with `wrangler secret put`) ──
 #   BLFM_TWILIO_ACCOUNT_SID               (BLFM's own Twilio account)
 #   BLFM_TWILIO_AUTH_TOKEN                (BLFM's own Twilio account)
@@ -47,6 +55,8 @@ SEND_OPT_IN_CONFIRMATION = "true"
 #                                          rows the form wrote. If this or
 #                                          SHEETDB_ID is unset, nothing is
 #                                          copied to the sheet.)
+#   RESEND_API_KEY                        (sends the owner's sign-up alert
+#                                          email; leave unset to turn it off)
 #   TWILIO_ACCOUNT_SID                    (shared Twilio account — used only
 #                                          by the Julio Salas program)
 #   TWILIO_AUTH_TOKEN                     (shared Twilio account — used only
