@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#1e110b">
+
+  <title>Menú de Sábado y Domingo | Buffet Lucia's Fiesta Mexicana · Bronx, NY</title>
+  <meta name="description" content="Barbacoa de chivo, carnitas y consomé los sábados y domingos en el Bronx, NY. Sábado en 1980 Unionport Rd y domingo en 1208 Morrison Ave, de 10am a 5pm.">
+  <meta name="keywords" content="barbacoa de chivo Bronx, carnitas Bronx, consomé, Buffet Lucia's Fiesta Mexicana, comida mexicana fin de semana">
+  <meta name="author" content="Buffet Lucia's Fiesta Mexicana">
+  <link rel="canonical" href="https://buffetluciasfiestamexicana.com/fin-de-semana.html">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="Menú de Sábado y Domingo | Buffet Lucia's Fiesta Mexicana · Bronx, NY">
+  <meta property="og:description" content="Barbacoa de chivo, carnitas y consomé los sábados y domingos en el Bronx, NY. Sábado en 1980 Unionport Rd y domingo en 1208 Morrison Ave, de 10am a 5pm.">
+  <meta property="og:image" content="https://buffetluciasfiestamexicana.com/imgs/gallery/spread-1.jpg">
+  <meta property="og:url" content="https://buffetluciasfiestamexicana.com/fin-de-semana.html">
+  <meta property="og:locale" content="es_US">
+  <meta property="og:site_name" content="Buffet Lucia's Fiesta Mexicana">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Menú de Sábado y Domingo | Buffet Lucia's Fiesta Mexicana · Bronx, NY">
+  <meta name="twitter:description" content="Barbacoa de chivo, carnitas y consomé los sábados y domingos en el Bronx, NY. Sábado en 1980 Unionport Rd y domingo en 1208 Morrison Ave, de 10am a 5pm.">
+  <meta name="twitter:image" content="https://buffetluciasfiestamexicana.com/imgs/gallery/spread-1.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./imgs/logo/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./imgs/logo/favicon-192.png">
+  <link rel="apple-touch-icon" href="./imgs/logo/favicon-192.png">
+
+  <!-- Font Awesome -->
+  <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Seasonal theme: "Día de Acción de Gracias", matching the catering
+       menu (src/catering.css). Colors live in :root. */
+    :root {
+      --bg: #1e110b;
+      --bg-2: #2a1810;
+      --surface: #3a2318;
+      --surface-2: #4a2e20;
+      --line: rgba(255, 228, 190, 0.12);
+      --accent: #eaa53b;
+      --accent-rgb: 234, 165, 59;
+      --accent-2: #f6c66e;
+      --accent-ink: #2b1604;
+      --alt: #a9c25c;
+      --alt-rgb: 169, 194, 92;
+      --text: #fbf1e2;
+      --muted: #d4bea4;
+      --terracotta: #c75b32;
+      --cranberry: #a3283b;
+      --talavera: #3c7cc4;
+      --focus: 0 0 0 3px rgba(var(--accent-rgb), 0.55);
+      --font-display: 'Yeseva One', Georgia, serif;
+      --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color-scheme: dark;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    body {
+      background:
+        radial-gradient(50rem 34rem at 85% -10%, rgba(var(--accent-rgb), 0.16), transparent 60%),
+        radial-gradient(44rem 34rem at -10% 60%, rgba(199, 91, 50, 0.15), transparent 60%),
+        var(--bg);
+      background-attachment: fixed;
+      font-family: var(--font-body);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── Papel picado banner ───────────────────────────────── */
+    .papel-picado {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 6px;
+      list-style: none;
+    }
+
+    .papel-picado::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 228, 190, 0.35);
+    }
+
+    .papel-picado li {
+      flex: 1;
+      max-width: 64px;
+      height: 34px;
+      background:
+        radial-gradient(circle at 50% 38%, var(--bg) 0 3px, transparent 3.5px),
+        radial-gradient(circle at 28% 62%, var(--bg) 0 2px, transparent 2.5px),
+        radial-gradient(circle at 72% 62%, var(--bg) 0 2px, transparent 2.5px),
+        var(--flag);
+      clip-path: polygon(0 0, 100% 0, 100% 78%, 87% 100%, 75% 78%, 62% 100%, 50% 78%, 37% 100%, 25% 78%, 12% 100%, 0 78%);
+      opacity: 0.92;
+      transform-origin: top center;
+      animation: flutter 4s ease-in-out infinite;
+    }
+
+    .papel-picado li:nth-child(5n + 1) { --flag: var(--terracotta); }
+    .papel-picado li:nth-child(5n + 2) { --flag: var(--accent); animation-delay: -1s; }
+    .papel-picado li:nth-child(5n + 3) { --flag: var(--alt); animation-delay: -2s; }
+    .papel-picado li:nth-child(5n + 4) { --flag: var(--cranberry); animation-delay: -3s; }
+    .papel-picado li:nth-child(5n + 5) { --flag: var(--talavera); animation-delay: -1.5s; }
+    .papel-picado li:nth-child(n + 9) { display: none; }
+
+    @keyframes flutter {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    /* ── Falling autumn leaves ─────────────────────────────── */
+    .leaves {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .leaf {
+      position: absolute;
+      top: -30px;
+      width: 18px;
+      height: 18px;
+      opacity: 0;
+      animation: leaf-fall 16s linear infinite;
+    }
+
+    @keyframes leaf-fall {
+      0%   { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+      8%   { opacity: 0.7; }
+      50%  { transform: translate(-40px, 55vh) rotate(180deg); }
+      90%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translate(20px, 110vh) rotate(360deg); }
+    }
+
+    /* ── Page wrapper ──────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100vh - 34px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem 2.5rem;
+    }
+
+    .col {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    /* ── Logo + brand ──────────────────────────────────────── */
+    .logo {
+      width: min(220px, 58vw);
+      height: auto;
+      display: block;
+      filter: drop-shadow(2px 4px 10px rgba(0, 0, 0, 0.6));
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem 0.3rem 0.45rem;
+      border: 1px solid rgba(var(--alt-rgb), 0.35);
+      border-radius: 999px;
+      background: rgba(var(--alt-rgb), 0.08);
+      color: var(--alt);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .eyebrow svg {
+      width: 22px;
+      height: 22px;
+      flex: none;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.8rem, 7vw, 2.6rem);
+      line-height: 1.12;
+      color: var(--text);
+      text-wrap: balance;
+    }
+
+    .brand-sub {
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 4vw, 1.3rem);
+      color: var(--accent);
+      text-shadow: 0 1px 0 rgba(199, 91, 50, 0.45);
+    }
+
+    /* ── Link cards ────────────────────────────────────────── */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 0.35rem;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      width: 100%;
+      min-height: 3.6rem;
+      padding: 0.75rem 1.1rem 0.75rem 0.8rem;
+      border-radius: 1.1rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.2s, transform 0.18s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      background: var(--surface-2);
+      border-color: rgba(var(--accent-rgb), 0.55);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 22px rgba(var(--accent-rgb), 0.15);
+    }
+
+    .card:focus-visible {
+      outline: none;
+      box-shadow: var(--focus);
+    }
+
+    .card:active {
+      transform: translateY(0);
+    }
+
+    /* Primary actions: maíz gold (menu) and terracotta (call) */
+    .card--menu {
+      border-color: transparent;
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: var(--accent-ink);
+      box-shadow: 0 6px 24px rgba(var(--accent-rgb), 0.35);
+    }
+
+    .card--menu:hover {
+      background: linear-gradient(180deg, #ffd384, var(--accent-2));
+      border-color: transparent;
+      box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.5);
+    }
+
+    .card--call {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--terracotta), var(--cranberry));
+      color: #fff;
+    }
+
+    .card--call:hover {
+      background: linear-gradient(135deg, #d96a3f, #b8324a);
+      border-color: transparent;
+    }
+
+    .card-icon {
+      flex-shrink: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .card--menu .card-icon,
+    .card--call .card-icon {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .card-label { flex: 1; }
+
+    .card-arrow {
+      color: var(--muted);
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .card--menu .card-arrow,
+    .card--call .card-arrow {
+      color: inherit;
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    .legal-links {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .legal-links a {
+      display: inline-block;
+      padding: 0.6rem 0.4rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .legal-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .copyright {
+      font-size: 0.72rem;
+      color: rgba(212, 190, 164, 0.6);
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .col { max-width: 520px; }
+      .logo { width: 250px; }
+      .card { padding: 0.9rem 1.3rem 0.9rem 0.9rem; font-size: 1.05rem; }
+      .card-icon { width: 2.8rem; height: 2.8rem; font-size: 1.3rem; }
+      .leaf { width: 24px; height: 24px; }
+      .papel-picado li:nth-child(n + 9) { display: block; }
+      .papel-picado li:nth-child(n + 15) { display: none; }
+    }
+
+    @media (min-width: 960px) {
+      .papel-picado li:nth-child(n + 15) { display: block; }
+    }
+
+    /* ── Language toggle (same look as the menu header) ────── */
+    .lang-toggle {
+      display: inline-flex;
+      align-self: flex-end;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .lang-btn {
+      min-width: 40px;
+      min-height: 40px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--muted);
+      font: inherit;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .lang-btn[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    .lang-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .leaves { display: none; }
+    }
+
+    /* ── Weekend menu ──────────────────────────────────────── */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--accent-2);
+      text-align: center;
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .dishes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      width: 100%;
+    }
+
+    .dish {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .dish i { color: var(--accent); width: 1.4rem; text-align: center; }
+
+    .day {
+      width: 100%;
+      padding: 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 1.1rem;
+      background: linear-gradient(180deg, var(--surface), var(--bg-2));
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .day-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--accent-2);
+    }
+
+    .day-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      color: var(--text);
+      font-size: 0.98rem;
+      line-height: 1.4;
+    }
+
+    .day-row i { color: var(--accent); width: 1.1rem; margin-top: 0.2rem; text-align: center; flex-shrink: 0; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .tag {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      background: rgba(var(--alt-rgb), 0.18);
+      border: 1px solid rgba(var(--alt-rgb), 0.45);
+      color: var(--text);
+    }
+
+    .day .card { margin-top: 0.25rem; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Seasonal art (Día de Acción de Gracias) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-season" viewBox="0 0 64 64">
+      <g transform="rotate(-66 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#3c7cc4"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(-44 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a9c25c"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(-22 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a3283b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#eaa53b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(22 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a3283b"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(44 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#a9c25c"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <g transform="rotate(66 32 36)"><ellipse cx="32" cy="18" rx="5.5" ry="14" fill="#3c7cc4"/><circle cx="32" cy="9" r="2.2" fill="#fbf1e2"/></g>
+      <path d="M28 55v6M36 55v6M26 61h4M34 61h4" stroke="#eaa53b" stroke-width="1.8" stroke-linecap="round"/>
+      <ellipse cx="32" cy="42" rx="13" ry="14.5" fill="#7a4326"/>
+      <ellipse cx="32" cy="46" rx="8" ry="8.5" fill="#c75b32"/>
+      <circle cx="32" cy="42.5" r="1.5" fill="#f6c66e"/><circle cx="29" cy="47" r="1.5" fill="#f6c66e"/><circle cx="35" cy="47" r="1.5" fill="#f6c66e"/>
+      <circle cx="32" cy="24" r="7" fill="#8f5232"/>
+      <circle cx="29.6" cy="22.6" r="1.3" fill="#1e110b"/><circle cx="34.4" cy="22.6" r="1.3" fill="#1e110b"/>
+      <path d="M30 25.2h4l-2 3.4z" fill="#eaa53b"/>
+      <path d="M33.2 27.2c2.2 2.4 1.2 5.4-.6 6.4-.9-1.8-.6-4.2.6-6.4z" fill="#a3283b"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 1.5c1 2.8 2.6 4 5 4-.8 1.8-.7 3.2 1.4 4.8-2.1.3-3.2 1.3-3.2 3.3-1.8-.9-2.8-.6-2.7 1.4v7.5h-1v-7.5c.1-2-.9-2.3-2.7-1.4 0-2-1.1-3-3.2-3.3 2.1-1.6 2.2-3 1.4-4.8 2.4 0 4-1.2 5-4z"/>
+    </symbol>
+  </svg>
+
+  <!-- Falling leaves -->
+  <div class="leaves" aria-hidden="true">
+    <svg class="leaf" style="left:6%;color:var(--terracotta);animation-duration:16s;animation-delay:0s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:18%;color:var(--accent);animation-duration:19s;animation-delay:-6s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:31%;color:var(--cranberry);animation-duration:14s;animation-delay:-11s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:47%;color:var(--accent-2);animation-duration:21s;animation-delay:-3s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:62%;color:var(--terracotta);animation-duration:17s;animation-delay:-9s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:74%;color:var(--alt);animation-duration:15s;animation-delay:-14s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:86%;color:var(--accent);animation-duration:20s;animation-delay:-1s;"><use href="#i-leaf"/></svg>
+    <svg class="leaf" style="left:94%;color:var(--cranberry);animation-duration:18s;animation-delay:-7s;"><use href="#i-leaf"/></svg>
+  </div>
+
+  <!-- Papel picado -->
+  <ul class="papel-picado" aria-hidden="true">
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  </ul>
+
+  <div class="page">
+    <div class="col">
+      <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+        <button type="button" class="lang-btn" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+
+      <!-- Logo -->
+      <a href="/home.html" aria-label="Inicio" data-i18n-aria="navHome">
+        <img
+          src="./imgs/logo/BLFM-logo.webp"
+          alt="Buffet Lucia's Fiesta Mexicana logo"
+          class="logo"
+          width="290" height="110"
+        />
+      </a>
+
+      <!-- Brand -->
+      <div class="brand">
+        <p class="eyebrow">
+          <svg aria-hidden="true"><use href="#i-season"/></svg>
+          <span data-i18n="homeSeason">Feliz Día de Acción de Gracias</span>
+        </p>
+        <h1 class="brand-name">Buffet Lucia's Fiesta Mexicana</h1>
+        <p class="brand-sub" data-i18n="weekendSub">Menú de Sábado y Domingo</p>
+      </div>
+
+      <!-- Weekend menu -->
+      <nav class="links" aria-label="Menú de fin de semana">
+
+        <h2 class="section-title" data-i18n="weekendMenuTitle">Nuestro Menú</h2>
+        <ul class="dishes">
+          <li class="dish"><i class="fa-solid fa-fire" aria-hidden="true"></i>Barbacoa de Chivo</li>
+          <li class="dish"><i class="fa-solid fa-drumstick-bite" aria-hidden="true"></i>Carnitas</li>
+          <li class="dish"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i>Consomé</li>
+        </ul>
+
+        <section class="day" aria-labelledby="weekendSat">
+          <h2 class="day-name" id="weekendSat" data-i18n="weekendSat">Sábado</h2>
+          <p class="day-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>1980 Unionport Rd, Bronx, NY 10462</span></p>
+          <p class="day-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>10:00 AM – 5:00 PM</span></p>
+          <div class="tags">
+            <span class="tag" data-i18n="svcDelivery">Entrega a domicilio</span>
+            <span class="tag" data-i18n="svcPickup">Para llevar</span>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=1980+Unionport+Rd%2C+Bronx%2C+NY+10462"
+             class="card" target="_blank" rel="noopener">
+            <span class="card-icon" style="background:rgba(251,188,4,0.25);border:1px solid rgba(251,188,4,0.5);">
+              <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+            </span>
+            <span class="card-label" data-i18n="weekendMaps">Ver en Google Maps</span>
+            <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+          </a>
+        </section>
+        <section class="day" aria-labelledby="weekendSun">
+          <h2 class="day-name" id="weekendSun" data-i18n="weekendSun">Domingo</h2>
+          <p class="day-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>1208 Morrison Ave, Bronx, NY 10472</span></p>
+          <p class="day-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>10:00 AM – 5:00 PM</span></p>
+          <div class="tags">
+            <span class="tag" data-i18n="svcDelivery">Entrega a domicilio</span>
+            <span class="tag" data-i18n="svcPickup">Para llevar</span>
+            <span class="tag" data-i18n="svcDineIn">Comer aquí</span>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=1208+Morrison+Ave%2C+Bronx%2C+NY+10472"
+             class="card" target="_blank" rel="noopener">
+            <span class="card-icon" style="background:rgba(251,188,4,0.25);border:1px solid rgba(251,188,4,0.5);">
+              <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+            </span>
+            <span class="card-label" data-i18n="weekendMaps">Ver en Google Maps</span>
+            <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+          </a>
+        </section>
+
+        <a href="tel:+13476862462"
+           class="card card--primary card--call"
+           aria-label="Llamar a Buffet Lucia's Fiesta Mexicana" data-i18n-aria="homeCallAria">
+          <span class="card-icon">
+            <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
+          </span>
+          <span class="card-label"><span data-i18n="navCall">Llamar</span>: (347) 686-2462</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+        <a href="/home.html" class="card">
+          <span class="card-icon" style="background:rgba(255,255,255,0.08);border:1px solid var(--line);">
+            <i class="fa-solid fa-house" aria-hidden="true"></i>
+          </span>
+          <span class="card-label" data-i18n="navHome">Inicio</span>
+          <i class="fa-solid fa-chevron-right card-arrow" aria-hidden="true"></i>
+        </a>
+
+      </nav>
+
+      <p class="legal-links">
+        <a href="/privacy/">Privacy Policy</a>·<a href="/terms/">Terms &amp; Conditions</a>·<a href="/sms-consent/">SMS Consent</a>
+      </p>
+
+      <p class="copyright">&copy; 2026 Buffet Lucia's Fiesta Mexicana · <span data-i18n="footerRights">Todos los derechos reservados</span></p>
+
+    </div>
+  </div>
+
+  <script defer src="./src/i18n.js"></script>
+</body>
+</html>
