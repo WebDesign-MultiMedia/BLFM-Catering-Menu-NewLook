@@ -449,6 +449,31 @@
       gap: 0.75rem;
     }
 
+    /* Sunday card: La Placita logo sits behind the content, so the
+       card keeps its normal size. */
+    .day--bg {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .day--bg > *:not(.day-bg) { position: relative; z-index: 1; }
+    .day--bg .day-row, .day--bg .day-name { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.7); }
+
+    .day-bg {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      right: 0.5rem;
+      transform: translateY(-50%);
+      width: auto;
+      height: calc(100% - 1rem); /* whole logo stays inside the card */
+      max-width: 70%;
+      object-fit: contain;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
     .day-name {
       font-family: var(--font-display);
       font-size: 1.35rem;
@@ -581,7 +606,9 @@
             <span class="tag" data-i18n="svcPickup">Para llevar</span>
           </div>
         </section>
-        <section class="day" aria-labelledby="weekendSun">
+        <section class="day day--bg" aria-labelledby="weekendSun">
+          <img src="./imgs/logo/placita-morrison.png" alt=""
+               class="day-bg" width="320" height="320" loading="lazy">
           <h2 class="day-name" id="weekendSun" data-i18n="weekendSun">Domingo</h2>
           <p class="day-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>1208 Morrison Ave, Bronx, NY 10472</span></p>
           <p class="day-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>10:00 AM – 5:00 PM</span></p>
