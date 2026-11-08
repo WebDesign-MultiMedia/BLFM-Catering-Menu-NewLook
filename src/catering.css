@@ -1006,6 +1006,13 @@ button.dish-media:focus-visible {
     color: #fff;
 }
 
+.badge-photos {
+    right: 8px;
+    top: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+
 .badge-video .icon {
     width: 10px;
     height: 10px;

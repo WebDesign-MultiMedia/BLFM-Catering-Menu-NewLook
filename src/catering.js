@@ -5,7 +5,9 @@
    - Add a dish: add an entry to MENU. `img` is a slug from
      scripts/make_catering_images.py (thumb: imgs/catering/thumbs/<img>.jpg,
      viewer: imgs/catering/full/<img>.jpg). Dishes without `img` show
-     "Photo coming soon". Optional: `video: 'file.mp4'`, `popular: true`.
+     "Photo coming soon". Several photos of one dish: `imgs: ['slug-a', 'slug-b']`
+     (the card shows the first, the viewer swipes through all of them).
+     Optional: `video: 'file.mp4'`, `popular: true`.
    - New season (Navidad, Día de Muertos...): edit SEASON_EMOJI and the
      strings marked "seasonal" below, the colors in src/catering.css (:root)
      and the decorations inside .sky in index.html.
@@ -34,9 +36,8 @@ const CATEGORIES = [
 ];
 
 const MENU = [
-    { name: 'Chivo', cat: 'chivo' },
-    { name: 'Chivo Entero', cat: 'chivo', img: 'chivo-entero', popular: true },
-    { name: 'Chivo Media Charola', cat: 'chivo', img: 'chivo-media-charola' },
+    // One Chivo dish; tray size (media / entera) is picked in the party list
+    { name: 'Chivo', cat: 'chivo', imgs: ['chivo-entero', 'chivo-media-charola'], popular: true },
 
     { name: 'Carnitas', cat: 'puerco', img: 'carnitas', popular: true },
     { name: 'Pernil', cat: 'puerco' },
@@ -98,7 +99,16 @@ const MENU = [
 
     { name: 'Mole Estilo Mi Rancho', cat: 'casa', img: 'mole-mi-rancho' },
     { name: 'Albóndigas al Gusto', cat: 'casa' },
-].map((dish, i) => ({ ...dish, id: `d${i}` }));
+].map((dish, i) => {
+    const imgs = dish.imgs || (dish.img ? [dish.img] : []);
+    return { ...dish, imgs, img: imgs[0], id: `d${i}` };
+});
+
+// Old dish names that were merged into one dish: [new name, tray size]
+const RENAMED = {
+    'Chivo Entero': ['Chivo', 'entera'],
+    'Chivo Media Charola': ['Chivo', 'media'],
+};
 
 // Photos from real events (viewer only, not orderable)
 const EVENTS = [
@@ -162,6 +172,7 @@ const STRINGS = {
         addAria: name => `Agregar ${name} a la lista de fiesta`,
         removeAria: name => `Quitar ${name} de la lista de fiesta`,
         viewPhoto: name => `Ver foto de ${name}`,
+        photoCount: n => `${n} fotos`,
         photoSoon: 'Foto próximamente',
         favorite: 'Favorito',
         video: 'Video',
@@ -250,6 +261,7 @@ const STRINGS = {
         addAria: name => `Add ${name} to party list`,
         removeAria: name => `Remove ${name} from party list`,
         viewPhoto: name => `View photo of ${name}`,
+        photoCount: n => `${n} photos`,
         photoSoon: 'Photo coming soon',
         favorite: 'Favorite',
         video: 'Video',
@@ -318,7 +330,10 @@ function storageSet(key, value) {
 // Saved as [{ name, size }] so saved lists survive menu reordering
 function loadList() {
     try {
-        const saved = JSON.parse(storageGet(STORAGE_KEY)) || [];
+        const saved = (JSON.parse(storageGet(STORAGE_KEY)) || []).map(item => {
+            const renamed = item && RENAMED[item.name];
+            return renamed ? { name: renamed[0], size: item.size || renamed[1] } : item;
+        });
         return new Map(saved
             .filter(item => item && MENU.some(d => d.name === item.name))
             .map(item => [item.name, TRAY_SIZES.includes(item.size) ? item.size : '']));
@@ -405,6 +420,7 @@ function dishHtml(dish) {
     const media = dish.img
         ? `<button class="dish-media" type="button" data-open="${dish.id}" aria-label="${escapeHtml(t('viewPhoto')(dish.name))}">
                 <img src="${thumb(dish.img)}" alt="" loading="lazy" decoding="async" width="540" height="720">
+                ${dish.imgs.length > 1 ? `<span class="badge badge-photos">${t('photoCount')(dish.imgs.length)}</span>` : ''}
                 ${dish.video ? `<span class="badge badge-video"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>${t('video')}</span>` : ''}
                 ${popular}
            </button>`
@@ -646,39 +662,44 @@ async function copyList() {
 }
 
 /* ---------- photo / video viewer ---------- */
-let lbItems = [];
+let lbItems = []; // one entry per photo: { item, img, n, of }
 let lbIndex = -1;
 
 function openLightbox(id) {
-    const item = byId.get(id);
-    lbItems = item.cat ? visibleDishes().filter(d => d.img) : EVENTS;
-    lbIndex = lbItems.findIndex(d => d.id === id);
+    const opened = byId.get(id);
+    const items = opened.cat ? visibleDishes().filter(d => d.img) : EVENTS;
+    lbItems = items.flatMap(item => {
+        const imgs = item.imgs || [item.img];
+        return imgs.map((img, i) => ({ item, img, n: i + 1, of: imgs.length }));
+    });
+    lbIndex = lbItems.findIndex(e => e.item.id === id);
     showLightboxItem();
     if (!$('#lightbox').open) $('#lightbox').showModal();
 }
 
 function showLightboxItem() {
-    const item = lbItems[lbIndex];
+    const entry = lbItems[lbIndex];
+    const { item, img } = entry;
     const isDish = Boolean(item.cat);
     const title = isDish ? item.name : item[state.lang];
     const media = $('#lb-media');
 
     media.innerHTML = item.video
-        ? `<video src="${item.video}" poster="${thumb(item.img)}" controls playsinline preload="metadata"></video>`
-        : `<img src="${thumb(item.img)}" alt="${escapeHtml(title)}">`;
+        ? `<video src="${item.video}" poster="${thumb(img)}" controls playsinline preload="metadata"></video>`
+        : `<img src="${thumb(img)}" alt="${escapeHtml(title)}">`;
 
     // Start with the thumbnail, swap in the large photo once it has loaded
     if (!item.video) {
         const full = new Image();
         full.onload = () => {
             const img = media.querySelector('img');
-            if (img && lbItems[lbIndex] === item) img.src = full.src;
+            if (img && lbItems[lbIndex] === entry) img.src = full.src;
         };
-        full.src = fullPhoto(item.img);
+        full.src = fullPhoto(img);
     }
 
     const cat = isDish && catById.get(item.cat);
-    $('#lb-title').textContent = title;
+    $('#lb-title').textContent = entry.of > 1 ? `${title} (${entry.n}/${entry.of})` : title;
     $('#lb-cat').textContent = isDish ? `${cat.name} · ${cat.en}` : t('realEvent');
     $('#lb-add').hidden = !isDish;
     $('#lb-prev').hidden = $('#lb-next').hidden = lbItems.length < 2;
@@ -686,7 +707,7 @@ function showLightboxItem() {
 }
 
 function syncLightboxAdd() {
-    const item = lbItems[lbIndex];
+    const item = lbItems[lbIndex]?.item;
     if (!item || !item.cat) return;
     const added = partyList.has(item.name);
     const btn = $('#lb-add');
@@ -784,7 +805,7 @@ function bindEvents() {
         $('#lb-media').innerHTML = ''; // stops any playing video
     });
 
-    $('#lb-add').addEventListener('click', () => toggleDish(lbItems[lbIndex].id));
+    $('#lb-add').addEventListener('click', () => toggleDish(lbItems[lbIndex].item.id));
     $('#lb-prev').addEventListener('click', () => stepLightbox(-1));
     $('#lb-next').addEventListener('click', () => stepLightbox(1));
     $('#lightbox').addEventListener('keydown', e => {
