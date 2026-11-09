@@ -166,6 +166,15 @@ const translations = {
   },
 };
 
+// Language choice lives only for this browser tab (sessionStorage):
+// a new visit always opens in Spanish, but a reload — or moving to another
+// page in the same tab — keeps the language the visitor picked.
+const LANG_KEY = "blfm-lang";
+
+function getSessionLang() {
+  try { return sessionStorage.getItem(LANG_KEY) === "en" ? "en" : "es"; } catch { return "es"; }
+}
+
 function applyLanguage(lang) {
   const dict = translations[lang] || translations.es;
 
@@ -190,13 +199,14 @@ function applyLanguage(lang) {
     btn.setAttribute("aria-pressed", btn.dataset.lang === lang ? "true" : "false");
   });
 
-  try { localStorage.setItem("blfm-lang", lang); } catch { /* storage blocked: choice just won't persist */ }
+  try { sessionStorage.setItem(LANG_KEY, lang); } catch { /* storage blocked: choice won't survive a reload */ }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  let saved = "es";
-  try { saved = localStorage.getItem("blfm-lang") === "en" ? "en" : "es"; } catch { /* storage blocked */ }
-  applyLanguage(saved);
+  // Clear the old long-term setting so returning visitors start in Spanish.
+  try { localStorage.removeItem(LANG_KEY); } catch { /* storage blocked */ }
+  applyLanguage(getSessionLang());
 
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));

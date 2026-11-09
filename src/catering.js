@@ -18,7 +18,6 @@ const SMS_NUMBER = '+13476862462';
 const EMAIL = 'buffetluciasfiestamexicana@gmail.com';
 const STORAGE_KEY = 'blfm-party-list';
 const VIEW_KEY = 'blfm-menu-view'; // 'grid' (photo cards) or 'list' (names only)
-const LANG_KEY = 'blfm-lang'; // shared with the rest of the site (src/i18n.js)
 const SEASON_EMOJI = '🦃';
 
 const CATEGORIES = [
@@ -319,6 +318,17 @@ const escapeHtml = s => s.replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;'
 const thumb = img => `imgs/catering/thumbs/${img}.jpg`;
 const fullPhoto = img => `imgs/catering/full/${img}.jpg`;
 
+// Language is kept per browser tab (same key as src/i18n.js), so a new visit
+// opens in Spanish while a reload keeps the visitor's choice.
+const LANG_KEY = 'blfm-lang';
+function sessionLangGet() {
+    try { return sessionStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'es'; } catch { return 'es'; }
+}
+function sessionLangSet(lang) {
+    try { sessionStorage.setItem(LANG_KEY, lang); } catch { /* storage blocked */ }
+    try { localStorage.removeItem(LANG_KEY); } catch { /* storage blocked */ }
+}
+
 function storageGet(key) {
     try { return localStorage.getItem(key); } catch { return null; }
 }
@@ -360,7 +370,7 @@ const partyList = loadList(); // dish name -> tray size ('' = not chosen)
 const state = {
     query: '',
     category: 'all',
-    lang: storageGet(LANG_KEY) === 'en' ? 'en' : 'es',
+    lang: sessionLangGet(), // Spanish on a new visit; keeps EN on reload
     view: storageGet(VIEW_KEY) === 'list' ? 'list' : 'grid',
 };
 const t = key => STRINGS[state.lang][key];
@@ -379,7 +389,7 @@ function applyStaticText() {
 
 function setLanguage(lang) {
     state.lang = lang;
-    storageSet(LANG_KEY, lang);
+    sessionLangSet(lang);
     applyStaticText();
     renderChips();
     renderEvents();

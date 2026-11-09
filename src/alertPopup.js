@@ -1,5 +1,5 @@
 function showEventAlert() {
-  const lang = localStorage.getItem("blfm-lang") || "es";
+  const lang = document.documentElement.lang === "en" ? "en" : "es";
   const copy = {
     es: {
       title: "Hacemos Comida Para Eventos",

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const selectedDishes      = [];
 
   function renderSelectedSummary() {
-    const lang = localStorage.getItem("blfm-lang") || "es";
+    const lang = document.documentElement.lang === "en" ? "en" : "es";
     const dict = translations[lang] || translations.es;
 
     selectedDishesInput.value = selectedDishes.join(", ");
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let pendingChip = null;
 
   function openDishModal(chip) {
-    const lang = localStorage.getItem("blfm-lang") || "es";
+    const lang = document.documentElement.lang === "en" ? "en" : "es";
     const dict = translations[lang] || translations.es;
 
     pendingChip = chip;
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const lang = localStorage.getItem("blfm-lang") || "es";
+    const lang = document.documentElement.lang === "en" ? "en" : "es";
     const dict = translations[lang] || translations.es;
 
     submitBtn.disabled = true;
