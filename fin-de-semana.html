@@ -438,6 +438,17 @@
 
     .dish i { color: var(--accent); width: 1.4rem; text-align: center; }
 
+    /* Saturday/Sunday cards shrink to their content and share one width. */
+    .days {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      width: fit-content;
+      max-width: 100%;
+      align-self: center;
+      margin-inline: auto;
+    }
+
     .day {
       width: 100%;
       padding: 1.1rem;
@@ -449,29 +460,50 @@
       gap: 0.75rem;
     }
 
-    /* Sunday card: La Placita logo sits behind the content, so the
-       card keeps its normal size. */
-    .day--bg {
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
+    /* Green dot on today's card (Saturday or Sunday, New York time). */
+    .day-head {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
 
-    .day--bg > *:not(.day-bg) { position: relative; z-index: 1; }
-    .day--bg .day-row, .day--bg .day-name { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.7); }
+    .open-dot {
+      position: relative;
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+      flex: none;
+    }
 
-    .day-bg {
+    .open-dot[hidden] { display: none; }
+
+    .open-dot::after {
+      content: "";
       position: absolute;
-      z-index: 0;
-      top: 50%;
-      right: 0.5rem;
-      transform: translateY(-50%);
-      width: auto;
-      height: calc(100% - 1rem); /* whole logo stays inside the card */
-      max-width: 70%;
-      object-fit: contain;
-      opacity: 0.55;
-      pointer-events: none;
+      inset: 0;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: open-pulse 1.8s ease-out infinite;
+    }
+
+    @keyframes open-pulse {
+      from { transform: scale(1); opacity: 0.7; }
+      to   { transform: scale(2.6); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .open-dot::after { animation: none; }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
     .day-name {
@@ -597,8 +629,12 @@
           <li class="dish"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i>Consomé</li>
         </ul>
 
+        <div class="days">
         <section class="day" aria-labelledby="weekendSat">
-          <h2 class="day-name" id="weekendSat" data-i18n="weekendSat">Sábado</h2>
+          <div class="day-head">
+            <h2 class="day-name" id="weekendSat" data-i18n="weekendSat">Sábado</h2>
+            <span class="open-dot" data-open-day="weekendSat" hidden><span class="visually-hidden" data-i18n="openToday">Abierto hoy</span></span>
+          </div>
           <p class="day-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>1980 Unionport Rd, Bronx, NY 10462</span></p>
           <p class="day-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>10:00 AM – 5:00 PM</span></p>
           <div class="tags">
@@ -606,10 +642,11 @@
             <span class="tag" data-i18n="svcPickup">Para llevar</span>
           </div>
         </section>
-        <section class="day day--bg" aria-labelledby="weekendSun">
-          <img src="./imgs/logo/placita-morrison.png" alt=""
-               class="day-bg" width="320" height="320" loading="lazy">
-          <h2 class="day-name" id="weekendSun" data-i18n="weekendSun">Domingo</h2>
+        <section class="day" aria-labelledby="weekendSun">
+          <div class="day-head">
+            <h2 class="day-name" id="weekendSun" data-i18n="weekendSun">Domingo</h2>
+            <span class="open-dot" data-open-day="weekendSun" hidden><span class="visually-hidden" data-i18n="openToday">Abierto hoy</span></span>
+          </div>
           <p class="day-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>1208 Morrison Ave, Bronx, NY 10472</span></p>
           <p class="day-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>10:00 AM – 5:00 PM</span></p>
           <div class="tags">
@@ -618,6 +655,7 @@
             <span class="tag" data-i18n="svcDineIn">Comer aquí</span>
           </div>
         </section>
+        </div>
 
         <a href="tel:+13476862462"
            class="card card--primary card--call"
@@ -648,6 +686,17 @@
     </div>
   </div>
 
-  <script defer src="./src/i18n.js?v=2"></script>
+  <script>
+    // Show the green "open today" dot on the Saturday or Sunday card,
+    // using New York time so it is right for visitors anywhere.
+    (function () {
+      var day = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short" }).format(new Date());
+      var key = day === "Sat" ? "weekendSat" : day === "Sun" ? "weekendSun" : null;
+      if (!key) return;
+      var dot = document.querySelector('[data-open-day="' + key + '"]');
+      if (dot) dot.hidden = false;
+    })();
+  </script>
+  <script defer src="./src/i18n.js?v=3"></script>
 </body>
 </html>
