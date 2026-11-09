@@ -633,7 +633,7 @@
         <section class="day" aria-labelledby="weekendSat">
           <div class="day-head">
             <h2 class="day-name" id="weekendSat" data-i18n="weekendSat">Sábado</h2>
-            <span class="open-dot" data-open-day="weekendSat" hidden><span class="visually-hidden" data-i18n="openToday">Abierto hoy</span></span>
+            <span class="open-dot" data-open-day="weekendSat" hidden><span class="visually-hidden" data-i18n="openToday">Abierto ahora</span></span>
           </div>
           <p class="day-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>1980 Unionport Rd, Bronx, NY 10462</span></p>
           <p class="day-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>10:00 AM – 5:00 PM</span></p>
@@ -645,7 +645,7 @@
         <section class="day" aria-labelledby="weekendSun">
           <div class="day-head">
             <h2 class="day-name" id="weekendSun" data-i18n="weekendSun">Domingo</h2>
-            <span class="open-dot" data-open-day="weekendSun" hidden><span class="visually-hidden" data-i18n="openToday">Abierto hoy</span></span>
+            <span class="open-dot" data-open-day="weekendSun" hidden><span class="visually-hidden" data-i18n="openToday">Abierto ahora</span></span>
           </div>
           <p class="day-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>1208 Morrison Ave, Bronx, NY 10472</span></p>
           <p class="day-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><span>10:00 AM – 5:00 PM</span></p>
@@ -687,16 +687,27 @@
   </div>
 
   <script>
-    // Show the green "open today" dot on the Saturday or Sunday card,
-    // using New York time so it is right for visitors anywhere.
+    // Show the green "open" dot only on today's card (Saturday OR Sunday,
+    // never both) and only while open, 10:00 AM – 5:00 PM New York time.
+    // Re-checked every minute so it appears/disappears without a reload.
     (function () {
-      var day = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short" }).format(new Date());
-      var key = day === "Sat" ? "weekendSat" : day === "Sun" ? "weekendSun" : null;
-      if (!key) return;
-      var dot = document.querySelector('[data-open-day="' + key + '"]');
-      if (dot) dot.hidden = false;
+      var fmt = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York", weekday: "short", hour: "numeric", hourCycle: "h23"
+      });
+      function update() {
+        var parts = {};
+        fmt.formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+        var hour = parseInt(parts.hour, 10);
+        var isOpen = hour >= 10 && hour < 17;
+        var key = !isOpen ? null : parts.weekday === "Sat" ? "weekendSat" : parts.weekday === "Sun" ? "weekendSun" : null;
+        document.querySelectorAll("[data-open-day]").forEach(function (dot) {
+          dot.hidden = dot.getAttribute("data-open-day") !== key;
+        });
+      }
+      update();
+      setInterval(update, 60000);
     })();
   </script>
-  <script defer src="./src/i18n.js?v=3"></script>
+  <script defer src="./src/i18n.js?v=4"></script>
 </body>
 </html>
