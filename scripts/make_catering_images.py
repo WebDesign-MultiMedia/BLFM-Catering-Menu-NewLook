@@ -2,7 +2,9 @@
 
 Usage (from the repo root): python3 scripts/make_catering_images.py .
 To add a dish photo: add "<slug>": "<source path>" to SOURCES, run this, then set img: "<slug>" in src/catering.js.
-Writes imgs/catering/thumbs/<slug>.jpg (720px) and imgs/catering/full/<slug>.jpg (1600px).
+Writes imgs/catering/thumbs/<slug>.webp (720px) and imgs/catering/full/<slug>.webp (1600px).
+Sources with a transparent background (the cutouts in imgs/cateringMenu/) keep it:
+they are cropped to the dish and saved with their alpha channel.
 """
 import sys
 from pathlib import Path
@@ -98,18 +100,33 @@ def trim_bars(im):
     return im.crop(box)
 
 
+def has_alpha(im):
+    # real cutouts have fully clear pixels; a photo with a faint alpha layer does not
+    return im.mode == 'RGBA' and im.getchannel('A').getextrema()[0] < 16
+
+
+def trim_alpha(im):
+    """Crop transparent padding around a cutout (ignores near-invisible fringe)."""
+    box = im.getchannel('A').point(lambda a: 255 if a > 16 else 0).getbbox()
+    return im.crop(box) if box else im
+
+
 def save(im, path, size, quality):
     im = im.copy()
     im.thumbnail((size, size), Image.LANCZOS)
     path.parent.mkdir(parents=True, exist_ok=True)
-    im.save(path, 'JPEG', quality=quality, progressive=True, optimize=True)
+    im.save(path, 'WEBP', quality=quality, alpha_quality=90, method=6)
     return im.size
 
 
 for slug, src in SOURCES.items():
-    im = ImageOps.exif_transpose(Image.open(root / src)).convert('RGB')
+    im = ImageOps.exif_transpose(Image.open(root / src))
     before = im.size
-    im = trim_bars(im)
-    t = save(im, root / 'imgs/catering/thumbs' / f'{slug}.jpg', 720, 72)
-    save(im, root / 'imgs/catering/full' / f'{slug}.jpg', 1600, 80)
-    print(f'{slug:30} {before} -> trimmed {im.size} thumb {t}')
+    im = im.convert('RGBA')
+    if has_alpha(im):
+        im, kind = trim_alpha(im), 'transparent'
+    else:
+        im, kind = trim_bars(im.convert('RGB')), 'photo'
+    t = save(im, root / 'imgs/catering/thumbs' / f'{slug}.webp', 720, 78)
+    save(im, root / 'imgs/catering/full' / f'{slug}.webp', 1600, 82)
+    print(f'{slug:30} {kind:11} {before} -> trimmed {im.size} thumb {t}')

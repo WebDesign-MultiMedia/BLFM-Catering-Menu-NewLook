@@ -3,8 +3,8 @@
    "party list" that customers send to us on WhatsApp.
 
    - Add a dish: add an entry to MENU. `img` is a slug from
-     scripts/make_catering_images.py (thumb: imgs/catering/thumbs/<img>.jpg,
-     viewer: imgs/catering/full/<img>.jpg). Dishes without `img` show
+     scripts/make_catering_images.py (thumb: imgs/catering/thumbs/<img>.webp,
+     viewer: imgs/catering/full/<img>.webp). Dishes without `img` show
      "Photo coming soon". Several photos of one dish: `imgs: ['slug-a', 'slug-b']`
      (the card shows the first, the viewer swipes through all of them).
      Optional: `video: 'file.mp4'`, `popular: true`.
@@ -315,8 +315,8 @@ const catById = new Map(CATEGORIES.map(c => [c.id, c]));
 const $ = sel => document.querySelector(sel);
 const normalize = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const escapeHtml = s => s.replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
-const thumb = img => `imgs/catering/thumbs/${img}.jpg`;
-const fullPhoto = img => `imgs/catering/full/${img}.jpg`;
+const thumb = img => `imgs/catering/thumbs/${img}.webp`;
+const fullPhoto = img => `imgs/catering/full/${img}.webp`;
 
 // Language is kept per browser tab (same key as src/i18n.js), so a new visit
 // opens in Spanish while a reload keeps the visitor's choice.
