@@ -1,15 +1,7 @@
-// Cloudflare Worker: records SMS consent evidence for two separate A2P 10DLC
-// programs hosted on this domain:
-//   POST /sms-consent         — Buffet Lucia's Fiesta Mexicana "SMS
-//                                Notifications and Specials" (BLFM brand,
+// Cloudflare Worker: records SMS consent evidence for Buffet Lucia's Fiesta
+// Mexicana's A2P 10DLC program:
+//   POST /sms-consent         — "SMS Notifications and Specials" (BLFM brand,
 //                                BLFM's own Twilio account)
-//   POST /julio-sms-consent   — "Julio Salas SMS Testing" (personal sole
-//                                proprietor brand, unrelated to BLFM)
-//
-// Each program has its own canonical disclosure text, Privacy/Terms URLs,
-// Twilio credentials, and (optionally) its own Twilio Messaging Service
-// SID, so a message never goes out under the wrong brand's registered
-// campaign.
 //
 // Two-checkbox design for /sms-consent: BLFM's single A2P campaign covers
 // both order/receipt texts AND promotional specials, but each is a
@@ -44,16 +36,6 @@ const BLFM_OPT_IN_CONFIRMATION_SMS =
   "Buffet Lucia's Fiesta Mexicana: You're signed up for texts from us! Msg frequency varies. Msg & data rates " +
   "may apply. Reply HELP for help, STOP to unsubscribe.";
 
-const JULIO_DISCLOSURE_TEXT =
-  "I agree to receive low-volume transactional software-test text messages from Julio Salas regarding test food " +
-  "orders, catering requests, payment confirmations, receipt notifications, and application-status updates. " +
-  "Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. " +
-  "Consent is not a condition of purchase.";
-
-const JULIO_OPT_IN_CONFIRMATION_SMS =
-  "Julio Salas SMS Testing: You're confirmed to receive test order, payment, and receipt texts. Msg frequency " +
-  "varies. Msg & data rates may apply. Reply STOP to unsubscribe or HELP for assistance.";
-
 // Per-program configuration. Each program is fully self-contained: its own
 // disclosure text, its own Privacy/Terms/consent-page URLs (read from env
 // so they're not hardcoded twice), and its own optional Twilio Messaging
@@ -77,21 +59,6 @@ function programConfig(pathname, env) {
       twilioAccountSid: env.BLFM_TWILIO_ACCOUNT_SID,
       twilioAuthToken: env.BLFM_TWILIO_AUTH_TOKEN,
       messagingServiceSid: env.TWILIO_MESSAGING_SERVICE_SID,
-    };
-  }
-  if (pathname === "/julio-sms-consent") {
-    return {
-      id: "julio_sms_testing",
-      subPrograms: [{ id: "julio_sms_testing", field: "sms_consent", disclosureText: JULIO_DISCLOSURE_TEXT }],
-      confirmationSms: JULIO_OPT_IN_CONFIRMATION_SMS,
-      privacyUrl: env.JULIO_PRIVACY_URL,
-      termsUrl: env.JULIO_TERMS_URL,
-      consentPageUrl: env.JULIO_CONSENT_PAGE_URL,
-      policyVersion: env.JULIO_POLICY_VERSION,
-      // Julio keeps the existing shared Twilio account.
-      twilioAccountSid: env.TWILIO_ACCOUNT_SID,
-      twilioAuthToken: env.TWILIO_AUTH_TOKEN,
-      messagingServiceSid: env.JULIO_TWILIO_MESSAGING_SERVICE_SID,
     };
   }
   return null;

@@ -21,13 +21,6 @@ TERMS_URL = "https://buffetluciasfiestamexicana.com/terms/"
 CONSENT_PAGE_URL = "https://buffetluciasfiestamexicana.com/sms-consent/"
 POLICY_VERSION = "2026-11-02"
 
-# "Julio Salas SMS Testing" program — personal sole-proprietor brand,
-# entirely separate from BLFM's registered brand/campaign.
-JULIO_PRIVACY_URL = "https://buffetluciasfiestamexicana.com/julio-sms-privacy/"
-JULIO_TERMS_URL = "https://buffetluciasfiestamexicana.com/julio-sms-terms/"
-JULIO_CONSENT_PAGE_URL = "https://buffetluciasfiestamexicana.com/julio-sms-consent/"
-JULIO_POLICY_VERSION = "2026-07-21"
-
 SEND_OPT_IN_CONFIRMATION = "true"
 
 # Owner email alert for each new /sms-consent sign-up (sent via Resend).
@@ -58,17 +51,8 @@ SIGNUP_ALERT_FROM = "Buffet Lucia's Sign-ups <alerts@buffetluciasfiestamexicana.
 #                                          copied to the sheet.)
 #   RESEND_API_KEY                        (sends the owner's sign-up alert
 #                                          email; leave unset to turn it off)
-#   TWILIO_ACCOUNT_SID                    (shared Twilio account — used only
-#                                          by the Julio Salas program)
-#   TWILIO_AUTH_TOKEN                     (shared Twilio account — used only
-#                                          by the Julio Salas program; also
-#                                          the salt for IP hashing)
-#   JULIO_TWILIO_MESSAGING_SERVICE_SID    (Julio Salas's registered Messaging
-#                                          Service — leave unset until that
-#                                          campaign is approved; the Worker
-#                                          just won't send a confirmation SMS
-#                                          for this program until it's set,
-#                                          but consent still records fine)
+#   TWILIO_AUTH_TOKEN                     (salt for IP hashing only; keep it
+#                                          set so existing hashes stay comparable)
 
 # ── Deployment URL ────────────────────────────────────────────────
 # No [[routes]]/custom domain configured — this deploys to the free
