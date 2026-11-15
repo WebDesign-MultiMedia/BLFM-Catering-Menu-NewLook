@@ -69,13 +69,27 @@
 </head>
 <body>
 
-<!-- Welcome intro (~3.5s, tap to skip). Styles: "welcome intro" in src/catering.css -->
+<!-- Welcome intro, Thanksgiving theme (~4s, tap to skip). Styles: "welcome intro" in src/catering.css -->
 <div class="intro" id="intro" role="presentation">
-  <ul class="papel-picado" aria-hidden="true">
-    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-  </ul>
+  <div class="intro-sky" aria-hidden="true">
+    <ul class="papel-picado">
+      <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+      <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+    </ul>
+    <svg class="intro-leaf il-1"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-2"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-3"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-4"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-5"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-6"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-7"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-8"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-9"><use href="#i-leaf"/></svg>
+    <svg class="intro-leaf il-10"><use href="#i-leaf"/></svg>
+  </div>
   <div class="intro-stage">
+    <svg class="intro-turkey" aria-hidden="true"><use href="#i-season"/></svg>
+    <p class="intro-eyebrow">Feliz Día de Acción de Gracias</p>
     <p class="intro-title" aria-label="Bienvenidos"><span style="--i:0">B</span><span style="--i:1">i</span><span style="--i:2">e</span><span style="--i:3">n</span><span style="--i:4">v</span><span style="--i:5">e</span><span style="--i:6">n</span><span style="--i:7">i</span><span style="--i:8">d</span><span style="--i:9">o</span><span style="--i:10">s</span></p>
     <p class="intro-sub">Hacemos Comida Para Eventos</p>
   </div>
@@ -87,8 +101,8 @@
   try { sessionStorage.setItem('blfm-intro', '1'); } catch (e) {}
   var done = function () { if (intro.isConnected) intro.remove(); };
   intro.addEventListener('animationend', function (e) { if (e.target === intro) done(); });
-  intro.addEventListener('click', function () { intro.classList.add('is-leaving'); setTimeout(done, 400); });
-  setTimeout(done, 4200); // safety net if animations don't run
+  intro.addEventListener('click', function () { intro.classList.add('is-leaving'); setTimeout(done, 500); });
+  setTimeout(done, 4800); // safety net if animations don't run
 })();
 </script>
 
