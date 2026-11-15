@@ -34,8 +34,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./src/catering.css">
-  <!-- Welcome intro plays once per visit: skip it on reloads before it paints -->
-  <script>try { if (sessionStorage.getItem('blfm-intro')) document.documentElement.classList.add('intro-seen'); } catch (e) {}</script>
+  <!-- Welcome intro plays once per visit and never on deep links (#menu...): decide before it paints -->
+  <script>(function () { var seen = !!location.hash; try { seen = seen || !!sessionStorage.getItem('blfm-intro'); } catch (e) {} if (seen) document.documentElement.classList.add('intro-seen'); })();</script>
 
   <!-- Structured data: local catering business -->
   <script type="application/ld+json">
@@ -69,13 +69,14 @@
 </head>
 <body>
 
-<!-- Welcome intro, Thanksgiving theme (~4s, tap to skip). Styles: "welcome intro" in src/catering.css -->
+<!-- Welcome intro, Thanksgiving theme (~2.8s, tap / Esc / Enter to skip). Styles: "welcome intro" in src/catering.css -->
 <div class="intro" id="intro" role="presentation">
   <div class="intro-sky" aria-hidden="true">
     <ul class="papel-picado">
       <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
       <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
     </ul>
+    <ul class="intro-lights"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
     <svg class="intro-leaf il-1"><use href="#i-leaf"/></svg>
     <svg class="intro-leaf il-2"><use href="#i-leaf"/></svg>
     <svg class="intro-leaf il-3"><use href="#i-leaf"/></svg>
@@ -84,25 +85,96 @@
     <svg class="intro-leaf il-6"><use href="#i-leaf"/></svg>
     <svg class="intro-leaf il-7"><use href="#i-leaf"/></svg>
     <svg class="intro-leaf il-8"><use href="#i-leaf"/></svg>
-    <svg class="intro-leaf il-9"><use href="#i-leaf"/></svg>
-    <svg class="intro-leaf il-10"><use href="#i-leaf"/></svg>
   </div>
+  <svg class="intro-table" viewBox="0 0 1200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <g id="hv-pumpkin">
+        <ellipse cx="0" cy="-24" rx="36" ry="25" fill="#b9561f"/>
+        <ellipse cx="-14" cy="-24" rx="17" ry="24" fill="#d9712c"/>
+        <ellipse cx="14" cy="-24" rx="17" ry="24" fill="#d9712c"/>
+        <ellipse cx="0" cy="-24" rx="13" ry="25" fill="#ec8c3c"/>
+        <path d="M-2 -47c0-8 2-12 8-15l3 3c-4 2-6 6-6 12z" fill="#5f7330"/>
+      </g>
+      <g id="hv-corn">
+        <path d="M0 0c-26-6-44-24-48-44 14 6 30 18 48 44z" fill="#7d9440"/>
+        <ellipse cx="-16" cy="-30" rx="11" ry="34" transform="rotate(-52 -16 -30)" fill="#f2c14e"/>
+        <ellipse cx="-16" cy="-30" rx="5" ry="30" transform="rotate(-52 -16 -30)" fill="#f8d878" opacity="0.7"/>
+        <path d="M0 0c-10-14-30-22-52-20 18 8 34 14 52 20z" fill="#a9c25c"/>
+      </g>
+      <g id="hv-olla">
+        <path d="M-30 -70h60l-6 12c26 10 30 50 6 58h-60c-24-8-20-48 6-58z" fill="#b5502b"/>
+        <rect x="-33" y="-74" width="66" height="9" rx="4" fill="#c75b32"/>
+        <path d="M-37 -34h74" stroke="#3c7cc4" stroke-width="7"/>
+        <path d="M-35 -24h70" stroke="#fbf1e2" stroke-width="2" stroke-dasharray="4 6" opacity="0.7"/>
+      </g>
+      <g id="hv-chiles">
+        <path d="M-30 -6c10-14 34-16 52-8-14-2-34 2-52 8z" fill="#a3283b"/>
+        <path d="M-20 -14c12-14 34-14 48-4-14-3-32 0-48 4z" fill="#c4362f"/>
+        <path d="M-8 -22c12-12 30-10 40 0-12-4-26-3-40 0z" fill="#a3283b"/>
+        <path d="M22 -10l8-6M28 -14l7-6M32 -22l6-5" stroke="#5f7330" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </defs>
+    <rect x="0" y="122" width="1200" height="48" fill="#4a2a1a"/>
+    <rect x="0" y="118" width="1200" height="8" fill="#6e4129"/>
+    <rect x="0" y="134" width="1200" height="5" fill="#c75b32" opacity="0.55"/>
+    <rect x="0" y="143" width="1200" height="2" fill="#eaa53b" opacity="0.45"/>
+    <use href="#hv-olla" transform="translate(95 120)"/>
+    <use href="#hv-pumpkin" transform="translate(205 120) scale(1.15)"/>
+    <use href="#hv-corn" transform="translate(305 120)"/>
+    <use href="#hv-chiles" transform="translate(375 120)"/>
+    <use href="#hv-pumpkin" transform="translate(470 120) scale(0.7)"/>
+    <use href="#hv-pumpkin" transform="translate(735 120) scale(0.75)"/>
+    <use href="#hv-chiles" transform="translate(820 120) scale(-1 1)"/>
+    <use href="#hv-corn" transform="translate(905 120) scale(-1 1)"/>
+    <use href="#hv-pumpkin" transform="translate(1000 120) scale(1.1)"/>
+    <use href="#hv-olla" transform="translate(1110 120) scale(0.9)"/>
+  </svg>
   <div class="intro-stage">
     <svg class="intro-turkey" aria-hidden="true"><use href="#i-season"/></svg>
-    <p class="intro-eyebrow">Feliz Día de Acción de Gracias</p>
-    <p class="intro-title" aria-label="Bienvenidos"><span style="--i:0">B</span><span style="--i:1">i</span><span style="--i:2">e</span><span style="--i:3">n</span><span style="--i:4">v</span><span style="--i:5">e</span><span style="--i:6">n</span><span style="--i:7">i</span><span style="--i:8">d</span><span style="--i:9">o</span><span style="--i:10">s</span></p>
-    <p class="intro-sub">Hacemos Comida Para Eventos</p>
+    <p class="intro-title" aria-label="Bienvenidos" data-intro-en="Welcome"><span style="--i:0">B</span><span style="--i:1">i</span><span style="--i:2">e</span><span style="--i:3">n</span><span style="--i:4">v</span><span style="--i:5">e</span><span style="--i:6">n</span><span style="--i:7">i</span><span style="--i:8">d</span><span style="--i:9">o</span><span style="--i:10">s</span></p>
+    <p class="intro-sub" data-intro-en="We Make Food for Events">Hacemos Comida Para Eventos</p>
+    <p class="intro-signoff">
+      <span class="intro-holiday" data-intro-en="Happy Thanksgiving">Feliz Día de Acción de Gracias</span>
+      <span class="intro-brand">Buffet Lucia's Fiesta Mexicana · Bronx, NY</span>
+    </p>
   </div>
+  <button type="button" class="intro-skip" data-intro-en="Tap to continue ›">Toca para continuar ›</button>
 </div>
 <script>
 (function () {
   var intro = document.getElementById('intro');
   if (!intro || document.documentElement.classList.contains('intro-seen')) { if (intro) intro.remove(); return; }
   try { sessionStorage.setItem('blfm-intro', '1'); } catch (e) {}
-  var done = function () { if (intro.isConnected) intro.remove(); };
+  // Show the intro in the visitor's language (same key src/catering.js uses)
+  var en = false;
+  try { en = sessionStorage.getItem('blfm-lang') === 'en'; } catch (e) {}
+  if (en) {
+    intro.querySelectorAll('[data-intro-en]').forEach(function (el) {
+      var text = el.getAttribute('data-intro-en');
+      if (el.classList.contains('intro-title')) {
+        el.setAttribute('aria-label', text);
+        el.innerHTML = text.split('').map(function (c, i) { return '<span style="--i:' + i + '">' + c + '</span>'; }).join('');
+      } else {
+        el.textContent = text;
+      }
+    });
+  }
+  var done = function () {
+    document.removeEventListener('keydown', onKey);
+    if (intro.isConnected) intro.remove();
+  };
+  var skip = function () {
+    if (intro.classList.contains('is-leaving')) return;
+    intro.classList.add('is-leaving');
+    setTimeout(done, 450);
+  };
+  var onKey = function (e) {
+    if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
+  };
+  document.addEventListener('keydown', onKey);
   intro.addEventListener('animationend', function (e) { if (e.target === intro) done(); });
-  intro.addEventListener('click', function () { intro.classList.add('is-leaving'); setTimeout(done, 500); });
-  setTimeout(done, 4800); // safety net if animations don't run
+  intro.addEventListener('click', skip);
+  setTimeout(done, 3600); // safety net if animations don't run
 })();
 </script>
 
