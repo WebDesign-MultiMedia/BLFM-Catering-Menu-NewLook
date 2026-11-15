@@ -34,6 +34,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./src/catering.css">
+  <!-- Welcome intro plays once per visit: skip it on reloads before it paints -->
+  <script>try { if (sessionStorage.getItem('blfm-intro')) document.documentElement.classList.add('intro-seen'); } catch (e) {}</script>
 
   <!-- Structured data: local catering business -->
   <script type="application/ld+json">
@@ -66,6 +68,29 @@
   </script>
 </head>
 <body>
+
+<!-- Welcome intro (~3.5s, tap to skip). Styles: "welcome intro" in src/catering.css -->
+<div class="intro" id="intro" role="presentation">
+  <ul class="papel-picado" aria-hidden="true">
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  </ul>
+  <div class="intro-stage">
+    <p class="intro-title" aria-label="Bienvenidos"><span style="--i:0">B</span><span style="--i:1">i</span><span style="--i:2">e</span><span style="--i:3">n</span><span style="--i:4">v</span><span style="--i:5">e</span><span style="--i:6">n</span><span style="--i:7">i</span><span style="--i:8">d</span><span style="--i:9">o</span><span style="--i:10">s</span></p>
+    <p class="intro-sub">Hacemos Comida Para Eventos</p>
+  </div>
+</div>
+<script>
+(function () {
+  var intro = document.getElementById('intro');
+  if (!intro || document.documentElement.classList.contains('intro-seen')) { if (intro) intro.remove(); return; }
+  try { sessionStorage.setItem('blfm-intro', '1'); } catch (e) {}
+  var done = function () { if (intro.isConnected) intro.remove(); };
+  intro.addEventListener('animationend', function (e) { if (e.target === intro) done(); });
+  intro.addEventListener('click', function () { intro.classList.add('is-leaving'); setTimeout(done, 400); });
+  setTimeout(done, 4200); // safety net if animations don't run
+})();
+</script>
 
 <!-- Icon sprite: defined once, used with <use href="#i-..."> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">

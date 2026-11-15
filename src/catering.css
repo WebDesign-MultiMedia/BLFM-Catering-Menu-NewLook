@@ -1789,3 +1789,126 @@ dialog::backdrop {
         transition: none !important;
     }
 }
+
+/* ---------- welcome intro (index.html #intro) ----------
+   "Bienvenidos" flips forward letter by letter in 3D, the tagline rises,
+   then the whole screen fades into the menu (~3.5s). Plays once per visit. */
+.intro-seen .intro {
+    display: none;
+}
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: var(--gutter);
+    overflow: hidden;
+    cursor: pointer;
+    background:
+        radial-gradient(40rem 28rem at 50% 45%, var(--glow-1), transparent 65%),
+        radial-gradient(30rem 24rem at 15% 90%, var(--glow-2), transparent 60%),
+        var(--bg);
+    perspective: 900px;
+    animation: intro-out 0.6s ease-in 3s forwards;
+}
+
+.intro.is-leaving {
+    animation: intro-out 0.4s ease-in forwards;
+}
+
+@media (min-width: 700px) {
+    .intro .papel-picado li:nth-child(n + 9) {
+        display: block;
+    }
+}
+
+.intro .papel-picado li {
+    height: 44px;
+    max-width: 80px;
+}
+
+.intro-stage {
+    text-align: center;
+    transform-style: preserve-3d;
+    animation: intro-sway 3.6s ease-in-out both;
+}
+
+.intro-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 12vw, 7.5rem);
+    line-height: 1;
+    color: var(--accent-2);
+    white-space: nowrap;
+    transform-style: preserve-3d;
+}
+
+/* each letter: a chunky extruded look built from stacked shadows */
+.intro-title span {
+    display: inline-block;
+    text-shadow:
+        0 1px 0 #d98f2a, 0 2px 0 #c97f22, 0 3px 0 #b86f1c, 0 4px 0 #a56016,
+        0 5px 0 #8f5112, 0 6px 0 #7a430e, 0 7px 0 #63350b,
+        0 14px 18px rgba(0, 0, 0, 0.55);
+    transform-origin: 50% 100%;
+    opacity: 0;
+    animation: intro-letter 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.25) calc(0.15s + var(--i) * 0.06s) forwards;
+}
+
+.intro-sub {
+    margin: 0.6em 0 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 4.6vw, 2.4rem);
+    color: var(--text);
+    text-shadow: 0 2px 0 var(--terracotta), 0 4px 0 #8a3a1f, 0 10px 14px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform-origin: 50% 0;
+    animation: intro-sub 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.15) 1s forwards;
+}
+
+.intro-sub::before,
+.intro-sub::after {
+    content: '';
+    display: inline-block;
+    width: 1.4em;
+    height: 3px;
+    margin: 0 0.45em 0.25em;
+    vertical-align: middle;
+    border-radius: 2px;
+    background: var(--alt);
+}
+
+@keyframes intro-letter {
+    from { opacity: 0; transform: translateZ(-300px) rotateX(-95deg); }
+    to { opacity: 1; transform: translateZ(0) rotateX(0); }
+}
+
+@keyframes intro-sub {
+    from { opacity: 0; transform: translateY(24px) rotateX(70deg); }
+    to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+@keyframes intro-sway {
+    0% { transform: rotateY(-18deg) rotateX(8deg); }
+    100% { transform: rotateY(10deg) rotateX(-4deg) scale(1.04); }
+}
+
+@keyframes intro-out {
+    to { opacity: 0; visibility: hidden; transform: scale(1.06); }
+}
+
+@media (max-width: 600px) {
+    .intro-sub::before,
+    .intro-sub::after {
+        display: none;
+    }
+}
+
+/* reduced motion: skip the intro entirely */
+@media (prefers-reduced-motion: reduce) {
+    .intro {
+        display: none;
+    }
+}
