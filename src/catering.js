@@ -3,7 +3,7 @@
    "party list" that customers send to us on WhatsApp.
 
    - Add a dish: add an entry to MENU. `img` is a slug from
-     scripts/make_catering_images.py (thumb: imgs/catering/thumbs/<img>.webp,
+     scripts/make_catering_images.py (card: imgs/catering/sm + thumbs, thumb: imgs/catering/thumbs/<img>.webp,
      viewer: imgs/catering/full/<img>.webp). Dishes without `img` show
      "Photo coming soon". Several photos of one dish: `imgs: ['slug-a', 'slug-b']`
      (the card shows the first, the viewer swipes through all of them).
@@ -316,6 +316,8 @@ const $ = sel => document.querySelector(sel);
 const normalize = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const escapeHtml = s => s.replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const thumb = img => `imgs/catering/thumbs/${img}.webp`;
+// Cards: phones get the 400px-wide copy, bigger screens / sharp displays the 720px thumb
+const cardSrcset = img => `imgs/catering/sm/${img}.webp 400w, ${thumb(img)} 540w`;
 const fullPhoto = img => `imgs/catering/full/${img}.webp`;
 
 // Language is kept per browser tab (same key as src/i18n.js), so a new visit
@@ -429,7 +431,7 @@ function dishHtml(dish) {
     const popular = dish.popular ? `<span class="badge badge-popular">${t('favorite')}</span>` : '';
     const media = dish.img
         ? `<button class="dish-media" type="button" data-open="${dish.id}" aria-label="${escapeHtml(t('viewPhoto')(dish.name))}">
-                <img src="${thumb(dish.img)}" alt="" loading="lazy" decoding="async" width="540" height="720">
+                <img src="${thumb(dish.img)}" srcset="${cardSrcset(dish.img)}" sizes="(min-width: 600px) 300px, 50vw" alt="" loading="lazy" decoding="async" width="540" height="720">
                 ${dish.imgs.length > 1 ? `<span class="badge badge-photos">${t('photoCount')(dish.imgs.length)}</span>` : ''}
                 ${dish.video ? `<span class="badge badge-video"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>${t('video')}</span>` : ''}
                 ${popular}
@@ -506,7 +508,7 @@ function centerChip(chip) {
 function renderEvents() {
     $('#events-strip').innerHTML = EVENTS.map(ev => `
         <button class="event-card" type="button" data-open="${ev.id}" aria-label="${escapeHtml(t('viewPhoto')(ev[state.lang]))}">
-            <img src="${thumb(ev.img)}" alt="" loading="lazy" decoding="async" width="540" height="720">
+            <img src="${thumb(ev.img)}" srcset="${cardSrcset(ev.img)}" sizes="(min-width: 600px) 200px, 42vw" alt="" loading="lazy" decoding="async" width="540" height="720">
         </button>`).join('');
 }
 

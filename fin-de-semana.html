@@ -33,9 +33,10 @@
   <script defer src="https://kit.fontawesome.com/075c6894c0.js" crossorigin="anonymous"></script>
 
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Fonts are self-hosted (fonts/, latin subset): no Google round trip, and preloading them keeps text from reflowing -->
+  <link rel="preload" href="./fonts/yeseva-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>@font-face{font-family:'Yeseva One';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/yeseva-one-latin.woff2) format('woff2')}@font-face{font-family:'Nunito';font-style:normal;font-weight:400 800;font-display:swap;src:url(./fonts/nunito-latin.woff2) format('woff2')}</style>
 
   <style>
     /* Seasonal theme: "Día de Acción de Gracias", matching the catering

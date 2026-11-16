@@ -2,7 +2,8 @@
 
 Usage (from the repo root): python3 scripts/make_catering_images.py .
 To add a dish photo: add "<slug>": "<source path>" to SOURCES, run this, then set img: "<slug>" in src/catering.js.
-Writes imgs/catering/thumbs/<slug>.webp (720px) and imgs/catering/full/<slug>.webp (1600px).
+Writes imgs/catering/sm/<slug>.webp (400px wide, phone cards), imgs/catering/thumbs/<slug>.webp (720px)
+and imgs/catering/full/<slug>.webp (1600px).
 Sources with a transparent background (the cutouts in imgs/cateringMenu/) keep it:
 they are cropped to the dish and saved with their alpha channel.
 """
@@ -111,9 +112,9 @@ def trim_alpha(im):
     return im.crop(box) if box else im
 
 
-def save(im, path, size, quality):
+def save(im, path, size, quality, width=None):
     im = im.copy()
-    im.thumbnail((size, size), Image.LANCZOS)
+    im.thumbnail((width, 10 * width) if width else (size, size), Image.LANCZOS)
     path.parent.mkdir(parents=True, exist_ok=True)
     im.save(path, 'WEBP', quality=quality, alpha_quality=90, method=6)
     return im.size
@@ -127,6 +128,7 @@ for slug, src in SOURCES.items():
         im, kind = trim_alpha(im), 'transparent'
     else:
         im, kind = trim_bars(im.convert('RGB')), 'photo'
+    save(im, root / 'imgs/catering/sm' / f'{slug}.webp', None, 74, width=400)
     t = save(im, root / 'imgs/catering/thumbs' / f'{slug}.webp', 720, 78)
     save(im, root / 'imgs/catering/full' / f'{slug}.webp', 1600, 82)
     print(f'{slug:30} {kind:11} {before} -> trimmed {im.size} thumb {t}')
